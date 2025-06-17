@@ -6,39 +6,29 @@ let x = 0;
 let y = 0;
 let vx =  0;
 let vy = 0;
+const character = new Image()
+character.src='images/mepix.png'
 function update(){
-    //problem was here, after testing various things and overall debugging, I understood where the problem was
+    //need to substitute rectangle with my character
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     x += vx
     y += vy;
-    var rectangle = ctx.fillRect(x,y,100,100)
+    // check if image loaded or not
+    if(character.complete){
+        //actually draw image on canvas
+        drawImage(character, x,y,100,100);
+    }
+    else{
+        var rectangle = ctx.fillRect(x,y,100,100)
+    }
     requestAnimationFrame(update)
 }
-update()
-function movement(){
-    addEventListener("keydown", function(k){
-        if (k.code == "ArrowRight"){
-            vx = 5;
-        }
-        if(k.code == "Space"){
-            vy = 5;
-        }
-        if(k.code == "ArrowLeft"){
-            vx = -5;
-    }})
-    addEventListener("keyup" , function(k){
-        if(k.code == "ArrowRight"){
-            vx= 0
-        }
-        if(k.code == "Space"){
-            vy=0
-        }
-        if(k.code == "ArrowLeft"){
-            vx = 0;
-        }
-    })
+character.onload = function(){
+    update();
 }
-movement()
+//current code doesnt work and idk why
+
+
 
     // Make it movabl with user input(decided at the end to use other file for that) x
         // Change velocity of a character x 
