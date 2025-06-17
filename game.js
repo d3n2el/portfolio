@@ -8,6 +8,10 @@ let vx =  0;
 let vy = 0;
 const character = new Image()
 character.src='images/mepix.png'
+
+character.onload = function(){
+    console.log("Character has loaded correctly")
+}
 function update(){
     //need to substitute rectangle with my character
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
@@ -16,17 +20,16 @@ function update(){
     // check if image loaded or not
     if(character.complete){
         //actually draw image on canvas
-        drawImage(character, x,y,100,100);
+        ctx.drawImage(character, x,y,100,100);
     }
     else{
         var rectangle = ctx.fillRect(x,y,100,100)
     }
     requestAnimationFrame(update)
 }
-character.onload = function(){
-    update();
-}
-//current code doesnt work and idk why
+update()
+
+
 
 
 
@@ -39,4 +42,3 @@ character.onload = function(){
         //
         // Reminder for self: cannot get favicon, dont even know what is that atm
         
-

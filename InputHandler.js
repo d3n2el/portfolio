@@ -1,11 +1,10 @@
 
 addEventListener("keydown", function(k){
-    console.log(k.code)
     if (k.code == "ArrowRight"){
         vx = 5;
     }
     if(k.code == "Space"){
-        vy = 5;
+        vy = -5;
     }
     if(k.code == "ArrowLeft"){
         vx = -5;
@@ -21,6 +20,7 @@ addEventListener("keyup" , function(k){
         vx = 0;
     }
 })
+
 
 
 //Need to implement gravity to make the rectangle get back down
