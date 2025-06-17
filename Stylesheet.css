@@ -11,3 +11,37 @@ body{
     text-shadow: 0cap;
 
 }
+.title{
+    color: #FFF;
+    font-family: Impact;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+
+}
+@keyframes blink{
+    /* What is blinking? A char slowly disappearing and then reappering
+    so, how do i recreate it? Opacity. First, 100% opacity, then 70 then 50 then 30 and then 0
+    all in one second, then i just need the animation to repeat forever. Now i'll look up the syntax in css to do that */
+    0%{ opacity: 1;}
+    30%{ opacity: 0.5;}
+    50% { opacity: 0.30;}
+    100%{opacity: 0;}
+}
+.underscore{
+    animation: blink 1500ms infinite;
+    -webkit-text-fill-color: #FFF;
+    font-size: 100px;
+    text-align: center;
+    border-style: hidden;
+    
+}
+.button{
+    text-align: center;
+    -webkit-text-fill-color: white;
+    font-size: 100px;
+    background-color: black;
+    border-style: hidden;
+}
