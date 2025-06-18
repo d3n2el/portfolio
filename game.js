@@ -1,19 +1,22 @@
 // Setup game canvas in js
-import { Player } from "./allClasses"
+import { Player } from "./allClasses.js"
+import { background } from "./allClasses.js"
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
-const player = new Player 
+const player = new Player
+export {player}
 const character = new Image()
 character.src='images/mepix.png'
-
+const Background = new background(ctx)
 character.onload = function(){
     console.log("Character has loaded correctly")
 }
 function update(){
     //need to substitute rectangle with my character
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
-    Player.update()
+    player.update()
+    Background.DrawGround()
     // check if image loaded or not
     if(character.complete){
         //actually draw image on canvas
