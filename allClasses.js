@@ -2,9 +2,8 @@
 //Create class
 
 //add all the variables
-const Canvas = document.getElementById("GameCanvas")
 export class Player{
-    constructor(){
+    constructor(Canvas){
         this.vx =  0;
         this.vy = 0;
 //gravity is just the character slowly coming back to the ground if it is in the air
@@ -43,11 +42,12 @@ export class Player{
 }
 export class background{
     //
-    constructor(ctx){
+    constructor(ctx, Canvas){
         // first draw the ground. How? Need to understand canvas height and width,
         this.ctx = ctx
         this.canvasHeight = Canvas.height
         this.canvasWidth = Canvas.width
+        this.tileLoaded = false
         //then position of tile in my image
         //then I need to load the entire image
         //after I need to load just the part I need
@@ -55,19 +55,42 @@ export class background{
         //Check how many tiles are needed with Canvas width divided by tile width
         // same thing with height but here I should control it so that it reaches only till ground level(so Canvas - 100) and then stops
         // Actually draw the ground with a nested for loop
-        console.log("this.ctx set to:", this.ctx); 
-    }
-        DrawGround(){
         this.tile = new Image();
         this.tile.src ="images/groundTile.png";
         this.tile.onload = () =>  {
-            console.log("Image loaded, this.ctx is:", this.ctx);
-            this.ctx.drawImage(this.tile,100,100,100,100);
-        }
+            console.log("Image loaded correctly")
+            this.tileLoaded = true
     }
+}
+        DrawGround(){
+            //current code loads image correctly, just need to resize everything and actually create  a ground
+            if(this.tileLoaded){
+                //assign n pixel
+                const tileWidth = 15
+                const tileHeight = 15
+                //make sure it only reaches ground level
+                //I SPENT UNGODLY AMOUNT OF TIMES MESSING AROUND, TESTING THINGS, MOVING EVERYTHING AND EVERYONE AND IT WAS JUST A SYNTAX ERROR HERE, IT WAS UPPERCASE AND NOY LOWERCASE
+                const groundLevel = this.canvasHeight - 100
+                //calculate how many tiles you actually need
+                const tilesX = Math.ceil(this.canvasWidth / tileWidth);
+                const tilesY = Math.ceil((this.canvasHeight - groundLevel) / tileHeight);
+                //loop to make sure it covers everything orizontally
+                for( let x = 0; x < tilesX; ++x){
+                    //nested loop for verticality
+                    for( let y = 0; y < tilesY; ++y){
+                        //actually drawing the sprite
+                        const posX = x * tileWidth;
+                        const posY = groundLevel + (y * tileHeight);
+                        this.ctx.drawImage(this.tile,posX,posY,tileWidth,tileHeight);
+                    }
+                }
+                
+             }
+
+        }
+
     //then the sky
     DrawSky(){
-        console.log;
 
     }
     //Make it actually dynamic
