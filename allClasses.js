@@ -9,7 +9,7 @@ export class Player{
 //gravity is just the character slowly coming back to the ground if it is in the air
         this.gravity = 0.5;
 // would be good to create a ground variable to know when I reach it
-        this.ground = Canvas.height - 100
+        this.ground = Canvas.height - 210
         this.xLimit = Canvas.width - 100
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
@@ -69,7 +69,6 @@ export class background{
                 const tileWidth = 15
                 const tileHeight = 15
                 //make sure it only reaches ground level
-                //I SPENT UNGODLY AMOUNT OF TIMES MESSING AROUND, TESTING THINGS, MOVING EVERYTHING AND EVERYONE AND IT WAS JUST A SYNTAX ERROR HERE, IT WAS UPPERCASE AND NOY LOWERCASE
                 const groundLevel = this.canvasHeight - 100
                 //calculate how many tiles you actually need
                 const tilesX = Math.ceil(this.canvasWidth / tileWidth);
@@ -80,17 +79,23 @@ export class background{
                     for( let y = 0; y < tilesY; ++y){
                         //actually drawing the sprite
                         const posX = x * tileWidth;
-                        const posY = groundLevel + (y * tileHeight);
+                        const posY = groundLevel +(y *tileHeight);
                         this.ctx.drawImage(this.tile,posX,posY,tileWidth,tileHeight);
                     }
                 }
                 
              }
-
         }
 
     //then the sky
     DrawSky(){
+        // decided to just use css
+        let sky = ne
+        for(let x = 0; x< tempV; ){
+            for(let y = 0; y< tempV;){
+             this.ctx.drawImage   
+            }
+        }
 
     }
     //Make it actually dynamic

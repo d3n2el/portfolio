@@ -16,10 +16,16 @@
      add the text related to every single part
      make some objects interactable in js
     create multiple standalone objects create different reactions-->
-    <canvas id="GameCanvas" width="(device-width)", height="device-height"></canvas>
-    <script src="game.js"> </script>
-    <script src="InputHandler.js"></script>
-    <script src="allClasses.js"></script>
+    <canvas id="GameCanvas"></canvas>
+    <link rel="stylesheet" href="game.css">
+    <script>
+        const canvas = document.getElementById("GameCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    </script>
+    <script type= "module" src="game.js"> </script>
+    <script type="module" src="InputHandler.js"></script>
+    <script type="module" src="allClasses.js"></script>
     
 </body>
 </html>

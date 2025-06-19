@@ -4,11 +4,11 @@ import { background } from "./allClasses.js"
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
-const player = new Player
+const player = new Player(Canvas)
 export {player}
 const character = new Image()
-character.src='images/mepix.png'
-const Background = new background(ctx)
+character.src='images/mepixBig.png'
+const Background = new background(ctx, Canvas)
 character.onload = function(){
     console.log("Character has loaded correctly")
 }
@@ -20,11 +20,14 @@ function update(){
     // check if image loaded or not
     if(character.complete){
         //actually draw image on canvas
-        ctx.drawImage(character, player.x,player.y,100,100);
+        ctx.drawImage(character, player.x,player.y,150,150);
     }
     requestAnimationFrame(update)
 }
-update()
+character.onload = function(){
+    update()
+}
+
 
 
 
