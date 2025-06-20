@@ -4,6 +4,7 @@
 //add all the variables
 export class Player{
     constructor(Canvas){
+        this.xLimit = Infinity
         this.vx =  0;
         this.vy = 0;
 //gravity is just the character slowly coming back to the ground if it is in the air
@@ -96,23 +97,37 @@ export class background{
                 
              }
 }
-// Now I need to actually write the text on the background. Idk if I should use Css,, html or js. Why?
-//Because i need to make it so that the text follows the players camera  so that it goes along and actually yk, creates a level by itself.
-// I also need to load different images, from the simple bricks to the more complex pngs I designed.
-// I also would like to use the italiana font since im italian and it looks great
-// While doing all of that, I need it to integrate it all with my js code, but If i do that, i don't think I can utilize the correct fonts
- // right now I will just create random text  using lorem and try to make it dinamically appear with player arrival
 export class UI {
-    //doesn't load anything, broke the entire thing, will commit out of desesperation
-    constructor(ctx, Canvas){
+    constructor(ctx, Canvas, player){
         this.Canvas = Canvas
         this.ctx = ctx
+        this.player = player
     }
-    DrawWorldText(text, x,y, color = "black", size = 20){
-        this.ctx.font = '${size}px Italiana'
+    //drawin text on the world, so that it appears and disappears with player's camera
+    DrawWorldText(text, x,y, color = "black", size = 30){
+        this.ctx.font = `${size}px Italiana`
         this.ctx.fillStyle = color;
-        ctx.fillText(text, x - player.cameraX, y);
+        this.ctx.fillText(text, x - this.player.cameraX, y);
+        //noticed everything is written as one big line, which is not what I want. That's why rn im trying to figure out how to divide things. Tried a couple of different options, none work :(
+        const lines = text.split("\n");
+        lines.forEach((line, i) => {  // had a problem with syntax that didnt understand, spent time debugging other things just for a syntax error smh
+            this.ctx.fillText(
+                line, 
+                x - this.player.cameraX, 
+                y + (i * lineHeight)
+            );
+        });
     }
-}      
+    // made a function to draw images so that i can just pass things through here everytime without having to write everything everytime
+    // it currently doesn't load the character correctly but it does with psi
+    // it load every image except charactter, just tried. I guess i'll just keep the old method in just for the character, for now the most important thing is for it to work
+    DrawImage(imagePath, x, y, sizeX, sizeY){
+        const image = new Image()
+        image.src=imagePath
+        if(image.complete){
+            this.ctx.drawImage(image,x,y,sizeX, sizeY);
+        }
+    }   
+      
     
-
+}
