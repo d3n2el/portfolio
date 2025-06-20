@@ -29,6 +29,15 @@ function update(){
     requestAnimationFrame(update)
     ui.DrawWorldText("I was born on the 27th of September in 2007\n in Montebelluna, a small town \nin the North-Eastern part of Italy.", 3000, 200)
     ui.DrawImage("images/brickTile.png", 2000, 600, 30,30)
+    ui.DrawWorldText("Montebelluna is a rural town, so my opportunities \nfor growth were and still are limited to people living in big cities", 4200, 200)
+    ui.DrawWorldText("I have always considered myself a person that is lucky in the unlucky. And why is that?\nIt’s because I had to face many challenges in my life but i still managed to overcome them.\nThe earliest one was the loss of my mother Lara, at the age of 1 and a half years old.\nI ve also dealt with a food disorder and other things that i don’t feel comfortable disclosing.\nI believe all these experiences made me the person I currently am and tempered me to the challenges of life.",
+                             5500, 200,)
+    ui.DrawWorldText("And this was the end of this part of my life.", 8000, 100)
+    ui.DrawWorldText("CONGRATULATIONS!!", 8000, 200,"black",68)
+    ui.DrawWorldText("(P.s There might be easter eggs hidden ;) )", 8000, 250)
+    // ADDED ALL THE TEXT FOR THE 1ST LEVEL, NOW NEED TO UNDERSTANMD HOW TO PUT WORLD IMAGE TO ACTUALLY POPULATE THE THING
+    
+
 }
 update()
 

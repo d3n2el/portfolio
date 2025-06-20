@@ -15,7 +15,7 @@ export class Player{
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
-        this.x = 3000  // remember to change after testing
+        this.x = 8000  // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
         this.jumpForce = -5
