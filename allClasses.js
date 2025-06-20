@@ -18,7 +18,7 @@ export class Player{
         this.x = 8000  // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
-        this.jumpForce = -5
+        this.jumpForce = -10
     }
     update(){
         this.vy += this.gravity;
@@ -47,12 +47,14 @@ export class Player{
 }
 export class background{
     //
-    constructor(ctx, Canvas, player){
+    constructor(ctx, Canvas, player,ImageLoader){
         // first draw the ground. How? Need to understand canvas height and width,
+        this.player = player
         this.ctx = ctx
         this.canvasHeight = Canvas.height
         this.canvasWidth = Canvas.width
         this.tileLoaded = false
+        const imageLoader = ImageLoader
         //then position of tile in my image
         //then I need to load the entire image
         //after I need to load just the part I need
@@ -60,25 +62,35 @@ export class background{
         //Check how many tiles are needed with Canvas width divided by tile width
         // same thing with height but here I should control it so that it reaches only till ground level(so Canvas - 100) and then stops
         // Actually draw the ground with a nested for loop
-        this.tile = new Image();
-        this.tile.src ="./images/groundTile.png";
-        this.tile.onerror = () => console.error("Failed to load ground tile!");
-        this.tile.onload = () =>  {
-            console.log("Image loaded correctly")
-            this.tileLoaded = true
-    }
+        // Preload ground tile
+        this.groundTileKey = 'GroundTile';
+        imageLoader.LoadImage(this.groundTileKey, "./images/groundTile.png");
+        
+        // Preload other frequently used images
+        this.brickTileKey = 'BrickTile';
+        imageLoader.LoadImage(this.brickTileKey, "./images/brickTile.png");
+        
+        this.houseKey = 'house';
+        imageLoader.LoadImage(this.houseKey, "./images/house.png");
+        
+        this.hospitalKey = 'hospital';
+        imageLoader.loadImage(this.hospitalKey, "./images/hospital1.png");
+        
+        this.finalFlagKey = 'FinalFlag';
+        imageLoader.LoadImage(this.finalFlagKey, "./images/FinalFlag3.png");
 
 }
-    DrawImage(imagePath, x, y, sizeX, sizeY){
-        const image = new Image()
-        image.src=imagePath
-        if(image.complete){
-            this.ctx.drawImage(image,x - this.player.cameraX ,y,sizeX, sizeY); // still draws like hud elements, will ask ai for help because i really got no clue
+// need to somehow make this faster and take up less resources because gd, the website now is slow af
+    DrawImage(imageKey, x, y, sizeX, sizeY){
+        const image =  this.imageLoader.getImage(imageKey)
+        if(image){
+            this.ctx.drawImage(image,x - this.player.cameraX,y,sizeX, sizeY); // still draws like hud elements, will ask ai for help because i really got no clue
         }
     }   
         DrawGround(cameraX){
+            const tile = this.imageLoader.getImage(this.groundTileKey)
             //current code loads image correctly, just need to resize everything and actually create  a ground
-            if (!this.tileLoaded) {
+            if (!tile) {
             console.log("Tile not loaded yet!");
             return;
             }
@@ -137,6 +149,47 @@ export class UI {
             this.ctx.drawImage(image,x,y,sizeX, sizeY);
         }
     }   
-      
+ 
     
+}
+// will start working on an image loader, so that I can just make the user wait a couple of s initially
+// and just show a wheel loading/ % timer or other ways to let user know they should just wait
+export class ImageLoader{
+    constructor(){
+        this.images = {};
+        this.loadedCount = 0;
+        this.totalCount = 0;
+    }
+    LoadImage(key, path){
+        //start by incrementing count so that it keeps check
+        this.totalCount++
+        //Looked oin google and promises seems cool because it lets me tell the pc to wait for something
+        // which is useful since you dont know when images will load
+        return new Promise((resolve, reject) =>{
+            const img = new Image()
+            //let code run when things load ofc
+            img.onload = () =>{
+                //store image with key/name provided when using function
+                this.images[key] = img
+                //to keep check of images loaded
+                this.loadedCount++
+                // resolve the promise cuz we delivered
+                resolve(img)
+            }
+            img.onerror = () =>{
+                console.error(`failed to load image at ${path}`)
+                reject() // writing this reminded me of a recent rejection, now im depressed, damn.
+            }
+            img.src = path
+        })
+
+    }
+
+    getImage(key){
+        return this.images[key]
+    }
+
+    isAllLoaded(){
+        return this.loadedCount == this.totalCount
+    }
 }
