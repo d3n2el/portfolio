@@ -9,7 +9,7 @@ const player = new Player(Canvas)
 export {player}
 const character = new Image()
 character.src="images/mepixBig.png"
-const Background = new background(ctx,Canvas)
+const Background = new background(ctx,Canvas, player)
 const ui = new UI(ctx, Canvas, player)
 
 
@@ -24,8 +24,11 @@ function update(){
     Background.DrawGround(player.cameraX)
     // check if image loaded or not
     ui.DrawWorldText("Daniel's Life", 300, 200,"black", 68)
-    ui.DrawWorldText("I’m currently 17.\n I study in a Linguistic School in Treviso.\n I have many hobbies and interests and I take pride in wanting to become a Polymath.", 2000, 200)
+    //currently the text is written 2 times, one following the new lines and another in one big straight line
+    ui.DrawWorldText("I’m currently 17.\nI study in a Linguistic School in Treviso \nI have many hobbies and interests\nand I take pride in wanting to become a Polymath.", 2000, 200)
     requestAnimationFrame(update)
+    ui.DrawWorldText("I was born on the 27th of September in 2007\n in Montebelluna, a small town \nin the North-Eastern part of Italy.", 3000, 200)
+    ui.DrawImage("images/brickTile.png", 2000, 600, 30,30)
 }
 update()
 

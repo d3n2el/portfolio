@@ -1,6 +1,5 @@
 // wanna make a class for the player using OOP to better manage everything across files(dont want everything in 1 since it becomes easily messy)
 //Create class
-
 //add all the variables
 export class Player{
     constructor(Canvas){
@@ -16,7 +15,7 @@ export class Player{
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
-        this.x = 0
+        this.x = 3000  // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
         this.jumpForce = -5
@@ -48,7 +47,7 @@ export class Player{
 }
 export class background{
     //
-    constructor(ctx, Canvas){
+    constructor(ctx, Canvas, player){
         // first draw the ground. How? Need to understand canvas height and width,
         this.ctx = ctx
         this.canvasHeight = Canvas.height
@@ -70,6 +69,13 @@ export class background{
     }
 
 }
+    DrawImage(imagePath, x, y, sizeX, sizeY){
+        const image = new Image()
+        image.src=imagePath
+        if(image.complete){
+            this.ctx.drawImage(image,x - this.player.cameraX ,y,sizeX, sizeY); // still draws like hud elements, will ask ai for help because i really got no clue
+        }
+    }   
         DrawGround(cameraX){
             //current code loads image correctly, just need to resize everything and actually create  a ground
             if (!this.tileLoaded) {
@@ -107,20 +113,23 @@ export class UI {
     DrawWorldText(text, x,y, color = "black", size = 30){
         this.ctx.font = `${size}px Italiana`
         this.ctx.fillStyle = color;
-        this.ctx.fillText(text, x - this.player.cameraX, y);
-        //noticed everything is written as one big line, which is not what I want. That's why rn im trying to figure out how to divide things. Tried a couple of different options, none work :(
+        //was calling filltext twice, fixed it now
         const lines = text.split("\n");
-        lines.forEach((line, i) => {  // had a problem with syntax that didnt understand, spent time debugging other things just for a syntax error smh
+        const lineHeight = 30
+        for( let i = 0; i<lines.length; i++) {  // tried with for loop because otherwise it duplicated everything after first \n
+            const line = lines[i].trim(); // Clean each line to maybe fix duplication or just for aesthetics ig
+            if (line){
             this.ctx.fillText(
-                line, 
+                lines[i], 
                 x - this.player.cameraX, 
                 y + (i * lineHeight)
             );
-        });
+        }
+        };
     }
     // made a function to draw images so that i can just pass things through here everytime without having to write everything everytime
-    // it currently doesn't load the character correctly but it does with psi
-    // it load every image except charactter, just tried. I guess i'll just keep the old method in just for the character, for now the most important thing is for it to work
+    // just discovered it draws images like HUD so cant really use it for background. will keep this for hud elements that i will add ater on and create new class
+    // in background for background images ig
     DrawImage(imagePath, x, y, sizeX, sizeY){
         const image = new Image()
         image.src=imagePath
