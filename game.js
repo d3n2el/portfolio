@@ -1,6 +1,7 @@
 // Setup game canvas in js
-import { Player } from "./allClasses.js"
+import { Player, UI } from "./allClasses.js"
 import { background } from "./allClasses.js"
+import { UI } from "./allClasses.js"
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -8,7 +9,8 @@ const player = new Player(Canvas)
 export {player}
 const character = new Image()
 character.src='images/mepixBig.png'
-const Background = new background(ctx, Canvas)
+const Background = new background(ctx,Canvas)
+const ui = new UI(ctx, Canvas)
 character.onload = function(){
     console.log("Character has loaded correctly")
 }
@@ -16,12 +18,13 @@ function update(){
     //need to substitute rectangle with my character
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     player.update()
-    Background.DrawGround()
+    Background.DrawGround(player.cameraX)
     // check if image loaded or not
     if(character.complete){
         //actually draw image on canvas
-        ctx.drawImage(character, player.x,player.y,150,150);
+        ctx.drawImage(character, player.x - player.cameraX,player.y,150,150);
     }
+    ui.DrawWorldText("Daniel's Life", 300, 200)
     requestAnimationFrame(update)
 }
 character.onload = function(){
