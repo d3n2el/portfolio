@@ -15,10 +15,10 @@ export class Player{
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
-        this.x = 8000  // remember to change after testing
+        this.x = 5000  // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
-        this.jumpForce = -10
+        this.jumpForce = -20
     }
     update(){
         this.vy += this.gravity;
@@ -43,6 +43,17 @@ export class Player{
             this.vy = this.jumpForce
         }
     }
+    //addding new function to check if player is colliding with objects like bricks and others
+    // this is extremely important to auctually make some kind of platformer
+    //and also to make sure the final flag actually means end of level
+    isCollidingWith(otherObject){
+        return (
+        this.x < otherObject.x + otherObject.sizeX &&  
+        this.x + this.width > otherObject.x &&
+        this.y < otherObject.y + otherObject.sizeY &&
+        this.y + this.height > otherObject.y  //I'll be honest and say i copied this system from stackoverflow and just changed the syntax to adapt it to my code
+    );
+    }
     
 }
 export class background{
@@ -64,26 +75,27 @@ export class background{
         // Actually draw the ground with a nested for loop
         // Preload ground tile
         // moved all the loading in game.js for better organization
-        this.groundTileKey = 'groundTile';
+        this.groundTileKey = 'GroundTile';
         this.brickTileKey = 'brickTile';
         this.houseKey = 'house';
         this.hospitalKey = 'hospital';
         this.finalFlagKey = 'finalFlag';
 }
-// need to somehow make this faster and take up less resources because gd, the website now is slow af
     DrawImage(imageKey, x, y, sizeX, sizeY){
-        this.imageLoader = new ImageLoader()
         const image =  this.imageLoader.getImage(imageKey)
         if(image){
-            this.ctx.drawImage(image,x - this.player.cameraX,y,sizeX, sizeY); // still draws like hud elements, will ask ai for help because i really got no clue
+            this.ctx.drawImage(image,x - this.player.cameraX,y,sizeX, sizeY); // was using wrong function, now works
+        }
+        else{
+            console.error(`Couldnt draw image at key ${imageKey}`)
         }
     }   
         DrawGround(cameraX){
-            const tile = this.imageLoader.getImage(this.groundTileKey)
-            //current code loads image correctly, just need to resize everything and actually create  a ground
+            //load image and return if it doesnt load correctly
+            const tile = this.imageLoader.getImage('GroundTile');
             if (!tile) {
-            console.log("Tile not loaded yet!");
-            return;
+                console.error("CRITICAL: Ground tile missing");
+                return;
             }
                 //assign n pixel
                 const tileWidth = 15
@@ -96,15 +108,16 @@ export class background{
                 const tilesY = Math.ceil(this.canvasHeight / tileHeight)
                 //loop to make sure it covers everything orizontally
                 for( let x = firstTile; x < firstTile+tilesNeeded; x++){
-                    //nested loop for 
-                    for(let y = 0; y < tilesY; y++){
-                        //actually drawing the sprite
-                        const posX = x * tileWidth - cameraX
-                        this.ctx.drawImage(this.tile,posX,groundLevel + (y * tileHeight),tileWidth,tileHeight);
+                    // Only draw tiles from groundLevel downwards cuz game too laggy rn, thinking it might be because of too many drawimage calls from drawground
+                    // Calculate how many rows of tiles are needed to fill from groundLevel to the bottom of the canvas
+                    const numRowsBelowGroundLevel = Math.ceil((this.canvasHeight - groundLevel) / tileHeight);
+                    for(let i = 0; i < numRowsBelowGroundLevel; i++){ // changed to i to avoid conflict with y outside, just in case
+                        const posX = x * tileWidth - cameraX;
+                        const posY = groundLevel + (i * tileHeight); // Start drawing from groundLevel
+                        this.ctx.drawImage(tile, posX, posY, tileWidth, tileHeight);
                     }
                 }
-                
-             }
+            }
 }
 export class UI {
     constructor(ctx, Canvas, player){
