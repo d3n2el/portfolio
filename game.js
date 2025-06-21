@@ -9,10 +9,30 @@ const imageLoader = new ImageLoader()
 const player = new Player(Canvas)
 export {player}
 const characterKey = "character"
-const character = imageLoader.LoadImage(characterKey, "images/mepixBig.png" )
 
-const Background = new background(ctx,Canvas, player,imageLoader)
-const ui = new UI(ctx, Canvas, player)
+
+const loadPromises = [
+    imageLoader.LoadImage(characterKey, "images/mepixBig.png");
+    // load ground first since its the base
+    imageLoader.LoadImage('GroundTile', "./images/groundTile.png");      
+    // Preload all other images
+    imageLoader.LoadImage("BrickTile", "./images/brickTile.png");
+    
+    imageLoader.LoadImage('house', "./images/house.png");
+    
+    imageLoader.LoadImage('hospital', "./images/hospital1.png");
+
+    imageLoader.LoadImage('FinalFlag', "./images/FinalFlag3.png");
+]
+
+Promise.all(loadPromises)
+    .then(() => {
+        console.log("All images loaded successfully")
+        const Background = new background(ctx,Canvas, player,imageLoader)
+        const ui = new UI(ctx, Canvas, player)
+        update()
+
+    })
 
 
 function update(){

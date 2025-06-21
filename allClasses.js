@@ -54,7 +54,7 @@ export class background{
         this.canvasHeight = Canvas.height
         this.canvasWidth = Canvas.width
         this.tileLoaded = false
-        const imageLoader = ImageLoader
+        this.imageLoader = ImageLoader
         //then position of tile in my image
         //then I need to load the entire image
         //after I need to load just the part I need
@@ -63,25 +63,16 @@ export class background{
         // same thing with height but here I should control it so that it reaches only till ground level(so Canvas - 100) and then stops
         // Actually draw the ground with a nested for loop
         // Preload ground tile
-        this.groundTileKey = 'GroundTile';
-        imageLoader.LoadImage(this.groundTileKey, "./images/groundTile.png");
-        
-        // Preload other frequently used images
-        this.brickTileKey = 'BrickTile';
-        imageLoader.LoadImage(this.brickTileKey, "./images/brickTile.png");
-        
+        // moved all the loading in game.js for better organization
+        this.groundTileKey = 'groundTile';
+        this.brickTileKey = 'brickTile';
         this.houseKey = 'house';
-        imageLoader.LoadImage(this.houseKey, "./images/house.png");
-        
         this.hospitalKey = 'hospital';
-        imageLoader.loadImage(this.hospitalKey, "./images/hospital1.png");
-        
-        this.finalFlagKey = 'FinalFlag';
-        imageLoader.LoadImage(this.finalFlagKey, "./images/FinalFlag3.png");
-
+        this.finalFlagKey = 'finalFlag';
 }
 // need to somehow make this faster and take up less resources because gd, the website now is slow af
     DrawImage(imageKey, x, y, sizeX, sizeY){
+        this.imageLoader = new ImageLoader()
         const image =  this.imageLoader.getImage(imageKey)
         if(image){
             this.ctx.drawImage(image,x - this.player.cameraX,y,sizeX, sizeY); // still draws like hud elements, will ask ai for help because i really got no clue
