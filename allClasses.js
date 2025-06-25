@@ -15,10 +15,12 @@ export class Player{
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
-        this.x = 5000  // remember to change after testing
+        this.x = 4000 // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
         this.jumpForce = -20
+        this.width = 150
+        this.height = 150
     }
     update(){
         this.vy += this.gravity;
@@ -46,18 +48,17 @@ export class Player{
     //addding new function to check if player is colliding with objects like bricks and others
     // this is extremely important to auctually make some kind of platformer
     //and also to make sure the final flag actually means end of level
-    isCollidingWith(otherObject){
+    //did not have this.width and height defined....
+    isCollidingWith(otherObject) {
         return (
-        this.x < otherObject.x + otherObject.sizeX &&  
-        this.x + this.width > otherObject.x &&
-        this.y < otherObject.y + otherObject.sizeY &&
-        this.y + this.height > otherObject.y  //I'll be honest and say i copied this system from stackoverflow and just changed the syntax to adapt it to my code
-    );
-    }
+            this.x < otherObject.x + otherObject.sizeX &&  
+            this.x + this.width > otherObject.x &&
+            this.y < otherObject.y + otherObject.sizeY &&
+            this.y + this.height > otherObject.y
+        );
     
-}
+    }
 export class background{
-    //
     constructor(ctx, Canvas, player,ImageLoader){
         // first draw the ground. How? Need to understand canvas height and width,
         this.player = player
@@ -197,3 +198,7 @@ export class ImageLoader{
         return this.loadedCount == this.totalCount
     }
 }
+
+
+
+

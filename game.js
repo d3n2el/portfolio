@@ -1,7 +1,7 @@
 // Setup game canvas in js
 import { Player, UI, background , ImageLoader} from "./allClasses.js"
 // keep track of levels to know 
-let gameLevel = 1
+let gameLevel = 0
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -26,15 +26,56 @@ const loadPromises = [
 //seems the images and text correctly since it loads but now the character doesn't move, GREAT. Will now try to debug this shit
 const levelData = [
     {
-        name: "My Story - Part 1",
+        name: "My life pt.1",
         playerStartX: 100,
         playerStartY: Canvas.height - 210, // Assuming ground level
         objects: [
             // Images for 1st level
-            { key: "hospital", x: 3000, y: 200, sizeX: 800, sizeY: 800 },
-            { key: "BrickTile", x: 500, y: 600, sizeX: 30, sizeY: 30 },
+            { key: "hospital", x: 2000, y: 350, sizeX: 800, sizeY: 800 },
+            { key: "BrickTile", x: 8200, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8230, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8260, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8260, y: 800, sizeX: 30, sizeY:30 },
+            { key: "BrickTile", x: 8290, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8290, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8320, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8320, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8320, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8350, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8350, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8350, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8380, y: 830, sizeX: 30, sizeY: 30 },    
+            { key: "BrickTile", x: 8380, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8380, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8410, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8410, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8410, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8410, y: 740, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8410, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8440, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8440, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8440, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8440, y: 740, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8470, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8470, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8470, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8470, y: 740, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8470, y: 710, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8500, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8500, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8500, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8500, y: 740, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8500, y: 710, sizeX: 30, sizeY: 30 },         
+            { key: "BrickTile", x: 8500, y: 680, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 830, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 800, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 770, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 740, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 710, sizeX: 30, sizeY: 30 },
+            { key: "BrickTile", x: 8530, y: 680, sizeX: 30, sizeY: 30 },
+            
             { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
-            {key:"house", x:4500 ,y:290,sizeX:400 ,sizeY:400}
+            {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700}
             
         ],
         // now gotta group the text for 1st level
@@ -55,18 +96,27 @@ const levelData = [
         playerStartX: 100,
         playerStartY: Canvas.height - 210,
         objects: [
-           
+            {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700},
+            { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
+
 
         ],
         textBlocks: [
-            { text: "Welcome to Part 2 Daniel's story!", x: 100, y: 200 },
-            
+            { text: "Welcome to Part 2 Daniel's story!", x: 100, y: 200, color:"black", size:68 },
+            {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 8000, y:100},
+            {text:"Another Passion of mine is \nPsychology as symbolised by the psi and the eyes. \nI studied it a lot in my own time and did \nYale’s Introduction To Psychology course on Coursera.",x: 8000, y:100},
+            {text:"Now I’ll talk about languages, \nanother passion that I also study at school. I currently speak 5 languages:\n Italian, English, Russian, Spanish and French. \nI’ll talk more about each language later.",x: 8000, y:100},
+            { text: "I’ll start with my native language: Italian.\nIt holds a special place in my heart since it’s the\n language of family, friends and school. I find it\n really beautiful, albeit practically useless.", x: 100, y: 200, color:"black", size:68 },
+            { text: "And my hereditary language: Russian.\nI speak it quite well\nbut not at an advanced level.\nI learned the language from my\nfather when i was little, but\nthen i practically lost it.\nFortunately I picked it up\nagain at school and I managed\nto reach a fluent level,\n especially at the oral level.", x: 100, y: 200, color:"black", size:68 },
+            { text: "English, the lingua franca of\nthe world and my 3rd language. I learnt it via comprehensible input from a really young age and I have now achieved a C2 score on a Cambridge exam.", x: 100, y: 200, color:"black", size:68 },
+            { text: "My 4th language is Spanish.\n I learned it in School starting from 14 y.o.\n I currently have a B2 Level\n(even though I’m still waiting for my DELE results).\n I love the culture and \n from both Spain and Latin America", x: 100, y: 200 },
+            { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 100, y: 200},        
         ],
-        levelEndFlag: { x: 2000, y: 460, sizeX: 400, sizeY: 400 }
+        levelEndFlag: { x: 7000, y: 460, sizeX: 400, sizeY: 400 }
     }
 ]
-const currentLevel = levelData[gameLevel - 1];
-let animationFrameId
+var currentLevel = levelData[gameLevel];
+
 Promise.all(loadPromises)
     .then(() => {
         console.log("All images loaded successfully")
@@ -75,7 +125,6 @@ Promise.all(loadPromises)
         player.x = currentLevel.playerStartX;
         player.y = currentLevel.playerStartY;
         update()
-
     })
     .catch(error => {
         console.error("Loading failed:", error);
@@ -102,20 +151,67 @@ function update(){
     // check if image loaded or not
     if(player.isCollidingWith(finalFlagObject)){
         gameLevel++
-        if (gameLevel <= levelData.length) {
-        // Load the next level's data into currentLevel
-            currentLevel = levelData[gameLevel - 1];  
-            // Reset player and camera for the new level 
-            player.x = currentLevel.playerStartX;
-            player.y = currentLevel.playerStartY;
-            player.cameraX = 0; 
-        }
-    }   
+    }  
+    let bricks = getBrickTiles(levelData[gameLevel])
+    if(player.isCollidingWith(bricks)){
+
+    }
+    requestAnimationFrame(update)
 }
 
-
+function getBrickTiles(levelObjects) {
+    return levelObjects.filter(obj => obj.key === 'BrickTile');
+}
  
-//game now works, will focus on creating level system rn
+// Handle what happens when player hits bricks so that it can actually be called a platformer and not just a side scroller
+function handleBrickCollision(brickObject) {
+    // Calculate centers to determine collision direction
+    const playerCenterX = player.x + player.width / 2;
+    const playerCenterY = player.y + player.height / 2;
+    const brickCenterX = brickObject.x + brickObject.sizeX / 2;
+    const brickCenterY = brickObject.y + brickObject.sizeY / 2;
+    //using difference in movement to understand difference between the positions of brick and player
+    const deltaX = playerCenterX - brickCenterX;
+    const deltaY = playerCenterY - brickCenterY;
+    
+    // Determine which side of the brick we hit to then handle it differently yk. using abs to get absolute values to avoid things like:
+    // -5 is smaller than -3 when for the game logic it's not actually like that
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Horizontal collision (hitting left or right side)
+        if (deltaX > 0) {
+            // Player is to the right of brick - push right
+            player.x = brickObject.x + brickObject.sizeX;
+        } else {
+            // Player is to the left of brick - push left
+            player.x = brickObject.x - player.width;
+        }
+        player.vx = 0; // Stop horizontal movement
+    } else {
+        // Vertical collision (hitting top or bottom)
+        if (deltaY > 0) {
+            // Player is below brick - push down
+            player.y = brickObject.y + brickObject.sizeY;
+            player.vy = 0;
+        } else {
+            // Player is above brick - land on top
+            player.y = brickObject.y - player.height;
+            player.vy = 0;
+        }
+    }
+}
+//hopefully logic is correct, now i need to implement all of this in the update function correctly, get the bricks objects and pass it to handle it etc etc. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
