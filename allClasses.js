@@ -18,7 +18,7 @@ export class Player{
         this.x = 4000 // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
-        this.jumpForce = -20
+        this.jumpForce = -10
         this.width = 150
         this.height = 150
     }
@@ -58,6 +58,18 @@ export class Player{
         );
     
     }
+    // this function will be used to check if the player is colliding with any object in the game
+    // it will be used in update to check for collisions with bricks, final flag
+    checkCollisions(objects) {
+    for (let obj of objects) {
+        if (this.isCollidingWith(obj)) {
+            return obj;
+        }
+    }
+        return null;
+    }
+}
+
 export class background{
     constructor(ctx, Canvas, player,ImageLoader){
         // first draw the ground. How? Need to understand canvas height and width,
@@ -76,8 +88,9 @@ export class background{
         // Actually draw the ground with a nested for loop
         // Preload ground tile
         // moved all the loading in game.js for better organization
+        
         this.groundTileKey = 'GroundTile';
-        this.brickTileKey = 'brickTile';
+        this.brickTileKey = 'BrickTile';
         this.houseKey = 'house';
         this.hospitalKey = 'hospital';
         this.finalFlagKey = 'finalFlag';
@@ -198,7 +211,4 @@ export class ImageLoader{
         return this.loadedCount == this.totalCount
     }
 }
-
-
-
 

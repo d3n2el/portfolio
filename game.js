@@ -13,17 +13,16 @@ let Background, ui
 const loadPromises = [
     imageLoader.LoadImage(characterKey, "images/mepixBig.png"),
     // load ground first since its the base
-    imageLoader.LoadImage('GroundTile', "./images/groundTile.png"),  
+    imageLoader.LoadImage('GroundTile', "images/groundTile.png"),  
     // Preload all other images
-    imageLoader.LoadImage("BrickTile", "./images/brickTile.png"),
-    
-    imageLoader.LoadImage('house', "./images/house.png"),
-    
-    imageLoader.LoadImage('hospital', "./images/hospital1.png"),
+    imageLoader.LoadImage("BrickTile", "images/brickTile.png"),
 
-    imageLoader.LoadImage('FinalFlag', "./images/FinalFlag3.png")
+    imageLoader.LoadImage('house', "images/house.png"),
+
+    imageLoader.LoadImage('hospital', "images/hospital1.png"),
+
+    imageLoader.LoadImage('FinalFlag', "images/FinalFlag3.png")
 ]
-//seems the images and text correctly since it loads but now the character doesn't move, GREAT. Will now try to debug this shit
 const levelData = [
     {
         name: "My life pt.1",
@@ -133,6 +132,13 @@ Promise.all(loadPromises)
 function update(){
      const finalFlagObject = currentLevel.levelEndFlag
     //need to substitute rectangle with my character
+    // get how many tiles are there
+    const brickTiles = getBrickTiles(currentLevel.objects);
+    // check if player is colliding with bricks
+    const collidingBrick = player.checkCollisions(brickTiles);
+    if (collidingBrick) {
+        handleBrickCollision(collidingBrick);
+    }
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     player.update()
     currentLevel.objects.forEach(obj => {
@@ -152,10 +158,6 @@ function update(){
     if(player.isCollidingWith(finalFlagObject)){
         gameLevel++
     }  
-    let bricks = getBrickTiles(levelData[gameLevel])
-    if(player.isCollidingWith(bricks)){
-
-    }
     requestAnimationFrame(update)
 }
 
@@ -166,6 +168,9 @@ function getBrickTiles(levelObjects) {
 // Handle what happens when player hits bricks so that it can actually be called a platformer and not just a side scroller
 function handleBrickCollision(brickObject) {
     // Calculate centers to determine collision direction
+    // I need to revamp this system, currently character does collide with air and not the ctual bricks, it weorks but not optimal
+    // considering this, will now spend time thinking about implementing this and then trying out different things
+    //thinking about just kms rn, spending so much time trying things out just for them to straight not work and comingh back to the same code that i had before
     const playerCenterX = player.x + player.width / 2;
     const playerCenterY = player.y + player.height / 2;
     const brickCenterX = brickObject.x + brickObject.sizeX / 2;
@@ -200,7 +205,10 @@ function handleBrickCollision(brickObject) {
     }
 }
 //hopefully logic is correct, now i need to implement all of this in the update function correctly, get the bricks objects and pass it to handle it etc etc. 
-
+function getCollidableObjects(levelObjects) {
+    const collidableKeys = ['BrickTile', 'hospital', 'house'];
+    return levelObjects.filter(obj => collidableKeys.includes(obj.key));  //honestly dont even remember why i coded this function, im so burnt out istg
+}
 
 
 
