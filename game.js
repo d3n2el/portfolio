@@ -1,7 +1,7 @@
 // Setup game canvas in js
 import { Player, UI, background , ImageLoader} from "./allClasses.js"
 // keep track of levels to know 
-let gameLevel = 0
+let gameLevel = 1 // need to change after testing
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -21,7 +21,40 @@ const loadPromises = [
 
     imageLoader.LoadImage('hospital', "images/hospital1.png"),
 
-    imageLoader.LoadImage('FinalFlag', "images/FinalFlag3.png")
+    imageLoader.LoadImage('FinalFlag', "images/FinalFlag3.png"),
+
+    imageLoader.LoadImage('FrenchFlag', "images/frenchflag.png"),
+
+    imageLoader.LoadImage('ItalianFlag', "images/itaflag.png"),
+
+    imageLoader.LoadImage('SpanishFlag', "images/spainfla.png"),
+
+    imageLoader.LoadImage('EnglishFlag', "images/ukflag.png"),
+
+    imageLoader.LoadImage('RussianFlag', "images/ruflag.png"),
+
+    imageLoader.LoadImage('language', "images/language.png"),
+
+    imageLoader.LoadImage('world', "images/world.png"),
+
+    imageLoader.LoadImage('Psi', "images/psi.png"),
+
+    imageLoader.LoadImage('Paella', "images/paella.png"),
+
+    imageLoader.LoadImage('Pizza', "images/pizza.png"),
+
+    imageLoader.LoadImage('PokePsi', "images/pokepsi.png"),
+
+    imageLoader.LoadImage('Croissant', "images/croissant.png"),
+
+    imageLoader.LoadImage('Eye', "images/eye.png"),
+
+    imageLoader.LoadImage('BackInfo', "images/backinfo.png"),
+
+    imageLoader.LoadImage('PC', "images/pc.png")
+
+
+    
 ]
 const levelData = [
     {
@@ -95,21 +128,44 @@ const levelData = [
         playerStartX: 100,
         playerStartY: Canvas.height - 210,
         objects: [
-            {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700},
-            { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
+            {key:"FrenchFlag", x:17000 ,y:400,sizeX:400 ,sizeY:400},
+            { key: "FinalFlag",x: 20000 ,y:460,sizeX: 400 ,sizeY:400},
+            {key:"SpanishFlag", x:15000, y:400, sizeX:400, sizeY:400},
+            {key:"ItalianFlag", x:9000, y:400, sizeX:800, sizeY: 800},
+            {key:"EnglishFlag",x:13000,y:400, sizeX:400, sizeY:400 },
+            {key:"RussianFlag", x:11000, y:400, sizeX:400, sizeY:400},
+            {key:"language", x:67000, y:300, sizeX: 150, sizeY: 150 },
+            {key:"world", x:6700, y:400, sizeX: 150, sizeY:150},
+            {key:"Psi", x:4500, y:150, sizeX: 400, sizeY: 400},
+            {key:"Eye", x:5200, y:100, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:5400, y:150, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:4900, y:500, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:5500, y:500, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
+            {key:"PokePsi", x:4700, y:600, sizeX: 150, sizeY: 150},
+            {key:"PokePsi", x:5750, y:300, sizeX: 150, sizeY: 150},
+            {key:"PokePsi", x:5300, y:600, sizeX: 150, sizeY: 150},
+            {key:"Croissant", x:9000, y:450, sizeX: 50, sizeY: 50},
+            {key:"Pizza", x:5000, y:500, sizeX: 50, sizeY: 50},
+            {key:"Paella", x:8000, y:500, sizeX: 50, sizeY: 50},
 
+            {key:"BackInfo", x:3000, y:0, sizeX: 1000, sizeY: 1000},
+            {key:"PC", x:3100, y:400, sizeX: 300, sizeY: 300},
+            {key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
+            {key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
 
         ],
         textBlocks: [
-            { text: "Welcome to Part 2 Daniel's story!", x: 100, y: 200, color:"black", size:68 },
-            {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 8000, y:100},
-            {text:"Another Passion of mine is \nPsychology as symbolised by the psi and the eyes. \nI studied it a lot in my own time and did \nYale’s Introduction To Psychology course on Coursera.",x: 8000, y:100},
-            {text:"Now I’ll talk about languages, \nanother passion that I also study at school. I currently speak 5 languages:\n Italian, English, Russian, Spanish and French. \nI’ll talk more about each language later.",x: 8000, y:100},
-            { text: "I’ll start with my native language: Italian.\nIt holds a special place in my heart since it’s the\n language of family, friends and school. I find it\n really beautiful, albeit practically useless.", x: 100, y: 200, color:"black", size:68 },
-            { text: "And my hereditary language: Russian.\nI speak it quite well\nbut not at an advanced level.\nI learned the language from my\nfather when i was little, but\nthen i practically lost it.\nFortunately I picked it up\nagain at school and I managed\nto reach a fluent level,\n especially at the oral level.", x: 100, y: 200, color:"black", size:68 },
-            { text: "English, the lingua franca of\nthe world and my 3rd language. I learnt it via comprehensible input from a really young age and I have now achieved a C2 score on a Cambridge exam.", x: 100, y: 200, color:"black", size:68 },
-            { text: "My 4th language is Spanish.\n I learned it in School starting from 14 y.o.\n I currently have a B2 Level\n(even though I’m still waiting for my DELE results).\n I love the culture and \n from both Spain and Latin America", x: 100, y: 200 },
-            { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 100, y: 200},        
+            { text: "Welcome to Level 2, Adolescence and hobbies", x: 100, y: 250, color:"black", size:68 },
+            {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 3000, y:300, color: "white"},
+            {text:"Another Passion of mine is \nPsychology as symbolised by the psi and the eyes. \nI studied it a lot in my own time and did \nYale’s Introduction To Psychology course on Coursera.",x: 5000, y:300},
+            {text:"Now I’ll talk about languages, \nanother passion that I also study at school. I currently speak 5 languages:\n Italian, English, Russian, Spanish and French. \nI’ll talk more about each language later.",x: 7000 ,y:300},
+            { text: "I’ll start with my native language: Italian.\nIt holds a special place in my heart since it’s the\n language of family, friends and school. I find it\n really beautiful, albeit practically useless.", x: 9000, y: 300, color:"black" },
+            { text: "And my hereditary language: Russian.\nI speak it quite well\nbut not at an advanced level.\nI learned the language from my\nfather when i was little, but\nthen i practically lost it.\nFortunately I picked it up\nagain at school and I managed\nto reach a fluent level,\n especially at the oral level.", x: 11000, y: 300, color:"black"},
+            { text: "English, the lingua franca of\nthe world and my 3rd language. I learnt it via comprehensible input\nfrom a really young age and I have now achieved a C2 score on a Cambridge exam.", x: 13000, y: 300, color:"black" },
+            { text: "My 4th language is Spanish.\n I learned it in School starting from 14 y.o.\n I currently have a B2 Level\n(even though I’m still waiting for my DELE results).\n I love the culture and \n from both Spain and Latin America", x:15000, y: 300 },
+            { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 17000, y: 300},        
         ],
         levelEndFlag: { x: 7000, y: 460, sizeX: 400, sizeY: 400 }
     }
@@ -138,7 +194,10 @@ function update(){
     const collidingBrick = player.checkCollisions(brickTiles);
     if (collidingBrick) {
         handleBrickCollision(collidingBrick);
+        player.onGround = true
     }
+    const prevX = player.x;
+    const prevY = player.y;
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     player.update()
     currentLevel.objects.forEach(obj => {
@@ -150,14 +209,25 @@ function update(){
     const character = imageLoader.getImage(characterKey);
         //actually draw image on canvas
     if(character){
-        ctx.drawImage(character, player.x - player.cameraX,player.y,150,150);
+        ctx.drawImage(character, player.x - player.cameraX,player.y,100,100);
     }
        
     Background.DrawGround(player.cameraX)
-    // check if image loaded or not
-    if(player.isCollidingWith(finalFlagObject)){
-        gameLevel++
-    }  
+    // check flag collision and then load new level
+    if(player.isCollidingWith({
+        x: finalFlagObject.x - (player.x - prevX),
+        y: finalFlagObject.y - (player.y - prevY),
+        sizeX: finalFlagObject.sizeX,
+        sizeY: finalFlagObject.sizeY,
+    })){
+        if(gameLevel < levelData.length - 1) {
+            gameLevel++
+            currentLevel = levelData[gameLevel]
+            player.x = currentLevel.playerStartX
+            player.y = currentLevel.playerStartY
+            player.cameraX = 0
+    }}
+  
     requestAnimationFrame(update)
 }
 
@@ -167,53 +237,43 @@ function getBrickTiles(levelObjects) {
  
 // Handle what happens when player hits bricks so that it can actually be called a platformer and not just a side scroller
 function handleBrickCollision(brickObject) {
-    // Calculate centers to determine collision direction
-    // I need to revamp this system, currently character does collide with air and not the ctual bricks, it weorks but not optimal
-    // considering this, will now spend time thinking about implementing this and then trying out different things
-    //thinking about just kms rn, spending so much time trying things out just for them to straight not work and comingh back to the same code that i had before
-    const playerCenterX = player.x + player.width / 2;
-    const playerCenterY = player.y + player.height / 2;
-    const brickCenterX = brickObject.x + brickObject.sizeX / 2;
-    const brickCenterY = brickObject.y + brickObject.sizeY / 2;
-    //using difference in movement to understand difference between the positions of brick and player
-    const deltaX = playerCenterX - brickCenterX;
-    const deltaY = playerCenterY - brickCenterY;
+    // Calculate overlap on each axis
+    const overlapX = Math.min(
+        player.x + player.width - brickObject.x,
+        brickObject.x + brickObject.sizeX - player.x
+    );
     
-    // Determine which side of the brick we hit to then handle it differently yk. using abs to get absolute values to avoid things like:
-    // -5 is smaller than -3 when for the game logic it's not actually like that
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // Horizontal collision (hitting left or right side)
-        if (deltaX > 0) {
-            // Player is to the right of brick - push right
-            player.x = brickObject.x + brickObject.sizeX;
-        } else {
-            // Player is to the left of brick - push left
+    const overlapY = Math.min(
+        player.y + player.height - brickObject.y,
+        brickObject.y + brickObject.sizeY - player.y
+    );
+    
+    // Resolve collision along the axis of least penetration
+    if (overlapX < overlapY) {
+        // Horizontal collision
+        if (player.x < brickObject.x) {
             player.x = brickObject.x - player.width;
-        }
-        player.vx = 0; // Stop horizontal movement
-    } else {
-        // Vertical collision (hitting top or bottom)
-        if (deltaY > 0) {
-            // Player is below brick - push down
-            player.y = brickObject.y + brickObject.sizeY;
-            player.vy = 0;
         } else {
-            // Player is above brick - land on top
+            player.x = brickObject.x + brickObject.sizeX;
+        }
+        player.vx = 0;
+    } else {
+        // Vertical collision
+        if (player.y < brickObject.y) {
             player.y = brickObject.y - player.height;
+            player.vy = 0;
+            player.onGround = true; // Add this state to your Player class
+        } else {
+            player.y = brickObject.y + brickObject.sizeY;
             player.vy = 0;
         }
     }
 }
-//hopefully logic is correct, now i need to implement all of this in the update function correctly, get the bricks objects and pass it to handle it etc etc. 
+
 function getCollidableObjects(levelObjects) {
     const collidableKeys = ['BrickTile', 'hospital', 'house'];
-    return levelObjects.filter(obj => collidableKeys.includes(obj.key));  //honestly dont even remember why i coded this function, im so burnt out istg
+    return levelObjects.filter(obj => collidableKeys.includes(obj.key));
 }
-
-
-
-
-
 
 
 

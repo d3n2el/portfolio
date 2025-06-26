@@ -10,29 +10,36 @@ export class Player{
         this.gravity = 0.5;
         this.Canvas = Canvas
 // would be good to create a ground variable to know when I reach it
-        this.ground = Canvas.height - 210
+        this.ground = Canvas.height - 200
         //need to make this dynamic and not static to allow scrolling
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
         this.y = 0;
-        this.x = 4000 // remember to change after testing
+        this.x = 6000 // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
-        this.jumpForce = -10
-        this.width = 150
-        this.height = 150
+        this.jumpForce = -18
+        this.width = 100
+        this.height = 100
+        this.onGround = false
+        this.collisionBuffer = 2
+        //want to try a new system to see if i can still improve collision
+        this.prevX = this.x
+        this.prevY = this.y
     }
     update(){
+        this.onGround = false
+        this.prevX = this.x
+        this.prevY = this.y
         this.vy += this.gravity;
         this.x += this.vx;
         this.y += this.vy;
-
         // Ground collision
-        if (this.y > this.ground) {
+        if (this.y >= this.ground) {
             this.y = this.ground;
-            this.vy = 0;
+            this.vy = 0
+            this.onGround= true
         }
-
         // Screen boundarie,
         if (this.x < 0) this.x = 0;
         if (this.x > this.xLimit) this.x = this.xLimit; 
@@ -40,24 +47,34 @@ export class Player{
         this.cameraX = Math.max(0, this.x - this.Canvas.width / 2)
     }
     //create jump function so that it is permitted to jump only when on ground level
+    // changing things up broke my jump function, will now try to understand where the problem is and change things up
     jump(){
-        if(this.y >= this.ground){
+        if(this.onGround == true){
             this.vy = this.jumpForce
+            this.onGround = false
         }
     }
+
+
     //addding new function to check if player is colliding with objects like bricks and others
     // this is extremely important to auctually make some kind of platformer
     //and also to make sure the final flag actually means end of level
     //did not have this.width and height defined....
     isCollidingWith(otherObject) {
-        return (
-            this.x < otherObject.x + otherObject.sizeX &&  
-            this.x + this.width > otherObject.x &&
-            this.y < otherObject.y + otherObject.sizeY &&
-            this.y + this.height > otherObject.y
-        );
-    
-    }
+    // First check if objects are potentially in the same area since i dont know how else to improve my current code
+    // i've got zero ideas whatsoever, at least im improving performance this way
+    if (Math.abs(this.x - otherObject.x) > 1000 || 
+        Math.abs(this.y - otherObject.y) > 1000) {
+        return false;
+    } 
+    // Then do precise AABB check
+    return (
+        this.x < otherObject.x + otherObject.sizeX &&  
+        this.x + this.width > otherObject.x &&
+        this.y < otherObject.y + otherObject.sizeY &&
+        this.y + this.height > otherObject.y
+    );
+}
     // this function will be used to check if the player is colliding with any object in the game
     // it will be used in update to check for collisions with bricks, final flag
     checkCollisions(objects) {
@@ -68,6 +85,10 @@ export class Player{
     }
         return null;
     }
+    // lets see if this new method pays off or not
+    // will just handle everything directly from my player class to have less clutter in game.js
+    // will still keep handleBrickCollision just as a safeguard if this goes bad
+    // decided that handleBrickCollision is actually just better because otherwise i dont know how to fiter out everything except bricks
 }
 
 export class background{
@@ -88,8 +109,8 @@ export class background{
         // Actually draw the ground with a nested for loop
         // Preload ground tile
         // moved all the loading in game.js for better organization
-        
-        this.groundTileKey = 'GroundTile';
+        this.frenchFlagkey = 'FrenchFlag'
+        this.groundTileKey = 'GroundTile'
         this.brickTileKey = 'BrickTile';
         this.houseKey = 'house';
         this.hospitalKey = 'hospital';
