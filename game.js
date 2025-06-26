@@ -1,7 +1,7 @@
 // Setup game canvas in js
 import { Player, UI, background , ImageLoader} from "./allClasses.js"
 // keep track of levels to know 
-let gameLevel = 1 // need to change after testing
+let gameLevel = 2 // need to change after testing
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -51,13 +51,16 @@ const loadPromises = [
 
     imageLoader.LoadImage('BackInfo', "images/backinfo.png"),
 
-    imageLoader.LoadImage('PC', "images/pc.png")
+    imageLoader.LoadImage('PC', "images/pc.png"),
+
+    imageLoader.LoadImage('Leaf', "images/leaf.png")
 
 
     
 ]
 const levelData = [
     {
+        // still cant jump and missing and can go right through bricks
         name: "My life pt.1",
         playerStartX: 100,
         playerStartY: Canvas.height - 210, // Assuming ground level
@@ -121,20 +124,20 @@ const levelData = [
             {text:"CONGRATULATIONS!!", x:8000, y:200,color:"black",size: 68},
             {text:"(P.s There might be easter eggs hidden ;) ",x:8000, y:250}
         ],
-        levelEndFlag: { x: 8500, y: 460, sizeX: 400, sizeY: 400 } // Redundant but explicit
+        levelEndFlag: { x: 8700, y: 460, sizeX: 400, sizeY: 400 } // Redundant but explicit
     },
     {
         name: "Adolescence",
         playerStartX: 100,
         playerStartY: Canvas.height - 210,
         objects: [
-            {key:"FrenchFlag", x:17000 ,y:450,sizeX:400 ,sizeY:400},
+            {key:"FrenchFlag", x:17000 ,y:550,sizeX:400 ,sizeY:400},
             { key: "FinalFlag",x: 20000 ,y:460,sizeX: 400 ,sizeY:400},
             {key:"SpanishFlag", x:15000, y:450, sizeX:400, sizeY:400},
             {key:"ItalianFlag", x:9000, y:250, sizeX:800, sizeY: 800},
             {key:"EnglishFlag",x:13000,y:450, sizeX:400, sizeY:400 },
             {key:"RussianFlag", x:11000, y:450, sizeX:400, sizeY:400},
-            {key:"language", x:67000, y:150, sizeX: 150, sizeY: 150 },
+            {key:"language", x:6700, y:150, sizeX: 150, sizeY: 150 },
             {key:"world", x:6700, y:400, sizeX: 150, sizeY:150},
             {key:"Psi", x:4500, y:150, sizeX: 400, sizeY: 400},
             {key:"Eye", x:5200, y:100, sizeX: 50, sizeY: 50},
@@ -145,9 +148,9 @@ const levelData = [
             {key:"PokePsi", x:4700, y:600, sizeX: 150, sizeY: 150},
             {key:"PokePsi", x:5750, y:300, sizeX: 150, sizeY: 150},
             {key:"PokePsi", x:5300, y:600, sizeX: 150, sizeY: 150},
-            {key:"Croissant", x:17000, y:450, sizeX: 50, sizeY: 50},
+            {key:"Croissant", x:16900, y:450, sizeX: 100, sizeY: 100},
             {key:"Pizza", x:9000, y:600, sizeX: 100, sizeY: 100},
-            {key:"Paella", x:15000, y:600, sizeX: 50, sizeY: 50},
+            {key:"Paella", x:14700, y:600, sizeX: 100, sizeY: 100},
             {key:"BackInfo", x:3000, y:0, sizeX: 1000, sizeY: 1000},
             {key:"PC", x:3100, y:400, sizeX: 300, sizeY: 300},
 
@@ -167,8 +170,29 @@ const levelData = [
             { text: "My 4th language is Spanish.\n I learned it in School starting from 14 y.o.\n I currently have a B2 Level\n(even though I’m still waiting for my DELE results).\n I love the culture and \n from both Spain and Latin America", x:15000, y: 300 },
             { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 17000, y: 300},        
         ],
-        levelEndFlag: { x: 7000, y: 460, sizeX: 400, sizeY: 400 }
+        levelEndFlag: { x: 20000, y: 460, sizeX: 400, sizeY: 400 } //found the problem
+    },
+    {
+        // movement doesnt work here. It was because of missing final flag
+        name: "My life pt.3",
+        playerStartX: 100,
+        playerStartY: Canvas.height - 210, 
+        objects:[
+            {key:"Leaf", x:6800, y:300, sizeX: 150, sizeY: 150},
+            {key:"FinalFlag", x:12000, y:460, sizeX: 400, sizeY: 400},
+        ],
+        textBlocks:[
+            { text: "You reached the final level “Dreams and Aspirations”!! So, what are my Dreams and Aspirations?",
+                 x: 100, y: 250, color:"black", size:68 },
+
+            { text: "I currently would like to join a prestigious\nbusiness school. Thinking about Escp\nmainly for their unique approach but\nalso to others in Europe, mostly in the UK.\nAnd of course the ivies would be a\ndream too but with the current political\nsituation, I would rather avoid.", x: 4000, y: 250 },
+            { text: "After University,\nI would like to start my own company since\never since I was little that was my dream.\nI would also love to make something related to the environment since I care a lot about it.", x: 7000, y: 250},
+            { text: "Congratulations!!\n\nYou finished my game-like portfolio,\n\nfor a more professional outlook, click no to the initial question", x: 10000, y: 250, color: "black", size:68 },
+        ],
+        levelEndFlag: { x: 12000, y: 460, sizeX: 400, sizeY: 400 }
+
     }
+
 ]
 var currentLevel = levelData[gameLevel];
 
@@ -227,7 +251,7 @@ function update(){
             player.y = currentLevel.playerStartY
             player.cameraX = 0
     }}
-  
+    console.log(`Player Y: ${player.y}, Ground: ${player.ground}, OnGround: ${player.onGround}`);
     requestAnimationFrame(update)
 }
 
@@ -276,7 +300,10 @@ function getCollidableObjects(levelObjects) {
 }
 
 
-
+function showLoadingScreen(){
+    let loading = document.getElementsByClassName("loadingScreen")
+    return loading
+}
 
 
 
