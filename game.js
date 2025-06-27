@@ -1,7 +1,7 @@
 // Setup game canvas in js
 import { Player, UI, background , ImageLoader} from "./allClasses.js"
 // keep track of levels to know 
-let gameLevel = 2 // need to change after testing
+let gameLevel = 0 // need to change after testing
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -195,7 +195,7 @@ const levelData = [
 
 ]
 var currentLevel = levelData[gameLevel];
-
+showLoadingScreen(true)
 Promise.all(loadPromises)
     .then(() => {
         console.log("All images loaded successfully")
@@ -203,11 +203,13 @@ Promise.all(loadPromises)
         ui = new UI(ctx, Canvas, player)
         player.x = currentLevel.playerStartX;
         player.y = currentLevel.playerStartY;
+        showLoadingScreen(false)
         update()
     })
     .catch(error => {
         console.error("Loading failed:", error);
         // Show error to player
+        showLoadingScreen(false)
     });
 function update(){
      const finalFlagObject = currentLevel.levelEndFlag
@@ -261,35 +263,43 @@ function getBrickTiles(levelObjects) {
  
 // Handle what happens when player hits bricks so that it can actually be called a platformer and not just a side scroller
 function handleBrickCollision(brickObject) {
-    // Calculate overlap on each axis
-    const overlapX = Math.min(
-        player.x + player.width - brickObject.x,
-        brickObject.x + brickObject.sizeX - player.x
-    );
+    const buffer = player.collisionBuffer; // hopeefully buffring wll solve the phasing cuz that shit annoying af
+    // Calculate player bounds with buffer
+    const playerLeft = player.x + buffer;
+    const playerRight = player.x + player.width - buffer;
+    const playerTop = player.y + buffer;
+    const playerBottom = player.y + player.height - buffer;
     
-    const overlapY = Math.min(
-        player.y + player.height - brickObject.y,
-        brickObject.y + brickObject.sizeY - player.y
-    );
+    // Calculate brick bounds to then actually check collision
+    const brickLeft = brickObject.x;
+    const brickRight = brickObject.x + brickObject.sizeX;
+    const brickTop = brickObject.y;
+    const brickBottom = brickObject.y + brickObject.sizeY;
     
-    // Resolve collision along the axis of least penetration
-    if (overlapX < overlapY) {
-        // Horizontal collision
-        if (player.x < brickObject.x) {
-            player.x = brickObject.x - player.width;
+    // Calculate overlap on both axis
+    const overlapX = Math.min(playerRight - brickLeft, brickRight - playerLeft);
+    const overlapY = Math.min(playerBottom - brickTop, brickBottom - playerTop);
+    
+    if (overlapX > 0 && overlapY > 0) {
+        // Resolve along the axis of least penetration
+        if (overlapX < overlapY) {
+            // Horizontal collision
+            if (player.vx > 0) { // Moving right into brick
+                player.x = brickLeft - player.width + buffer;
+            } else { // Moving left into brick
+                player.x = brickRight - buffer;
+            }
+            player.vx = 0;
         } else {
-            player.x = brickObject.x + brickObject.sizeX;
-        }
-        player.vx = 0;
-    } else {
-        // Vertical collision
-        if (player.y < brickObject.y) {
-            player.y = brickObject.y - player.height;
-            player.vy = 0;
-            player.onGround = true; // Add this state to your Player class
-        } else {
-            player.y = brickObject.y + brickObject.sizeY;
-            player.vy = 0;
+            // Vertical collision
+            if (player.vy > 0) { 
+                player.y = brickTop - player.height + buffer;
+                player.vy = 0;
+                player.onGround = true;
+            } else { // Hitting brick from below, even though there wont be a need for it
+                player.y = brickBottom - buffer;
+                player.vy = 0;
+            }
         }
     }
 }
@@ -300,11 +310,12 @@ function getCollidableObjects(levelObjects) {
 }
 
 
-function showLoadingScreen(){
+function showLoadingScreen(show){
     let loading = document.getElementsByClassName("loadingScreen")
-    return loading
+    if(loading){
+        loading.style.display = show ? "flex":"none"
+    }
 }
-
 
 
 
