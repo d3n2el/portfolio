@@ -10,6 +10,7 @@ const player = new Player(Canvas)
 export {player}
 const characterKey = "character"
 let Background, ui
+let isTransitionScreen;
 const loadPromises = [
     imageLoader.LoadImage(characterKey, "images/mepixBig.png"),
     // load ground first since its the base
@@ -53,10 +54,7 @@ const loadPromises = [
 
     imageLoader.LoadImage('PC', "images/pc.png"),
 
-    imageLoader.LoadImage('Leaf', "images/leaf.png")
-
-
-    
+    imageLoader.LoadImage('Leaf', "images/leaf.png")  
 ]
 const levelData = [
     {
@@ -107,13 +105,11 @@ const levelData = [
             { key: "BrickTile", x: 8530, y: 770, sizeX: 30, sizeY: 30 },
             { key: "BrickTile", x: 8530, y: 740, sizeX: 30, sizeY: 30 },
             { key: "BrickTile", x: 8530, y: 710, sizeX: 30, sizeY: 30 },
-            { key: "BrickTile", x: 8530, y: 680, sizeX: 30, sizeY: 30 },
-            
+            { key: "BrickTile", x: 8530, y: 680, sizeX: 30, sizeY: 30 },  
             { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
             {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700}
             
         ],
-        // now gotta group the text for 1st level
         textBlocks: [
             { text: "Daniel's Life", x:300, y:200,color:"black", size:68},
             {text:"I’m currently 17.\nI study in a Linguistic School in Treviso \nI have many hobbies and interests\nand I take pride in wanting to become a Polymath.", x:2000, y:200},
@@ -124,7 +120,18 @@ const levelData = [
             {text:"CONGRATULATIONS!!", x:8000, y:200,color:"black",size: 68},
             {text:"(P.s There might be easter eggs hidden ;) ",x:8000, y:250}
         ],
-        levelEndFlag: { x: 8700, y: 460, sizeX: 400, sizeY: 400 } // Redundant but explicit
+        levelEndFlag: { x: 8700, y: 460, sizeX: 400, sizeY: 400 } 
+        
+    },{
+        textBlocks: [
+            {text: "Level “Younger Years” Finished.", x: 1000, y: 200, color: "#A40202", size: 70},
+            {text: "Do you wish to continue to level “Adolescence”?", x: 1000, y: 400, color: "#A40202", size: 50},
+            {text: "-Yes_", x: 1000, y: 700, color: "#A40202", size: 50},
+            {text: "No[EXIT]", x: 1000, y: 850, color: "#A40202", size: 50},
+        ],
+        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
+        isTransitionScreen: true
+        
     },
     {
         name: "Adolescence",
@@ -309,15 +316,59 @@ function getCollidableObjects(levelObjects) {
     return levelObjects.filter(obj => collidableKeys.includes(obj.key));
 }
 
-
+// it now works, now i need to make sure there is an actual ending of screen 
 function showLoadingScreen(show){
-    let loading = document.getElementsByClassName("loadingScreen")
+    let loading = document.getElementById("loadingScreen")
     if(loading){
         loading.style.display = show ? "flex":"none"
     }
 }
 
+function endScreen(currentLevel){
+    // i will make comments to guide myself through the process of creating an end screen
+    //when gamelevel goes up, i need to call it
+    // each level should have similar but different end screens
+    // each one should have a button to continue with the game and one to quit
+    // had a brilliant idea, should just add them to level data, so that it progresses right
+    // once i click continue button, gamelevel should do ++
+    // all of this should be valid 
+    // Clear the canvas
+    ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+    
+    // Draw all text blocks
+    currentLevel.textBlocks.forEach(textBlock => {
+        ui.DrawWorldText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
+    });
+    
+    // Set up click handler (only for transition screens)
+    if (currentLevel.isTransitionScreen) {
+        Canvas.addEventListener('click', handleTransitionClick, { once: true });
+    }
+}
 
+function handleTransitionClick(event) {
+    const rect = Canvas.getBoundingClientRect(); //straight up from google cuz idk complicated syntax like this
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    
+    // Check if click was on "Yes" option to then sed player to next level
+    if (x > 1000 && x < 1200 && y > 700 && y < 750) {
+        // Continue to next level
+        gameLevel++;
+        currentLevel = levelData[gameLevel];
+        player.x = currentLevel.playerStartX;
+        player.y = currentLevel.playerStartY;
+        player.cameraX = 0;
+        update();
+    } 
+    // Check if click was on "No" option to alert thanks and then redirect to index to let user make choice again
+    else if (x > 1000 && x < 1200 && y > 850 && y < 900) {
+        // Exit the game
+        alert("Thanks for playing!")
+        window.location.href = "index.html";
+    }
+}
+// made the functions and hopefully they work, now need to change the code elsewhere. will commit
 
 
 
