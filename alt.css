@@ -87,15 +87,38 @@ but at least with comments i remember what they do */
             will-change: transform, background-color, border-color; /* tells browser to prepare for animation, beter to avoid lag between animations and ruing the aesthetics */
 
  }
-.circle-button .plus-icon /* write both classes to be more specific, REMEMBER TO ALWAYS DO THIS */{
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 100;
-    line-height: 1;
-    color: var(--primary-text-color);
-    position: absolute;  /* in opposition to the reltive position of circle, future me DO NOT CHANGE */
-    transition: opacity var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease); /* animate only opacity and transform */
+ /* now i'll code the lines and AFTER i will understand how i want to animate it all */
+.circle-button .plus-lines-container {
+    position: absolute;
+    top: 50%; /* middle circle */
+    left: 50%; /* same reason as before*/
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    opacity: 1; 
+}
+.circle-button .plus-line { /* class to avoid duplicate code in both lines, which is always good pratice afaik */
+    position: absolute;
+    background-color: var(--primary-text-color);
+    border-radius: 1px;
+    transition: transform var(--transition-speed) var(--transition-ease);
+}
+.circle-button .plus-line-horizontal{
+    width: 100%;
+    height: 2px; /* should be line thickness so i'll make it really thin */
+    top: 50%;
+    left: 0%; /*since it needs to be horizontal and touch the corners*/
+    transform: translateY(-50%); /* otherwise it will start drawing from the half and thus not be truly centered*/
 }
 
+.circle-button .plus-line-vertical{
+    height: 100%;
+    width: 2px;
+    left: 50%;
+    top:0%;
+    /* same but opposite*/
+    transform: translateX(-50%); 
+}
 .circle-button .explore-text {
     font-size: clamp(0.8rem, 2vw, 1rem);
     font-weight: 400;
@@ -112,17 +135,19 @@ but at least with comments i remember what they do */
     border-color: var(--primary-text-color);
     transform: scale(1.05);
 }
-.circle-button:hover .plus-icon {
+.circle-button:hover .plus-icon {  /* make plus disappear vertically and make explore text appear vertically */
     opacity: 0;
     transform: translateY(-100%);
 }
 .circle-button:hover .explore-text {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0); /*change the value to completely out of object to normal to make it appear */
     color: var(--secondary-text-color);
 }
-
-
+.circle-button:hover .plus-lines-container {
+    opacity: 0; /* + sign disappears*/
+    transform: translate(-50%, -150%); /* Moves the plus sign off-screen upwards */
+}
 
 
 
