@@ -1,0 +1,218 @@
+:root {
+    --primary-text-color: #1a1a1a;
+    --transition-ease: ease;
+    --transition-speed: 0.3s;
+    --secondary-text-color: #f7f7f7;
+    --border-radius-full: 9999px;
+    --background-dark: #1a1a1a;
+    --accent-color: #555555;
+
+}
+
+
+
+
+
+.jost-name-font {
+  font-family: "Jost", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 100;
+  font-style: normal;
+}
+body.jost-name-font{
+    font-family: inherit;
+    font-optical-sizing: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+}
+/* background animation */
+@keyframes subtle-fade { 
+    0% { background-color: #f7f7f7; }
+    50% { background-color: #f9f9f9; }
+    100% { background-color: #f7f7f7; }
+}
+body.animated-bg {
+    animation: subtle-fade 15s infinite alternate;
+}
+.main-name {
+    font-size: clamp(8rem, 20vw, 16rem); /* this line is straight from google, i believe (the rest are from me dw */
+    font-weight: 400; /* way too bold otherwise, want something more sleek */
+    color: --primary-text-color;
+    line-height: 0.8; 
+    letter-spacing: -0.04em; 
+    margin-bottom: 0; 
+    cursor: default; 
+    transition: color var(--transition-speed) var(--transition-ease); 
+    width: 100%;
+    max-width: none;
+    text-align: center;
+}
+.container-center {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding-bottom: 15vh; 
+}
+/* will add tons of comments because im looking up a lot of syntax on google and so i will start with some values, end up with others
+but at least with comments i remember what they do */
+ .circle-button {
+            width: clamp(60px, 10vw, 100px); 
+            height: clamp(60px, 10vw, 100px);
+            border: 2px solid var(--primary-text-color); /* border style, need to define all the variables later in roots */
+            border-radius: var(--border-radius-full);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            cursor: pointer; /* to make people comprehend that its a button to CLICK */
+            position: relative;
+            overflow: hidden; 
+            appearance: none; 
+            -webkit-appearance: none; /* remove browser interference */
+            touch-action: manipulation; /* tell browser  how to handle input, manip is to tell things like zooming are handled by the page so avoid 2 tap to zoom etc */
+            transition: all var(--transition-speed) var(--transition-ease);
+            will-change: transform, background-color, border-color; /* tells browser to prepare for animation, beter to avoid lag between animations and ruing the aesthetics */
+
+ }
+.circle-button .plus-icon /* write both classes to be more specific, REMEMBER TO ALWAYS DO THIS */{
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 100;
+    line-height: 1;
+    color: var(--primary-text-color);
+    position: absolute;  /* in opposition to the reltive position of circle, future me DO NOT CHANGE */
+    transition: opacity var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease); /* animate only opacity and transform */
+}
+
+.circle-button .explore-text {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-weight: 400;
+    color: var(--primary-text-color);
+    opacity: 0;
+    transform: translateY(100%);
+    position: absolute;
+    transition: opacity var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease);
+}
+
+/* Hover states for circle button */
+.circle-button:hover {
+    background-color: var(--primary-text-color);
+    border-color: var(--primary-text-color);
+    transform: scale(1.05);
+}
+.circle-button:hover .plus-icon {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+.circle-button:hover .explore-text {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--secondary-text-color);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.languageSlide {
+    color: #C2DF43;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.businessSlide {
+    color: #000;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+}
+.sportSlide {
+    color: #C22929;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.socialMediaSlide {
+    color: #B18355;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.psychologySlide {
+    color: #A53AC9;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.travelingSlide {
+    color: #DCE2B3;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.computerScienceSlide {
+    color: #9499EF;
+    font-family: TIMMONS_NY_FINAL;
+    font-size: 250px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+.imageSlide {
+    width: 1014px;
+    height: 675px;
+    flex-shrink: 0;
+    aspect-ratio: 338/225;
+    border-radius: 129px;
+}
