@@ -167,6 +167,32 @@ but at least with comments i remember what they do */
 .main-name:hover {
     color: var(--accent-color)
 }
+
+.rectangle-button {
+    width: clamp(100px, 20vw, 200px);
+    height: clamp(60px,10vw,100px);
+    border-radius: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 50px;
+    position: relative;
+    background-color: var(--accent-color);
+    cursor: pointer;
+    overflow: hidden;
+}
+.rectangle-button .fun-circle{
+    width: clamp(60px,10vw,100px);
+    height: clamp(60px,10vw,100px);
+    border-radius: var(--border-radius-full);
+    color: #FF36CD;
+    position: absolute;
+    left: 0%;
+    transition: transform var(--transition-ease);
+}
+
+
+
 .slides-overlay {
     position: fixed;
     top: 0%;
