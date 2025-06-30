@@ -61,7 +61,7 @@ const levelData = [
         // still cant jump and missing and can go right through bricks
         name: "My life pt.1",
         playerStartX: 100,
-        playerStartY: Canvas.height - 210, // Assuming ground level
+        playerStartY: Canvas.height - 200, // Assuming ground level
         objects: [
             // Images for 1st level
             { key: "hospital", x: 2000, y: 350, sizeX: 800, sizeY: 800 },
@@ -136,7 +136,7 @@ const levelData = [
     {
         name: "Adolescence",
         playerStartX: 100,
-        playerStartY: Canvas.height - 210,
+        playerStartY: Canvas.height - 300,
         objects: [
             {key:"FrenchFlag", x:17000 ,y:550,sizeX:400 ,sizeY:400},
             { key: "FinalFlag",x: 20000 ,y:460,sizeX: 400 ,sizeY:400},
@@ -193,7 +193,7 @@ const levelData = [
         // movement doesnt work here. It was because of missing final flag
         name: "My life pt.3",
         playerStartX: 100,
-        playerStartY: Canvas.height - 210, 
+        playerStartY: Canvas.height - 300, 
         objects:[
             {key:"Leaf", x:6800, y:300, sizeX: 150, sizeY: 150},
             {key:"FinalFlag", x:12000, y:460, sizeX: 400, sizeY: 400},
@@ -249,7 +249,7 @@ function update(){
     const brickTiles = getBrickTiles(currentLevel.objects);
     // check if player is colliding with bricks
     const prevX = player.x
-    const prevyY = player.y
+    const prevY = player.y
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     player.update()
     // trying out differet orders to see if things would change or not
@@ -257,23 +257,15 @@ function update(){
     // so of course it doesnt see the collisions
     const collidingBrick = player.checkCollisions(brickTiles);
     let playerIsOnBrick = false
-
+// debugging, will eliminate later
+ctx.fillStyle = 'red';
+ctx.fillRect(0, player.ground, Canvas.width, 2); // Ground line
+ctx.fillStyle = 'blue';
+ctx.fillRect(player.x - player.cameraX, player.y, 5, 5);
     if (collidingBrick) {
         handleBrickCollision(collidingBrick);
-        const playerBottom = player.y + player.height
-        const brickTop = collidingBrick
-        
-        if(Math.abs(playerBottom - brickTop) < 10){
-            playerIsOnBrick = true
         }
-    }
-    if(!playerIsOnBrick) {
-        if(player.y + player.height >= player.ground){
-            player.onGround = true
-            player.y = player.ground - player.height
-            player.vy = 0
-        }
-    }
+
 
     currentLevel.objects.forEach(obj => {
         Background.DrawImage(obj.key, obj.x, obj.y, obj.sizeX, obj.sizeY);
@@ -284,7 +276,13 @@ function update(){
     const character = imageLoader.getImage(characterKey);
         //actually draw image on canvas
     if(character){
-        ctx.drawImage(character, player.x - player.cameraX,player.y,100,100);
+        ctx.drawImage(
+        character, 
+        player.x - player.cameraX, 
+        player.y - (player.height - 100), 
+        100, 
+        100
+    );
     }
        
     Background.DrawGround(player.cameraX)
@@ -348,7 +346,7 @@ function handleBrickCollision(brickObject) {
                 player.vy = 0;
                 player.onGround = true;
             } else { // Hitting brick from below, even though there wont be a need for it
-                player.y = brickBottom - buffer;
+                player.y = brickBottom;
                 player.vy = 0;
             }
         }
@@ -417,6 +415,8 @@ function handleTransitionClick(event) {
         window.location.href = "index.html";
     }
 }
+console.log(`Player Y: ${player.y}, Ground: ${player.ground}`);
+console.log(`Canvas height: ${Canvas.height}`);
 
 // made the functions and hopefully they work, now need to change the code elsewhere. will commit
 

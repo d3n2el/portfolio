@@ -7,15 +7,15 @@ export class Player{
         this.vx =  0;
         this.vy = 0;
 //gravity is just the character slowly coming back to the ground if it is in the air
-        this.gravity = 0.5;
+        this.gravity = 0.3;
         this.Canvas = Canvas
 // would be good to create a ground variable to know when I reach it
-        this.ground = Canvas.height - 200
+        this.ground = Canvas.height - 100;
         //need to make this dynamic and not static to allow scrolling
         this.xLimit = Canvas.width - this.cameraX
         this.NegativeXLimit = 100 - Canvas.width
-        this.y = 0;
-        this.x = 6000 // remember to change after testing
+        this.y = this.ground - this.height;
+        this.x = 100 // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
         this.jumpForce = -10
@@ -31,16 +31,26 @@ export class Player{
         this.prevX = this.x
         this.prevY = this.y
         this.vy += this.gravity;
-        const newX = this.x + this.vx
-        const newY = this.y + this.vy
-        this.onGround = false
-        this.x = newX
-        this.y = newY
+        this.x += this.vx
+        this.y  += this.vy
+
+        // KEEP the ground collision here as a fallback
+        if (this.y + this.height >= this.ground) {
+            this.y = this.ground - this.height;
+            this.vy = 0;
+            this.onGround = true;
+        } else {
+            // Brick collisions will override this if needed
+                this.onGround = false;
+        }
+        if(this.y > this.ground){
+            this.y = this.ground - this.height
+            }
         // Screen boundarie,
         if (this.x < 0) this.x = 0;
         if (this.x > this.xLimit) this.x = this.xLimit; 
         //wanna create a camera so that it centers the character, just so that it is like old school mario and overall because it is prettier
-        this.cameraX = Math.max(0, this.x - this.Canvas.width / 2)
+        this.cameraX = Math.max(0, this.x - this.Canvas.width / 3)
     }
     //create jump function so that it is permitted to jump only when on ground level
     // changing things up broke my jump function, will now try to understand where the problem is and change things up
@@ -127,7 +137,7 @@ export class background{
                 const tileWidth = 15
                 const tileHeight = 15
                 //make sure it only reaches ground level
-                const groundLevel = this.canvasHeight - 100
+                const groundLevel = player.ground
                 //calculate how many tiles you actually need
                 const firstTile = Math.floor(cameraX / tileWidth);
                 const tilesNeeded = Math.ceil(this.canvasWidth/ tileWidth) + 1;
