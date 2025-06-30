@@ -21,31 +21,21 @@ export class Player{
         this.jumpForce = -10
         this.width = 100
         this.height = 100
-        this.onGround = 
+        this.onGround = false
         this.collisionBuffer = 2
         //want to try a new system to see if i can still improve collision
         this.prevX = this.x
         this.prevY = this.y
     }
     update(){
-        this.onGround = true
         this.prevX = this.x
         this.prevY = this.y
         this.vy += this.gravity;
-        this.x += this.vx;
-        this.y += this.vy;
-        // Ground collision
-        if (this.y >= this.ground) {
-            this.y = this.ground;
-            this.vy = 0
-            this.onGround= true
-        }
-        else{
-            if(this.vy > 0.1){
-                this.onGround = false
-            }
-        }
-
+        const newX = this.x + this.vx
+        const newY = this.y + this.vy
+        this.onGround = false
+        this.x = newX
+        this.y = newY
         // Screen boundarie,
         if (this.x < 0) this.x = 0;
         if (this.x > this.xLimit) this.x = this.xLimit; 
@@ -60,12 +50,7 @@ export class Player{
             this.onGround = false
         }
     }
-
-
-    //addding new function to check if player is colliding with objects like bricks and others
-    // this is extremely important to auctually make some kind of platformer
-    //and also to make sure the final flag actually means end of level
-    //did not have this.width and height defined....
+    // collision detection
     isCollidingWith(otherObject) {
     // First check if objects are potentially in the same area since i dont know how else to improve my current code
     // i've got zero ideas whatsoever, at least im improving performance this way

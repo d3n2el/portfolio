@@ -245,17 +245,36 @@ function update(){
         endScreen(currentLevel);
         return; // to stop game and start end screen
         }
+
     const brickTiles = getBrickTiles(currentLevel.objects);
     // check if player is colliding with bricks
-    const collidingBrick = player.checkCollisions(brickTiles);
-    if (collidingBrick) {
-        handleBrickCollision(collidingBrick);
-        player.onGround = true
-    }
-    const prevX = player.x;
-    const prevY = player.y;
+    const prevX = player.x
+    const prevyY = player.y
     ctx.clearRect(0,0,Canvas.width, Canvas.height)
     player.update()
+    // trying out differet orders to see if things would change or not
+    // my theory is that it aint working cuz it checks for collisions before movement
+    // so of course it doesnt see the collisions
+    const collidingBrick = player.checkCollisions(brickTiles);
+    let playerIsOnBrick = false
+
+    if (collidingBrick) {
+        handleBrickCollision(collidingBrick);
+        const playerBottom = player.y + player.height
+        const brickTop = collidingBrick
+        
+        if(Math.abs(playerBottom - brickTop) < 10){
+            playerIsOnBrick = true
+        }
+    }
+    if(!playerIsOnBrick) {
+        if(player.y + player.height >= player.ground){
+            player.onGround = true
+            player.y = player.ground - player.height
+            player.vy = 0
+        }
+    }
+
     currentLevel.objects.forEach(obj => {
         Background.DrawImage(obj.key, obj.x, obj.y, obj.sizeX, obj.sizeY);
     });
@@ -293,10 +312,10 @@ function getBrickTiles(levelObjects) {
 function handleBrickCollision(brickObject) {
     const buffer = player.collisionBuffer; // hopeefully buffring wll solve the phasing cuz that shit annoying af
     // Calculate player bounds with buffer
-    const playerLeft = player.x + buffer;
-    const playerRight = player.x + player.width - buffer;
-    const playerTop = player.y + buffer;
-    const playerBottom = player.y + player.height - buffer;
+    const playerLeft = player.x;
+    const playerRight = player.x + player.width;
+    const playerTop = player.y;
+    const playerBottom = player.y + player.height;
     
     // Calculate brick bounds to then actually check collision
     const brickLeft = brickObject.x;
@@ -305,23 +324,27 @@ function handleBrickCollision(brickObject) {
     const brickBottom = brickObject.y + brickObject.sizeY;
     
     // Calculate overlap on both axis
-    const overlapX = Math.min(playerRight - brickLeft, brickRight - playerLeft);
-    const overlapY = Math.min(playerBottom - brickTop, brickBottom - playerTop);
+    const overlapLeft = playerRight - brickLeft
+    const overlapRight = brickRight - playerLeft
+    const overlapTop = playerBottom - brickTop
+    const overlapBottom = brickBottom - playerTop
+
+    const minOverlapX = Math.min(overlapLeft - overlapRight);
+    const minOverlapY = Math.min(overlapTop - overlapBottom);
     
-    if (overlapX > 0 && overlapY > 0) {
         // Resolve along the axis of least penetration
-        if (overlapX < overlapY) {
+        if (minOverlapX < minOverlapY) {
             // Horizontal collision
-            if (player.vx > 0) { // Moving right into brick
-                player.x = brickLeft - player.width + buffer;
+            if (overlapLeft < overlapRight) { // Moving right into brick
+                player.x = brickLeft - player.width;
             } else { // Moving left into brick
-                player.x = brickRight - buffer;
+                player.x = brickRight;
             }
             player.vx = 0;
         } else {
             // Vertical collision
-            if (player.vy > 0) { 
-                player.y = brickTop - player.height + buffer;
+            if (overlapTop < overlapBottom) { 
+                player.y = brickTop - player.height;
                 player.vy = 0;
                 player.onGround = true;
             } else { // Hitting brick from below, even though there wont be a need for it
@@ -330,7 +353,6 @@ function handleBrickCollision(brickObject) {
             }
         }
     }
-}
 
 function getCollidableObjects(levelObjects) {
     const collidableKeys = ['BrickTile', 'hospital', 'house'];
