@@ -10,7 +10,7 @@ const player = new Player(Canvas)
 export {player}
 const characterKey = "character"
 let Background, ui
-let isTransitionScreen;
+let isTransitionScreen = false;
 const loadPromises = [
     imageLoader.LoadImage(characterKey, "images/mepixBig.png"),
     // load ground first since its the base
@@ -124,10 +124,10 @@ const levelData = [
         
     },{
         textBlocks: [
-            {text: "Level “Younger Years” Finished.", x: 1000, y: 200, color: "#A40202", size: 70},
-            {text: "Do you wish to continue to level “Adolescence”?", x: 1000, y: 400, color: "#A40202", size: 50},
-            {text: "-Yes_", x: 1000, y: 700, color: "#A40202", size: 50},
-            {text: "No[EXIT]", x: 1000, y: 850, color: "#A40202", size: 50},
+            {text: "Level “Younger Years” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
+            {text: "Do you wish to continue to level “Adolescence”?", x: 500, y: 400, color: "#A40202", size: 50},
+            {text: "-Yes_", x: 500, y: 600, color: "#A40202", size: 50},
+            {text: "-No[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
         ],
         levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
         isTransitionScreen: true
@@ -178,6 +178,16 @@ const levelData = [
             { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 17000, y: 300},        
         ],
         levelEndFlag: { x: 20000, y: 460, sizeX: 400, sizeY: 400 } //found the problem
+    },{
+        textBlocks: [
+            {text: "Level “Adolescence” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
+            {text: "Do you wish to continue to level “Dreams and Aspirations”?", x: 500, y: 400, color: "#A40202", size: 50},
+            {text: "-Yes_", x: 500, y: 600, color: "#A40202", size: 50},
+            {text: "-No[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
+        ],
+        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
+        isTransitionScreen: true
+
     },
     {
         // movement doesnt work here. It was because of missing final flag
@@ -198,6 +208,15 @@ const levelData = [
         ],
         levelEndFlag: { x: 12000, y: 460, sizeX: 400, sizeY: 400 }
 
+    },
+    {
+            textBlocks: [
+            {text: "Level “Dreams and Aspirations” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
+            {text: "Congratulations, you finished the game!", x: 500, y: 400, color: "#A40202", size: 70},
+            {text: "-[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
+        ],
+        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
+        isTransitionScreen: true
     }
 
 ]
@@ -222,6 +241,10 @@ function update(){
      const finalFlagObject = currentLevel.levelEndFlag
     //need to substitute rectangle with my character
     // get how many tiles are there
+    if (currentLevel.isTransitionScreen) {
+        endScreen(currentLevel);
+        return; // to stop game and start end screen
+        }
     const brickTiles = getBrickTiles(currentLevel.objects);
     // check if player is colliding with bricks
     const collidingBrick = player.checkCollisions(brickTiles);
@@ -246,6 +269,7 @@ function update(){
     }
        
     Background.DrawGround(player.cameraX)
+
     // check flag collision and then load new level
     if(player.isCollidingWith({
         x: finalFlagObject.x - (player.x - prevX),
@@ -254,11 +278,8 @@ function update(){
         sizeY: finalFlagObject.sizeY,
     })){
         if(gameLevel < levelData.length - 1) {
-            gameLevel++
-            currentLevel = levelData[gameLevel]
-            player.x = currentLevel.playerStartX
-            player.y = currentLevel.playerStartY
-            player.cameraX = 0
+        endScreen(levelData[gameLevel + 1])
+        return; 
     }}
     console.log(`Player Y: ${player.y}, Ground: ${player.ground}, OnGround: ${player.onGround}`);
     requestAnimationFrame(update)
@@ -325,6 +346,8 @@ function showLoadingScreen(show){
 }
 
 function endScreen(currentLevel){
+    isTransitionScreen = true
+     Canvas.style.cursor = 'pointer'
     // i will make comments to guide myself through the process of creating an end screen
     //when gamelevel goes up, i need to call it
     // each level should have similar but different end screens
@@ -337,7 +360,7 @@ function endScreen(currentLevel){
     
     // Draw all text blocks
     currentLevel.textBlocks.forEach(textBlock => {
-        ui.DrawWorldText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
+        ui.DrawUIText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
     });
     
     // Set up click handler (only for transition screens)
@@ -347,29 +370,33 @@ function endScreen(currentLevel){
 }
 
 function handleTransitionClick(event) {
-    const rect = Canvas.getBoundingClientRect(); //straight up from google cuz idk complicated syntax like this
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    if(!isTransitionScreen) return;
+    const canvasRect = Canvas.getBoundingClientRect();
+    const scaleX = Canvas.width / canvasRect.width;
+    const scaleY = Canvas.height / canvasRect.height;
     
-    // Check if click was on "Yes" option to then sed player to next level
-    if (x > 1000 && x < 1200 && y > 700 && y < 750) {
-        // Continue to next level
+    const x = (event.clientX - canvasRect.left) * scaleX;
+    const y = (event.clientY - canvasRect.top) * scaleY;
+    console.log("Clicked at:", x, y);
+    // Check "Yes" button click to then get user to next level
+    if (x > 480 && x < 720 && y > 580 && y < 670) {
         gameLevel++;
         currentLevel = levelData[gameLevel];
         player.x = currentLevel.playerStartX;
         player.y = currentLevel.playerStartY;
         player.cameraX = 0;
+        isTransitionScreen = false;
+        Canvas.style.cursor = 'default';
         update();
     } 
-    // Check if click was on "No" option to alert thanks and then redirect to index to let user make choice again
-    else if (x > 1000 && x < 1200 && y > 850 && y < 900) {
-        // Exit the game
-        alert("Thanks for playing!")
+    // Check "No" button click to then get back to start
+    else if (x > 480 && x < 730 && y > 700 && y < 820) {
+        alert("Thanks for playing!");
         window.location.href = "index.html";
     }
 }
+
 // made the functions and hopefully they work, now need to change the code elsewhere. will commit
 
-
-
+//wdwd
      // Reminder for self: cannot get favicon, dont even know what is rn

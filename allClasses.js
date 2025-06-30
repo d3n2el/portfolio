@@ -18,17 +18,17 @@ export class Player{
         this.x = 6000 // remember to change after testing
         this.cameraX = 0
         // variable jumpforce to determine how big of a jump
-        this.jumpForce = -18
+        this.jumpForce = -10
         this.width = 100
         this.height = 100
-        this.onGround = false
+        this.onGround = 
         this.collisionBuffer = 2
         //want to try a new system to see if i can still improve collision
         this.prevX = this.x
         this.prevY = this.y
     }
     update(){
-        this.onGround = false
+        this.onGround = true
         this.prevX = this.x
         this.prevY = this.y
         this.vy += this.gravity;
@@ -40,6 +40,12 @@ export class Player{
             this.vy = 0
             this.onGround= true
         }
+        else{
+            if(this.vy > 0.1){
+                this.onGround = false
+            }
+        }
+
         // Screen boundarie,
         if (this.x < 0) this.x = 0;
         if (this.x > this.xLimit) this.x = this.xLimit; 
@@ -49,7 +55,7 @@ export class Player{
     //create jump function so that it is permitted to jump only when on ground level
     // changing things up broke my jump function, will now try to understand where the problem is and change things up
     jump(){
-        if(this.onGround == true){
+        if(this.onGround){
             this.vy = this.jumpForce
             this.onGround = false
         }
@@ -178,6 +184,21 @@ export class UI {
         }
         };
     }
+    // after thinking for a while, i realized that draw world text moves with player's camera so I need something
+    // fixed like hud for the transition screes
+    DrawUIText(text,x,y,color = "black", size = 30){
+        this.ctx.font = `${size}px Italiana`
+        this.ctx.fillStyle = color
+        const lines = text.split("\n")
+        const lineHeight = size+5
+        for( let i = 0; i < lines.length; i++){
+            const line =lines[i]
+            if(line){
+                this.ctx.fillText(lines[i],x,y +(i * lineHeight))
+            }
+        }
+    }
+
     // made a function to draw images so that i can just pass things through here everytime without having to write everything everytime
     // just discovered it draws images like HUD so cant really use it for background. will keep this for hud elements that i will add ater on and create new class
     // in background for background images ig

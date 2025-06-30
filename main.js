@@ -6,10 +6,10 @@
     const YesButton =document.getElementById("YesOption")
     const NoButton = document.getElementById("NoOption") 
     YesButton.addEventListener("click" , function(){
-        window.location.href = "https://www.lialindaniel.com/game"
+        window.location.href = "game.html"
     })    
     NoButton.addEventListener("click" , function(){
-        window.location.href = "https://www.lialindaniel.com/altpage"
+        window.location.href = "alt.html"
     })
     // else, redirect to alt page
     //then everything else should have it's own js  and css file)

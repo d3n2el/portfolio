@@ -7,6 +7,8 @@
     --background-dark: #1a1a1a;
     --accent-color: #555555; 
     --background-light: #f5f5f5;
+    --slide-transition-speed: 07s;
+    --slide-transition-ease: ease-out
 
 }
 /* should apply to all html, I really want to remove the scrolling that is occuring rn */
@@ -174,22 +176,32 @@ but at least with comments i remember what they do */
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10; /* so that its at top*/
     opacity: 0; /* so that it is hidden at start, will change after when + is clicked*/
     visibility: hidden; /*same reason*/
     transition: opacity 0.5s ease, visibility 0.5s ease;
+    pointer-events: none;
 }
 .slides-overlay.visible {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
 
 .slides-container {
     position: relative; 
-    width: 100%;
-    height:100%;
+    width: 100vh;
+    height:100vh;
+    max-width: none;
+    max-height: none;
     background-color: var(--background-light);
+    border-radius: 0;
+    box-shadow: none;
     overflow: hidden; /* in case it overflows during transitions*/
     display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
 }
 .slide-item {
     position: absolute;
@@ -201,91 +213,116 @@ but at least with comments i remember what they do */
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
+     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    background-color: var(--background-light);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.slide-item.active{
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 20;
+}
+/* styling paragraph in slide-item */
+.slide-item p{
+    font-size: clamp(0.9rem, 2vw, 1.1rem); 
+    line-height: 1.6; 
+    max-width: 800px; 
+    margin-bottom: 1rem; 
+    font-family: "JetBrains Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 
 
 
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--accent-color);
+    border-radius: var(--border-radius-full);
+    color: var(--primary-text-color);
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+    appearance: none;
+    -webkit-appearance: none;
+    touch-action: manipulation;
+}
+.nav-button:hover{
+    background-color: var(--background-dark);
+    color: var(--secondary-text-color);
+}
+.nav-button:disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+    color: var(--primary-text-color);
+    background-color: var(--background-light);
+}
+.nav-button.prev {
+    left: 2rem;
+}
+
+.nav-button.next {
+    right: 2rem;
+}
 
 
+.close-button {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--primary-text-color);
+  font-size: 2rem;
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.close-button:hover {
+    transform: rotate(90deg); 
+}
 
 
 .title-slide {
-    color: #C2DF43;
     font-family: "TIMMONSNY";
     font-size: 250px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
-
-.businessSlide {
+.title-slide.language{
+    color: #C2DF43
+}
+.title-slide.business {
     color: #000;
-    font-family: TIMMONSNY;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-
 }
-.sportSlide {
+.title-slide.sport {
     color: #C22929;
-    font-family: TIMMONS_NY_FINAL;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
-.socialMediaSlide {
+.title-slide.socialMedia {
     color: #B18355;
-    font-family: TIMMONS_NY_FINAL;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
-.psychologySlide {
+.title-slide.psychology {
     color: #A53AC9;
-    font-family: TIMMONS_NY_FINAL;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 
-.travelingSlide {
+.title-slide.traveling{
     color: #DCE2B3;
-    font-family: TIMMONS_NY_FINAL;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
-.computerScienceSlide {
+.title-slide.computerScience {
     color: #9499EF;
-    font-family: TIMMONS_NY_FINAL;
-    font-size: 250px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }
 .imageSlide {
     width: 1014px;
