@@ -8,7 +8,8 @@
     --accent-color: #555555; 
     --background-light: #f5f5f5;
     --slide-transition-speed: 07s;
-    --slide-transition-ease: ease-out
+    --slide-transition-ease: ease-out;
+    --fun-color: #FF36CD;
 
 }
 /* should apply to all html, I really want to remove the scrolling that is occuring rn */
@@ -173,24 +174,27 @@ but at least with comments i remember what they do */
     height: clamp(60px,10vw,100px);
     border-radius: 50px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     align-items: flex-start;
     padding-left: 50px;
     position: relative;
-    background-color: var(--accent-color);
+    background-color: var(--background-dark);
     cursor: pointer;
     overflow: hidden;
 }
 .rectangle-button .fun-circle{
-    width: clamp(60px,10vw,100px);
+    width: clamp(30px,5vw,50px);
     height: clamp(60px,10vw,100px);
     border-radius: var(--border-radius-full);
-    color: #FF36CD;
+    background-color: var(--accent-color);
+    z-index: 2;
     position: absolute;
     left: 0%;
     transition: transform var(--transition-ease);
 }
-
+.rectangle-button.active ~ .main-name {
+    color: var(--fun-color);
+}
 
 
 .slides-overlay {
