@@ -3,6 +3,8 @@ const prevButton = document.getElementById("prevButton")
 const nextButton = document.getElementById("nextButton")
 const slidesOverlay = document.getElementById("slides-overlay")
 const closeOverlayButton = document.getElementById("close-button")
+const funButton = document.getElementById("fun-button")
+const mainName = document.querySelector(".main-name")
 let currentSlideIndex = 0
 let isAnimating = false // avoid multiple animations later on
 // check when button is clicked
@@ -10,6 +12,13 @@ let isAnimating = false // avoid multiple animations later on
 // after that, I need to say hey, I need the 1st slide at index 0
 // then, call the showslide function to actually display slide-items etc of the current slide
 // should also generate the dots to keep track, will do this last since I might wanna change this
+funButton.addEventListener('click',() =>{
+  funButton.classList.toggle('active');
+
+  if(this.classList.contains('active')){
+    mainName.style
+  }
+})
 ExploreButton.addEventListener('click', () => {
     slidesOverlay.classList.add('visible'); // Make the overlay visible via CSS class.
     currentSlideIndex = 0; // later on useful for dots generations and to know which slide to show

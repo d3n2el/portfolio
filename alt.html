@@ -11,12 +11,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com">
-
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jolly+Lodger&display=swap" rel="stylesheet">
     </head>
         <body class="animated-bg" class="jost-name-font">
         <div class="container-center"> <!-- Naming a lot of classes that will be defined later in css, rn just wanna create html base to avoid clutter-->
-            <h1 class="main-name"> Daniel Lialin</h1>
             <!-- As per design, i will now try to add the button for the explore page, will add class name to then add properties with css. Using Id to then use onclick in js-->
+             <h1 class="main-name"> Daniel Lialin</h1>
              <button id="explore-button" class="circle-button">
                     <span class="plus-lines-container">  <!-- just the + doesnt reflect well enough the figma design, will remake it to make it two thin lines, to keep 
                         the design I had in mind originally-->
@@ -26,10 +28,10 @@
                 <span class="explore-text">Explore</span>
              </button>
              <button id="fun-button" class="rectangle-button">
-                <span class="rectangle-button fun-circle"></span>
-                <h1 class="main-name fun"></h1>
-                
+                <span class="circle-left"></span>
+                <span class="circle-right"></span>
              </button>
+             
         </div>
 
 
@@ -58,6 +60,6 @@
     </div>
 
     <!-- and js at the end  so that at least everything else loades first-->
-    <script src="script.js"></script>
+    <script src="altscreen.js"></script>
         </body>
 </html>

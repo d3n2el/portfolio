@@ -10,6 +10,7 @@
     --slide-transition-speed: 07s;
     --slide-transition-ease: ease-out;
     --fun-color: #FF36CD;
+    --fun-background: #D2D8FF;
 
 }
 /* should apply to all html, I really want to remove the scrolling that is occuring rn */
@@ -58,7 +59,7 @@ body.animated-bg {
     margin-top: auto;
     margin-bottom: auto;
     cursor: default; 
-    transition: color var(--transition-speed) var(--transition-ease); 
+    transition: all var(--transition-speed) var(--transition-ease); 
     width: auto;
     max-width: 100%;
     max-height: 70vh;
@@ -83,6 +84,7 @@ body.animated-bg {
     padding-left: 0;
     padding-right: 0;
     margin: 0;
+    position: relative;
 }
 /* will add tons of comments because im looking up a lot of syntax on google and so i will start with some values, end up with others
 but at least with comments i remember what they do */
@@ -174,33 +176,62 @@ but at least with comments i remember what they do */
     height: clamp(60px,10vw,100px);
     border-radius: 50px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-start;
     padding-left: 50px;
-    position: relative;
+    position: absolute;
     background-color: var(--background-dark);
     cursor: pointer;
     overflow: hidden;
+    left: 10%;
+    bottom: 5vh;
+    transition: all var(--transition-speed) var(--transition-ease);
 }
-.rectangle-button .fun-circle{
+.rectangle-button .circle-left{
     width: clamp(30px,5vw,50px);
-    height: clamp(60px,10vw,100px);
+    height: clamp(30px,5vw,50px);
     border-radius: var(--border-radius-full);
     background-color: var(--accent-color);
     z-index: 2;
     position: absolute;
+    top: 50%;
     left: 0%;
-    transition: transform var(--transition-ease);
+    opacity: 1;
+    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease);
+}
+.rectangle-button .circle-right{
+    width: clamp(60px,10vw,100px);
+    height: clamp(60px,10vw,100px);
+    border-radius: var(--border-radius-full);
+    z-index: 2;
+    position: absolute;
+    right: 5px;
+    top:50%;
+    opacity: 0;
+    background-color: var(--fun-color);
+    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease) ;
+}
+
+.rectangle-button.active .circle-left{
+    opacity: 0;
+    transform: scale(0.5);
+}
+.rectangle-button.active .circle-right{
+    opacity: 1;
+    transform: scale(1);
 }
 .rectangle-button.active ~ .main-name {
     color: var(--fun-color);
+    font-family: "Jolly Lodger", system-ui;
 }
+
+
 
 
 .slides-overlay {
     position: fixed;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
