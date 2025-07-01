@@ -152,7 +152,7 @@ but at least with comments i remember what they do */
     transition: transform var(--transition-speed) var(--transition-ease);
 }
 .circle-button .plus-line-horizontal,
-.nav-button.plus-line-horizontal{
+.nav-button .plus-line-horizontal{
     width: 100%;
     height: 2px; /* should be line thickness so i'll make it really thin */
     top: 50%;

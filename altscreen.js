@@ -27,11 +27,28 @@ ExploreButton.addEventListener('click', () => {
 });
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
+
 });
+
+prevButton.addEventListener('click', () =>{ 
+    if(!isAnimating){
+        moveSlide(-1)  //will need to code this later, now just laying structure
+    }    
+})
+nextButton.addEventListener('click', () =>{
+    if(!isAnimating){
+        moveSlide(1)
+    }
+})
+
 // i will make comments and pseudocode as per usual to guide me through what i need to do
 function showSlide(currentSlideIndex){
   //when this function is caled, I need to make appear the slides items at current 
     const slides = document.querySelectorAll('.slide-item')
+    if(currentSlideIndex < 0 || index >= slides.length){
+        console.error("Slide index outside of bounds. Please check what is happening")
+        return;
+    }
     // hide all slides initially
     slides.forEach(slide => {
         slide.classList.remove('active');
@@ -39,5 +56,18 @@ function showSlide(currentSlideIndex){
     // Show current slide if it exists
     if (slides[currentSlideIndex]) {
         slides[currentSlideIndex].classList.add('active');
+    }
+
+
+    function moveSlide(direction) {
+        // get all slides
+        const slides = document.querySelectorAll('.slide-item');
+        // add variable to keep track of user input and put new index
+        let newIndex = currentSlideIndex = direction;
+
+        if(newIndex >= 0 && newIndex < slides.length){ // error checking to avoid future problems
+            currentSlideIndex = newIndex
+            showSlide(currentSlideIndex)
+        }
     }
 }
