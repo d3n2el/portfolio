@@ -24,6 +24,13 @@ html {
   font-optical-sizing: auto;
   font-weight: 100;
   font-style: normal;
+
+}
+
+.jolly-name-font {
+  font-family: "Jolly Lodger", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 body.jost-name-font{
     font-family: inherit;
@@ -86,6 +93,23 @@ body.animated-bg {
     margin: 0;
     position: relative;
 }
+.button-stack-wrapper {
+    position: relative; /* Establish a positioning context for absolute children */
+    width: clamp(60px, 10vw, 100px); /* Match the dimensions of the buttons inside */
+    height: clamp(60px, 10vw, 100px); /* Match the dimensions of the buttons inside */
+    display: flex; /* Helps in centering the buttons within the wrapper if needed */
+    justify-content: center;
+    align-items: center;
+}
+.circle-button, .star-button {
+    position: absolute; /* Take them out of normal flow and stack them */
+    top: 0;
+    left: 0;
+    /* Ensure they fill the wrapper or are centered within it */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
 /* will add tons of comments because im looking up a lot of syntax on google and so i will start with some values, end up with others
 but at least with comments i remember what they do */
  .circle-button {
@@ -98,7 +122,6 @@ but at least with comments i remember what they do */
             align-items: center;
             background-color: transparent;
             cursor: pointer; /* to make people comprehend that its a button to CLICK */
-            position: relative;
             overflow: hidden; 
             appearance: none; 
             -webkit-appearance: none; /* remove browser interference */
@@ -167,6 +190,46 @@ but at least with comments i remember what they do */
     opacity: 0; /* + sign disappears*/
     transform: translate(-50%, -150%); /* Moves the plus sign off-screen upwards */
 }
+
+.circle-button.active {
+    opacity: 0;
+
+}
+.star-button{
+    width: clamp(60px, 10vw, 100px); 
+    height: clamp(60px, 10vw, 100px);
+    border: 2px solid var(--fun-color);
+    border-radius: var(--border-radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer; 
+    overflow: hidden; 
+    appearance: none; 
+    -webkit-appearance: none; 
+    touch-action: manipulation; 
+    transition: all var(--transition-speed) var(--transition-ease);
+    will-change: transform; 
+    opacity: 0;
+    pointer-events: none;
+}
+.star{
+    font-size: clamp(60px,10vw,100px);
+    color: var(--fun-color);
+}
+.star-button.active{
+    opacity: 1;
+    pointer-events: auto;
+}
+.star:hover {
+    /* Rotates the star 180 degrees, then translates it down by 15px. */
+    /* Adjust '15px' if you need a different vertical alignment. */
+    transform: rotate(180deg) translateY(-15px);
+}
+
+
+
 .main-name:hover {
     color: var(--accent-color)
 }
@@ -187,14 +250,15 @@ but at least with comments i remember what they do */
     bottom: 5vh;
     transition: all var(--transition-speed) var(--transition-ease);
 }
+
 .rectangle-button .circle-left{
-    width: clamp(30px,5vw,50px);
-    height: clamp(30px,5vw,50px);
+    width: clamp(60px,10vw,100px);
+    height: clamp(60px,10vw,100px);
     border-radius: var(--border-radius-full);
     background-color: var(--accent-color);
     z-index: 2;
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0%;
     opacity: 1;
     transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease);
@@ -205,13 +269,17 @@ but at least with comments i remember what they do */
     border-radius: var(--border-radius-full);
     z-index: 2;
     position: absolute;
-    right: 5px;
-    top:50%;
+    margin: 0;
+    padding: 0;
+    right: 0;
+    top:0;
     opacity: 0;
     background-color: var(--fun-color);
     transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease) ;
 }
-
+.rectangle-button.active{
+    background-color: var(--fun-background);
+}
 .rectangle-button.active .circle-left{
     opacity: 0;
     transform: scale(0.5);
@@ -220,9 +288,12 @@ but at least with comments i remember what they do */
     opacity: 1;
     transform: scale(1);
 }
-.rectangle-button.active ~ .main-name {
+.main-name.active {
     color: var(--fun-color);
     font-family: "Jolly Lodger", system-ui;
+}
+.main-name.active:hover {
+    color: var(--fun-background);
 }
 
 
@@ -392,3 +463,4 @@ but at least with comments i remember what they do */
     aspect-ratio: 338/225;
     border-radius: 129px;
 }
+
