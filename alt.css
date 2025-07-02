@@ -240,11 +240,77 @@ but at least with comments i remember what they do */
 }
 .nav-button:hover .plus-line-vertical {
     opacity: 0;
+    transform: translateX(-50%) scaleY(0);
 }
-.nav-button.next:hover .arrow-right-top{
-    
+.nav-button .diagonal-bottom,
+.nav-button .diagonal-top {
+    position: absolute;
+    background-color: var(--primary-text-color);
+    border-radius: 1px;
+    width: 0%;
+    height: 2px;
+    opacity: 0;
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+.nav-button .diagonal-top{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+.nav-button .diagonal-bottom{
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
 
+.nav-button:hover .plus-line-vertical {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0);
 }
+.nav-button:hover .plus-line-horizontal{
+    opacity: 0;
+    width: 0%;
+}
+
+.nav-button.next:hover .diagonal-top{
+    opacity: 1;
+    width: 100%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.nav-button.next:hover .diagonal-bottom{
+    opacity: 1;
+    width: 100%;
+    transform: translate(-505, -50%) rotate(45deg);
+}
+
+.nav-button.prev:hover .diagonal-top{
+    opacity: 1;
+    width: 100%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.nav-button.prev:hover .diagonal-bottom{
+    opacity: 1;
+    width: 100%;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .close-button {
   z-index: 100;
