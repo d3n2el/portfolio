@@ -7,7 +7,7 @@
     --background-dark: #1a1a1a;
     --accent-color: #555555; 
     --background-light: #f5f5f5;
-    --slide-transition-speed: 07s;
+    --slide-transition-speed: 0.7s;
     --slide-transition-ease: ease-out;
     --fun-color: #FF36CD;
     --fun-background: #D2D8FF;
@@ -22,7 +22,7 @@ html {
 .jost-name-font {
   font-family: "Jost", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 100;
+  font-weight: 400;
   font-style: normal;
 
 }
@@ -310,12 +310,13 @@ but at least with comments i remember what they do */
     right: 0;
     width: 100vw;
     height: 100vh;
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 10; /* so that its at top*/
     opacity: 0; /* so that it is hidden at start, will change after when + is clicked*/
     visibility: hidden; /*same reason*/
-    transition: opacity var(--transition-speed) var(--transition-ease) visibility var(--transition-speed) var(--transition-ease);
+    transition: opacity var(--transition-speed) var(--transition-ease), visibility var(--transition-speed) var(--transition-ease);
     pointer-events: none;
 }
 .slides-overlay.visible {
@@ -353,6 +354,7 @@ but at least with comments i remember what they do */
     text-align: center;
     padding: 2rem;
     opacity: 0;
+    transform: translateX(100%);
     transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
      transform var(--slide-transition-speed) var(--slide-transition-ease);
     background-color: var(--background-light);
@@ -362,10 +364,19 @@ but at least with comments i remember what they do */
 }
 
 .slide-item.active{
+    position: relative;
     opacity: 1;
     transform: translateX(0);
     z-index: 20;
 }
+
+.slide-item.active.from-left { /* when moving from left(prev)*/
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+
 /* styling paragraph in slide-item */
 .slide-item p{
     font-size: clamp(0.9rem, 2vw, 1.1rem); 
@@ -376,6 +387,10 @@ but at least with comments i remember what they do */
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+}
+.slide-item h2 {
+    font-size: clamp(2.7rem,6vw,3.3rem);
+
 }
 
 
@@ -431,10 +446,11 @@ but at least with comments i remember what they do */
   color: var(--primary-text-color);
   font-size: 2rem;
   cursor: pointer;
+  transition: transform var(--transition-speed) var(--transition-ease);
 }
 
 .close-button:hover {
-    transform: rotate(90deg); 
+    transform: rotate(90deg) scale(1.1); 
 }
 
 
