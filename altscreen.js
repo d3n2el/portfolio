@@ -6,6 +6,7 @@ const closeOverlayButton = document.getElementById("closeOverlayButton")
 const funButton = document.getElementById("fun-button")
 const mainName = document.querySelector(".main-name")
 const starButton = document.querySelector(".star-button")
+const dotsContainer = document.getElementById("dotsContainer")
 let index = 0
 let isAnimating = false // avoid multiple animations later on
 // check when button is clicked
@@ -18,6 +19,12 @@ funButton.addEventListener('click',() =>{
   mainName.classList.toggle('active'); 
   ExploreButton.classList.toggle('active');
   starButton.classList.toggle('active');
+  prevButton.classList.toggle('active');
+  nextButton.classList.toggle('active');
+  slidesOverlay.classList.toggle('active')
+  closeOverlayButton.classList.toggle('active');
+  dotsContainer.classList.toggle('active');
+  
 })
 ExploreButton.addEventListener('click', () => {
     slidesOverlay.classList.add('visible'); // Make the overlay visible via CSS class.
@@ -25,6 +32,12 @@ ExploreButton.addEventListener('click', () => {
     showSlide(index); // will display current slide, need to code the function later
     generateDots(); // Generate the dot indicators
 });
+starButton.addEventListener('click', () =>{
+    slidesOverlay.classList.add('visible');
+    index = 0;
+    showSlide(index);
+    generateDots();
+})
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
 
@@ -104,7 +117,7 @@ function moveSlide(direction) {
 }
 // forgot to define dots related classes will do rn
 function generateDots() {
-    const dotsContainer = document.getElementById("dotsContainer")
+    
     const slides = document.querySelectorAll(".slide-item")
     dotsContainer.innerHTML = '' // line to clear existing dots
 

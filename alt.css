@@ -242,6 +242,10 @@ but at least with comments i remember what they do */
     opacity: 0;
     transform: translateX(-50%) scaleY(0);
 }
+.nav-button:hover .plus-line-horizontal{
+    opacity: 0;
+    width: 0%;
+}
 .nav-button .diagonal-bottom,
 .nav-button .diagonal-top {
     position: absolute;
@@ -250,66 +254,48 @@ but at least with comments i remember what they do */
     width: 0%;
     height: 2px;
     opacity: 0;
-    transition: all var(--transition-speed) var(--transition-ease);
-}
-.nav-button .diagonal-top{
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-}
-.nav-button .diagonal-bottom{
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%) rotate(0deg);
+    /* truly center*/
+    transform: translate(-50%, -50%) rotate(0deg); 
+    /* transform the transformed*/
+    transform-origin: center center;
+    transition: all var(--transition-speed) var(--transition-ease);
 }
 
-.nav-button:hover .plus-line-vertical {
-    opacity: 0;
-    transform: translateX(-50%) scaleY(0);
-}
-.nav-button:hover .plus-line-horizontal{
-    opacity: 0;
-    width: 0%;
-}
+
 
 .nav-button.next:hover .diagonal-top{
     opacity: 1;
-    width: 100%;
+    width: 70%;
+    height: 2px;
+    transform-origin: 100% 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .nav-button.next:hover .diagonal-bottom{
     opacity: 1;
-    width: 100%;
-    transform: translate(-505, -50%) rotate(45deg);
+    width: 70%;
+    height: 2px;
+    transform-origin: 100% 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .nav-button.prev:hover .diagonal-top{
     opacity: 1;
-    width: 100%;
+    width: 70%;
+    height: 2px;
+    transform-origin: 0% 50%;
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .nav-button.prev:hover .diagonal-bottom{
     opacity: 1;
-    width: 100%;
+    width: 70%;
+    height: 2px;
+    transform-origin: 0% 505;
     transform: translate(-50%, -50%) rotate(45deg);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .close-button {
@@ -432,6 +418,47 @@ but at least with comments i remember what they do */
 .main-name.active:hover {
     color: var(--fun-background);
 }
+.close-button.active{
+    content: '&#9733';
+    color: var(--fun-color);
+}
+.close-button.active:hover{
+    color: var(--primary-text-color);
+    transform: rotate(90deg) scale(1.2);
+}
+.slides-overlay.active{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    background-color: var(--fun-background);
+}
+.slides-overlay.active .slide-item{
+    background-color: var(--fun-background);
+}
+.slides-overlay.active .slide-item h2{
+    color: var(--fun-color);
+}
+.slides-overlay.active .slide-item p{
+    color: var(--fun-color);
+}
+.nav-button.active {
+    border: 2px solid var(--fun-color);
+    color: var(--fun-color);
+}
+.nav-button.active .plus-line{
+    background-color: var(--fun-color);
+}
+.nav-button.active:hover {
+    background-color: var(--fun-color);
+    color: var(--fun-background);
+}
+.nav-button.active:hover .plus-line {
+    background-color: var(--fun-background);
+}
+.nav-button.active:hover .diagonal-top,
+.nav-button.active:hover .diagonal-bottom{
+    background-color: var(--fun-background);
+}
 
 
 
@@ -457,6 +484,7 @@ but at least with comments i remember what they do */
     visibility: visible;
     pointer-events: auto;
 }
+
 
 .slides-container {
     position: relative; 
