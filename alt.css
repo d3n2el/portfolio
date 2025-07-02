@@ -242,10 +242,7 @@ but at least with comments i remember what they do */
     opacity: 0;
     transform: translateX(-50%) scaleY(0);
 }
-.nav-button:hover .plus-line-horizontal{
-    opacity: 0;
-    width: 0%;
-}
+
 .nav-button .diagonal-bottom,
 .nav-button .diagonal-top {
     position: absolute;
@@ -267,34 +264,30 @@ but at least with comments i remember what they do */
 
 .nav-button.next:hover .diagonal-top{
     opacity: 1;
-    width: 70%;
+    width: 15px;
     height: 2px;
-    transform-origin: 100% 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%) translateX(calc(50% - 7.5px)) rotate(-45deg);
 }
 
 .nav-button.next:hover .diagonal-bottom{
     opacity: 1;
-    width: 70%;
+    width: 15px;
     height: 2px;
-    transform-origin: 100% 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) translateX(calc(50% - 7.5px)) rotate(45deg);
 }
 
 .nav-button.prev:hover .diagonal-top{
     opacity: 1;
-    width: 70%;
+    width: 15px;
     height: 2px;
-    transform-origin: 0% 50%;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translate(-50%, -50%) translateX(calc(-50% + 7.5px)) rotate(-45deg);
 }
 
 .nav-button.prev:hover .diagonal-bottom{
     opacity: 1;
-    width: 70%;
+    width: 15px;
     height: 2px;
-    transform-origin: 0% 505;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -50%) translateX(calc(-50% + 7.5px)) rotate(45deg);
 }
 
 
@@ -427,8 +420,8 @@ but at least with comments i remember what they do */
     transform: rotate(90deg) scale(1.2);
 }
 .slides-overlay.active{
-    opacity: 1;
-    visibility: visible;
+    opacity: 0;
+    visibility: hidden;
     pointer-events: auto;
     background-color: var(--fun-background);
 }

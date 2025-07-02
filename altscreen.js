@@ -40,6 +40,7 @@ starButton.addEventListener('click', () =>{
 })
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
+    
 
 });
 
