@@ -43,6 +43,7 @@ nextButton.addEventListener('click', () =>{
 
 // i will make comments and pseudocode as per usual to guide me through what i need to do
 function showSlide(index){
+    isAnimating= true
   //when this function is caled, I need to make appear the slides items at current 
     const slides = document.querySelectorAll('.slide-item')
     if(index < 0 || index >= slides.length){
@@ -50,6 +51,8 @@ function showSlide(index){
         return;
     }
     // hide all slides initially
+    prevButton.disabled = true;
+    nextButton.disabled = true;
     slides.forEach(slide => {
         
         slide.classList.remove('active');
@@ -64,11 +67,24 @@ function showSlide(index){
     const transitionSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--slide-transition-speed")) *1000;
     setTimeout(() => {
         isAnimating = false;
+        if(index === 0){
+            prevButton.disabled = true; //more robust than addClassList which I initially used
+            nextButton.disabled = false;
+        } else if(index === slides.length- 1){
+            prevButton.disabled = false;
+            nextButton.disabled = true;
+        } else{
+            prevButton.disabled = false;
+            nextButton.disabled = false;
+        }
     }, transitionSpeed);
     updateDots();
 
 }
 function moveSlide(direction) {
+    if(isAnimating){
+        return;
+    }
     // get all slides
     const slides = document.querySelectorAll('.slide-item');
     // add variable to keep track of user input and put new index
@@ -82,8 +98,11 @@ function moveSlide(direction) {
     }
     index = newIndex
     showSlide(index);
+    if(index <=0){
+        prevButton.classList.add('disabled')
+    }
 }
-
+// forgot to define dots related classes will do rn
 function generateDots() {
     const dotsContainer = document.getElementById("dotsContainer")
     const slides = document.querySelectorAll(".slide-item")
@@ -96,7 +115,10 @@ function generateDots() {
             dot.classList.add("active");
         }
         dot.addEventListener('click', () =>{
-            showSlide(index)
+            if(!isAnimating) {
+                index = Index;
+                showSlide(index)
+            }
         })
         dotsContainer.appendChild(dot);
     })

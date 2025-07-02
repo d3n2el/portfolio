@@ -199,6 +199,73 @@ but at least with comments i remember what they do */
     opacity: 0;
 
 }
+.nav-button {
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    border-radius: var(--border-radius-full);
+    color: var(--primary-text-color);
+    width: clamp(40px,6vw,60px);
+    height: clamp(40px,6vw,60px);
+    cursor: pointer;
+    transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
+    appearance: none;
+    -webkit-appearance: none;
+    touch-action: manipulation;
+}
+
+.nav-button:hover{
+    background-color: var(--background-dark);
+    color: var(--secondary-text-color);
+}
+.nav-button:hover .plus-line{
+    background-color: var(--secondary-text-color);
+}
+.nav-button:disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+    color: var(--primary-text-color);
+    background-color: var(--background-light);
+}
+.nav-button.prev {
+    left: 2rem;
+}
+
+.nav-button.next {
+    right: 2rem;
+}
+.nav-button.prev .plus-lines-container{
+    transform: translate(-50%, -50%);
+}
+.nav-button:hover .plus-line-vertical {
+    opacity: 0;
+}
+.nav-button.next:hover .arrow-right-top{
+    
+
+}
+
+.close-button {
+  z-index: 100;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: var(--primary-text-color);
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform var(--transition-speed) var(--transition-ease);
+}
+
+.close-button:hover {
+    transform: rotate(90deg) scale(1.1); 
+}
+
+
+
+
 .star-button{
     width: clamp(60px, 10vw, 100px); 
     height: clamp(60px, 10vw, 100px);
@@ -396,62 +463,39 @@ but at least with comments i remember what they do */
 
 
 
-.nav-button {
-    z-index: 100;
+
+.dots-container{
     position: absolute;
-    top: 50%;
-    background-color: transparent;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    z-index: 50;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
     border-radius: var(--border-radius-full);
-    color: var(--primary-text-color);
-    width: clamp(40px,6vw,60px);
-    height: clamp(40px,6vw,60px);
     cursor: pointer;
-    transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
-    appearance: none;
-    -webkit-appearance: none;
-    touch-action: manipulation;
+    background-color: var(--accent-color);
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+.dot:hover {
+    background-color: var(--primary-text-color);
 }
 
-.nav-button:hover{
-    background-color: var(--background-dark);
-    color: var(--secondary-text-color);
-}
-.nav-button:hover .plus-line{
-    background-color: var(--secondary-text-color);
-}
-.nav-button:disabled{
-    opacity: 0.4;
-    cursor: not-allowed;
-    color: var(--primary-text-color);
-    background-color: var(--background-light);
-}
-.nav-button.prev {
-    left: 2rem;
+.dot.active {
+    background-color: var(--primary-text-color);
+    transform: scale(1.2);
 }
 
-.nav-button.next {
-    right: 2rem;
-}
-.nav-button.prev .plus-lines-container{
-    transform: translate(-50%, -50%);
-}
 
-.close-button {
-  z-index: 100;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  color: var(--primary-text-color);
-  font-size: 2rem;
-  cursor: pointer;
-  transition: transform var(--transition-speed) var(--transition-ease);
-}
 
-.close-button:hover {
-    transform: rotate(90deg) scale(1.1); 
-}
+
+
+
 
 
 .title-slide {
