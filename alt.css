@@ -758,12 +758,11 @@ but at least with comments i remember what they do */
     z-index: 1;
 }
 
-.scroll-down-button {
+.scroll-down-button, .scroll-up-button {
     position: absolute;
-    bottom: 2rem; /* Positioned below the dots */
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--accent-color); 
+    background-color: var(--accent-color);
     border: none;
     border-radius: var(--border-radius-full);
     width: 50px;
@@ -773,12 +772,31 @@ but at least with comments i remember what they do */
     align-items: center;
     cursor: pointer;
     transition: all var(--transition-speed) var(--transition-ease);
-    z-index: 50; /* ensure its over overlay */
+    z-index: 50;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none; /* Not interactive when hidden */
 }
 
-.scroll-down-button:hover {
+.scroll-down-button {
+    bottom: 2rem;
+}
+
+.scroll-up-button {
+    bottom: 8rem; /* Positioned above the scroll down button */
+}
+
+.scroll-down-button:hover, .scroll-up-button:hover {
     background-color: var(--primary-text-color);
     transform: translateX(-50%) scale(1.1);
+}
+
+.arrow-down, .arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transition: border-top-color var(--transition-speed) var(--transition-ease),
+                border-bottom-color var(--transition-speed) var(--transition-ease);
 }
 
 .arrow-down {
@@ -794,4 +812,84 @@ but at least with comments i remember what they do */
     border-top-color: var(--background-light); /* Change arrow color on hover */
 }
 
+
+.scroll-down-button {
+    bottom: 2rem;
+}
+
+.scroll-up-button {
+    bottom: 8rem; /* Positioned above the scroll down button */
+}
+
+.scroll-down-button:hover, .scroll-up-button:hover {
+    background-color: var(--primary-text-color);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.arrow-down, .arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    transition: border-top-color var(--transition-speed) var(--transition-ease),
+                border-bottom-color var(--transition-speed) var(--transition-ease);
+}
+
+.arrow-down {
+    border-top: 10px solid var(--secondary-text-color);
+}
+
+.arrow-up {
+    border-bottom: 10px solid var(--secondary-text-color);
+}
+
+.scroll-down-button:hover .arrow-down {
+    border-top-color: var(--background-light);
+}
+
+.scroll-up-button:hover .arrow-up {
+    border-bottom-color: var(--background-light);
+}
+
+/* Show vertical navigation buttons only when in vertical mode */
+.slides-overlay.vertical-mode .vertical-nav {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Hide horizontal navigation buttons when in vertical mode */
+.slides-overlay.vertical-mode .horizontal-nav {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Style for the new mode switch button */
+.mode-switch-button {
+    position: absolute;
+    bottom: 3rem; /* Positioned below the dots */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color);
+    color: var(--secondary-text-color);
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all var(--transition-speed) var(--transition-ease);
+    z-index: 50; /* Ensure it's above other elements */
+    opacity: 0; /* Hidden by default */
+    pointer-events: none; /* Not interactive when hidden */
+}
+
+.mode-switch-button:hover {
+    background-color: var(--primary-text-color);
+    transform: translateX(-50%) scale(1.05);
+}
+
+/* Make mode switch button visible when slides overlay is active */
+.slides-overlay.visible .mode-switch-button {
+    opacity: 1;
+    pointer-events: auto;
+}
 
