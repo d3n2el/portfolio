@@ -43,11 +43,10 @@
         <!-- Container for the actual slides -->
         <div class="slides-container">
             <!-- Normal Slides-->
-             <div class="normal-slides">
+             <div class="normal-slides slide-set">
             <div class="slide-item" data-slide-id="intro"> <!-- data-slide-id is the best for slides as per google so i will try
                 to use it and inform myself-->
                 <!-- Profile image for the introduction slide, idk if pic of me or smt else -->
-                <img src="idk yet" alt="Daniel Lialin Profile">
                 <h2 class="jost-name-font">Hello, I'm Daniel Lialin!</h2>
                 <p>I'm a passionate and versatile individual, blending technical expertise with a keen interest in human behavior and creative expression. My journey is about continuous learning and applying diverse skills to create meaningful impact.</p>
             </div>
@@ -97,10 +96,9 @@
             </div>
         </div>
            <!-- Fun Slides -->
-        <div class="fun-slides">
+        <div class="fun-slides slide-set">
             <div class="slide-item" data-slide-id="fun-intro">
-                <h2 class="title-slide">LOREM IPSUM</h2>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla beatae aut autem deserunt libero deleniti quis, officia reprehenderit distinctio voluptate qui corporis dolore consequatur laboriosam maiores saepe facere minima. Tempora?</p>
+                <h2 class="title-slide about-me">ABOUT ME</h2>
             </div>
             <div class="slide-item" data-slide-id="fun-language">
                 <img src="images/fun-languages.jpg" alt="picture of books" class="imageSlide">
@@ -123,6 +121,21 @@
                 <h2 class="title-slide computerScience">COMPUTER <br> SCIENCE</h2>
             </div>
         </div>
+
+            <div class="vertical-slides slide-set">
+        <div class="slide-item" data-slide-id="vertical-project1">
+            <h2 class="jost-name-font">Project 1</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam molestias, provident autem dicta doloribus similique cupiditate. Necessitatibus quas atque non commodi. Magnam provident, accusamus ullam corrupti nesciunt dolorum praesentium impedit!</p>
+        </div>
+        <div class="slide-item" data-slide-id="vertical-project2">
+            <h2 class="jost-name-font">Project 2</h2>
+            <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea consequatur cupiditate rerum hic nulla possimus numquam, architecto tenetur sunt, dolorum quia! Minus cum illo ad dicta id, possimus eaque veniam.</p>
+        </div>
+        <div class="slide-item" data-slide-id="vertical-project3">
+            <h2 class="jost-name-font">Project 3</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Unde, fugit quae quisquam saepe, a distinctio, recusandae expedita fuga perferendis vel culpa aperiam! Exercitationem amet molestias delectus, consequatur omnis ipsum nihil!</p>
+        </div>
+    </div>
         </div>
         <!-- Navigation buttons, will need to hide at the start in css -->
         <button id="prevButton" class="nav-button prev">
@@ -147,6 +160,12 @@
         <div id="dotsContainer" class="dots-container">
             <!-- to generate dots to keep count of pages-->
         </div>
+        <button id="scrollDownButton" class="scroll-down-button">
+            <span class="arrow-down"></span>
+        </button>
+        <button id="scrollUpButton" class="scroll-up-button vertical-nav">
+            <span class="arrow-up"></span>
+        </button>
     </div>
 
     <!-- and js at the end  so that at least everything else loades first-->

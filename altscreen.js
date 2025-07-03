@@ -132,8 +132,8 @@ closeOverlayButton.addEventListener('click', () => {
 
 prevButton.addEventListener('click', () => moveSlide(-1));
 nextButton.addEventListener('click', () => moveSlide(1));
-
-
-
+scrollDownButton.addEventListener('click', () => {
+    moveSlide(1); 
+});
 
 

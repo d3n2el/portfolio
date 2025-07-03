@@ -567,7 +567,87 @@ but at least with comments i remember what they do */
     transform: translateX(0);
     opacity: 1;
 }
+.slide-set {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative; /* so that it is relative to parent */
+    transition: transform var(--slide-transition-speed) var(--slide-transition-ease); 
+}
 
+/* Show only the active slide set */
+.slide-set.active-set {
+    display: flex;
+    /* Default to row for horizontal sets, will be overridden for vertical */
+}
+
+/* Horizontal slide items */
+.normal-slides .slide-item,
+.fun-slides .slide-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateX(100%); /* Initial off-screen for horizontal */
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
+     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    background-color: var(--background-light);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.normal-slides .slide-item.active,
+.fun-slides .slide-item.active {
+    position: relative; /* Changed from absolute to relative for active horizontal slide */
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 20;
+}
+
+/* Vertical slide items */
+.vertical-slides {
+    flex-direction: column; /* Force vertical stacking for vertical slides */
+}
+
+.vertical-slides .slide-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(100%); /* Initial off-screen for vertical */
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
+     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    background-color: var(--vertical-slide-bg); /* Unique background for vertical slides */
+    color: var(--vertical-slide-text); /* Unique text color */
+    overflow: hidden;
+}
+
+.vertical-slides .slide-item.active {
+    position: relative; /* Changed from absolute to relative for active vertical slide */
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 20;
+}
 
 
 /* styling paragraph in slide-item */
@@ -586,20 +666,11 @@ but at least with comments i remember what they do */
     color: inherit;
 
 }
-.slide-item[data-slide-id = "fun-language"] {
-    background-image: url("images/fun-languages.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-
-
 
 
 .dots-container{
     position: absolute;
-    bottom: 2rem;
+    bottom: 8rem;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -630,19 +701,26 @@ but at least with comments i remember what they do */
 .slide-item .title-slide {
     position: absolute;
     z-index: 3;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    left: 10%;
+    transform: translateY(-50%);
 }
 
 
 
 .slides-overlay.active .title-slide {
     font-family: "TIMMONSNY";
-    font-size: clamp(100px, 30vw, 200px);
+    font-size: clamp(5rem, 30vw, 20rem);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+}
+.slides-overlay.active .title-slide.about-me{
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+
 }
 .slides-overlay.active .title-slide.language{
     color: #C2DF43 !important
@@ -671,12 +749,49 @@ but at least with comments i remember what they do */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(600px, 80vw, 1014px);
-    height: clamp(400px, 60vh, 675px);
+    width: clamp(800px, 120vw, 1500px);
+    height: clamp(500px, 70vh, 800px);
     flex-shrink: 0;
     aspect-ratio: 338/225;
     border-radius: 129px;
     object-fit: cover;
     z-index: 1;
 }
+
+.scroll-down-button {
+    position: absolute;
+    bottom: 2rem; /* Positioned below the dots */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color); 
+    border: none;
+    border-radius: var(--border-radius-full);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all var(--transition-speed) var(--transition-ease);
+    z-index: 50; /* ensure its over overlay */
+}
+
+.scroll-down-button:hover {
+    background-color: var(--primary-text-color);
+    transform: translateX(-50%) scale(1.1);
+}
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--secondary-text-color); /* White arrow */
+    transition: border-top-color var(--transition-speed) var(--transition-ease);
+}
+
+.scroll-down-button:hover .arrow-down {
+    border-top-color: var(--background-light); /* Change arrow color on hover */
+}
+
 
