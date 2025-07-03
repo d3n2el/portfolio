@@ -42,6 +42,8 @@
     <div id="slidesOverlay" class="slides-overlay">
         <!-- Container for the actual slides -->
         <div class="slides-container">
+            <!-- Normal Slides-->
+             <div class="normal-slides">
             <div class="slide-item" data-slide-id="intro"> <!-- data-slide-id is the best for slides as per google so i will try
                 to use it and inform myself-->
                 <!-- Profile image for the introduction slide, idk if pic of me or smt else -->
@@ -67,7 +69,7 @@
 
                 </p>
             </div>
-                        <div class="slide-item" data-slide-id="languages">
+                        <div class="slide-item" data-slide-id="Sport">
                 <h2 class="jost-name-font">Sport</h2>
                 <p> <strong>-Gym:</strong>4 times a week<br>
                     <strong>-Muay Thai:</strong>3 times a week<br>
@@ -75,13 +77,7 @@
                     <strong>Tennis:</strong> 5= years of experience
                 </p>
             </div>
-                        <div class="slide-item" data-slide-id="languages">
-                <h2 class="jost-name-font"> Social Media</h2>
-                <p> -Meta Certified Digital Marketing Associate <br>
-                    -Meta Social Media Marketing Specialization<br>
-                </p>
-            </div>
-                        <div class="slide-item" data-slide-id="languages">
+                <div class="slide-item" data-slide-id="SocialMedia">
             <h2 class="jost-name-font"> Social Media</h2>
             <p> <strong>-Certification:</strong>Meta Certified Digital Marketing Associate <br>
                 <strong>-Specialization</strong> Meta Social Media Marketing<br>
@@ -99,6 +95,34 @@
                     -Meta Social Media Marketing Specialization<br>
                 </p>
             </div>
+        </div>
+           <!-- Fun Slides -->
+        <div class="fun-slides">
+            <div class="slide-item" data-slide-id="fun-intro">
+                <h2 class="title-slide">LOREM IPSUM</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nulla beatae aut autem deserunt libero deleniti quis, officia reprehenderit distinctio voluptate qui corporis dolore consequatur laboriosam maiores saepe facere minima. Tempora?</p>
+            </div>
+            <div class="slide-item" data-slide-id="fun-language">
+                <img src="images/fun-languages.jpg" alt="picture of books" class="imageSlide">
+                <h2 class="title-slide language"> LANGUAGES</h2>
+            </div>
+            <div class="slide-item" data-slide-id="fun-business">
+                <img src="images/fun-business.jpg" alt="People on computers" class="imageSlide">
+                <h2 class="title-slide business">BUSINESS</h2>
+            </div>
+            <div class="slide-item" data-slide-id="fun-sport">
+                <img src="images/fun-sport.jpg" alt="Person working-out" class="imageSlide">
+                <h2 class="title-slide sport">SPORT</h2>
+            </div>
+            <div class="slide-item" data-slide-id="fun-psychology">
+                <img src="images/fun-psychology.jpg" alt="futuristic neon dark background" class="imageSlide">
+                <h2 class="title-slide psychology">PSYCHOLOGY</h2>
+            </div>
+            <div class="slide-item" data-slide-id="fun-cs">
+                <img src="images/fun-cs.jpg" alt="computer screen" class="imageSlide">
+                <h2 class="title-slide computerScience">COMPUTER <br> SCIENCE</h2>
+            </div>
+        </div>
         </div>
         <!-- Navigation buttons, will need to hide at the start in css -->
         <button id="prevButton" class="nav-button prev">
@@ -126,6 +150,6 @@
     </div>
 
     <!-- and js at the end  so that at least everything else loades first-->
-    <script src="altscreen.js"></script>
+    <script src= "altscreen.js"></script>
         </body>
 </html>
