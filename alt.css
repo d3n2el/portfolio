@@ -546,7 +546,6 @@ but at least with comments i remember what they do */
     text-align: center;
     padding: 2rem;
     opacity: 0;
-    transform: translateX(100%);
     transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
      transform var(--slide-transition-speed) var(--slide-transition-ease);
     background-color: var(--background-light);
@@ -559,7 +558,7 @@ but at least with comments i remember what they do */
 .slide-item.active{
     position: relative;
     opacity: 1;
-    transform: translateX(0);
+    transform: translate(0,0);
     z-index: 20;
 }
 
@@ -581,73 +580,8 @@ but at least with comments i remember what they do */
     /* Default to row for horizontal sets, will be overridden for vertical */
 }
 
-/* Horizontal slide items */
-.normal-slides .slide-item,
-.fun-slides .slide-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 2rem;
-    opacity: 0;
-    transform: translateX(100%); /* Initial off-screen for horizontal */
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
-    background-color: var(--background-light);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    overflow: hidden;
-}
 
-.normal-slides .slide-item.active,
-.fun-slides .slide-item.active {
-    position: relative; /* Changed from absolute to relative for active horizontal slide */
-    opacity: 1;
-    transform: translateX(0);
-    z-index: 20;
-}
 
-/* Vertical slide items */
-.vertical-slides {
-    flex-direction: column; /* Force vertical stacking for vertical slides */
-}
-
-.vertical-slides .slide-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 2rem;
-    opacity: 0;
-    transform: translateY(100%); /* Initial off-screen for vertical */
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
-    background-color: var(--vertical-slide-bg); /* Unique background for vertical slides */
-    color: var(--vertical-slide-text); /* Unique text color */
-    overflow: hidden;
-}
-
-.vertical-slides .slide-item.active {
-    position: relative; /* Changed from absolute to relative for active vertical slide */
-    opacity: 1;
-    transform: translateY(0);
-    z-index: 20;
-}
 
 
 /* styling paragraph in slide-item */
@@ -866,18 +800,23 @@ but at least with comments i remember what they do */
 /* Style for the new mode switch button */
 .mode-switch-button {
     position: absolute;
-    bottom: 3rem; /* Positioned below the dots */
+    bottom: 2rem; /* Positioned below the dots */
     left: 50%;
     transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
     background-color: var(--accent-color);
     color: var(--secondary-text-color);
     border: none;
-    border-radius: 50px;
+    border-radius: var(--border-radius-full);
     padding: 15px 30px;
     cursor: pointer;
     font-size: 1rem;
     transition: all var(--transition-speed) var(--transition-ease);
-    z-index: 50; /* Ensure it's above other elements */
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
     opacity: 0; /* Hidden by default */
     pointer-events: none; /* Not interactive when hidden */
 }
@@ -886,10 +825,109 @@ but at least with comments i remember what they do */
     background-color: var(--primary-text-color);
     transform: translateX(-50%) scale(1.05);
 }
-
+.mode-switch-button .arrow-down {
+    border-top: 10px solid var(--primary-text-color);
+}
+.mode-switch-button:hover .arrow-down {
+    border-top-color: var(--secondary-text-color);
+}
 /* Make mode switch button visible when slides overlay is active */
 .slides-overlay.visible .mode-switch-button {
     opacity: 1;
     pointer-events: auto;
 }
 
+.normal-slides .slide-item,
+.fun-slides .slide-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateX(100%); /* Initial off-screen for horizontal */
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
+     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    background-color: var(--background-light);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.normal-slides .slide-item.active,
+.fun-slides .slide-item.active {
+    position: relative; /* Changed from absolute to relative for active horizontal slide */
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 20;
+}
+
+/* Vertical slide items */
+.vertical-slides {
+    flex-direction: column; /* Force vertical stacking for vertical slides */
+}
+
+.vertical-slides .slide-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+    opacity: 0;
+    transform: translateY(100%); /* Initial off-screen for vertical */
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
+     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    background-color: var(--vertical-slide-bg); /* Unique background for vertical slides */
+    color: var(--vertical-slide-text); /* Unique text color */
+    overflow: hidden;
+}
+
+.vertical-slides .slide-item.active {
+    position: relative; /* Changed from absolute to relative for active vertical slide */
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 20;
+}
+
+.horizontal-nav {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity var(--transition-speed) var(--transition-ease);
+}
+
+.vertical-nav {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) var(--transition-ease);
+}
+
+.slides-overlay.visible .mode-switch-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.slides-overlay.vertical-mode .horizontal-nav,
+.slides-overlay.vertical-mode .mode-switch-button{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.slides-overlay.vertical-mode .vertical-nav {
+    opacity: 1;
+    pointer-events: auto;
+}

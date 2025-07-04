@@ -7,9 +7,12 @@ const funButton = document.getElementById("fun-button")
 const mainName = document.querySelector(".main-name")
 const starButton = document.querySelector(".star-button")
 const dotsContainer = document.getElementById("dotsContainer")
+const modeSwitchVerticalButton = document.getElementById('mode-switch-vertical')
+const scrollUpButton = document.getElementById('scrollUpButton');
+const scrollDownButton = document.getElementById('scrollDownButton');
 let index = 0
 let isAnimating = false // avoid multiple animations later on
-let currentSlideMode = 'horizontal';
+let currentSlideMode = 'horizontal'; // either horizontal, fun or vertical. will need to adjust everything later but for rn I just wanna make it work honestly
 
 function toggleFunModeClasses() {
     const elementsToToggle = [
@@ -33,61 +36,86 @@ function toggleFunModeClasses() {
 }
 
 
+
 function getActiveSlides() {
-    document.querySelectorAll('.-slide-set').forEach(set => set.classList.remove('active-set'));
+    document.querySelectorAll('.slide-set').forEach(set => set.classList.remove('active-set')); 
 
     let activeSet;
     let selector;
 
-    if(currentSlideMode === 'fun'){
+    if (currentSlideMode === 'fun') {
         selector = '.fun-slides .slide-item';
         activeSet = document.querySelector('.fun-slides');
-    } else if( currentSlideMode === 'vertical') {
-        selector = 'vertical-slides'
-        activeSet = document.querySelector('.vertical-slides')
+    } else if (currentSlideMode === 'vertical') { 
+        selector = '.vertical-slides .slide-item';
+        activeSet = document.querySelector('.vertical-slides');
     } else {
-        selector = '.normal-slides .slide-item'
-        activeSet = document.querySelector('.normal-slides')
+        selector = '.normal-slides .slide-item';
+        activeSet = document.querySelector('.normal-slides');
     }
 
-    if(activeSet) {
-        activeSet.classList.add('active-set')
+    if (activeSet) {
+        activeSet.classList.add('active-set');
     }
     return document.querySelectorAll(selector);
 }
 
-function showSlide(slideIndex){
+function showSlide(newIndex, oldIndex = -1){
     if(isAnimating){
         return;
     }
-    isAnimating= true
-  //when this function is caled, I need to make appear the slides items at current 
-    const slides = getActiveSlides()
+    isAnimating= true 
+    const slides = getActiveSlides();
     if(index < 0 || index >= slides.length){
         isAnimating = false;
         console.error("Slide index outside of bounds. Please check what is happening")
         return;
     }
-    // hide all slides initially
-    prevButton.disabled = true;
-    nextButton.disabled = true;
-    slides.forEach(slide => {
-        
-        slide.classList.remove('active', 'from-left', 'from-top');
-    });
-    // Show current slide if it exists
-    const targetSlide = slides[slideIndex]
-    if(targetSlide) {
-        void targetSlide.offsetWidth;
-        targetSlide.classList.add('active');
+    isAnimating = true;
+    const direction = newIndex > oldIndex ? 1 : -1;
+
+    const currentSlide= slides[oldIndex];
+    const nextSlide = slides[newIndex];
+
+    // prepare the next slide
+    if(nextSlide) {
+        const isVertical = currentSlideMode === "vertical";
+        const initialPos = direction === 1 ? '100%' : '-100%'
+        //transform based on mode
+        nextSlide.style.transform = isVertical ? `translateY(${initialPos})` : `translateX(${initialPos})`;
+        nextSlide.classList.add('active');
+    }
+    void document.body.offsetWidth;
+
+    if(nextSlide) {
+        nextSlide.style.transform = 'translate(0, 0';
+    }
+    if(currentSlide) {
+        const isVertical = currentSlideMode ==='vertical';
+        // move current slide off screen
+        const finalPos = direction === 1 ? '-100%' : '100%';
+        currentSlide.style.transform = isVertical ? `translateY(${finalPos})` : `translateX(${finalPos})`;
     }
 
-    updateNavButtons();
-    updateDots();
     //need to add a way to reset isanimating after an animation
     const transitionSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--slide-transition-speed")) *1000;
     setTimeout(() => {
+        // cleanup after animation
+        if(currentSlide) {
+            currentSlide.classList.remove('active');
+            currentSlide.style.transform = ''; //reset style
+        }
+        if(nextSlide) {
+            nextSlide.style.transform = ''; //same
+        }
+        // ensure only correct slide active and all transforms are cleared
+        slides.forEach((s, i) => {
+            s.classList.toggle('active', i === newIndex);
+            s.style.transform = '';
+        });
         isAnimating = false;
+        updateNavButtons();
+        updateDots();
     }, transitionSpeed);
 }
 
@@ -98,28 +126,25 @@ function moveSlide(direction) {
     // get all slides
     const slides = getActiveSlides();
     // add variable to keep track of user input and put new index
-    let newIndex = index + direction;
+    const oldIndex = index;
+    let newIndex = oldIndex + direction;
 
     if(newIndex >= 0 && newIndex < slides.length){
         index = newIndex;
-        showSlide(index);
+        showSlide(index, oldIndex);
     }
 }
 function openSlides(mode = 'horizontal'){
     slidesOverlay.classList.add('visible');
     currentSlideMode = mode;
-    currentIndex = 0
+    index = 0
+    // much easier syntax, will need to see if it works though
+    slidesOverlay.classList.toggle('vertical-mode', mode === 'vertical');
+    slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('active') && mode !== 'vertical');
     generateDots();
-    showSlide(currentIndex);
+    showSlide(index, -1);
 
-    if(mode === 'vertical') {
-        slidesOverlay.classList.add('vertical-mode');
-        slidesOverlay.classList.remove('fun-mode')  // not sure about this, will need to review
-    } else [
-        slidesOverlay.classList.remove('vertical-mode'),
-        slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('active')) //to make sure at least in horizontal mode the fun button is toggable
 
-    ]
 }
 function generateDots() {
 
@@ -133,8 +158,9 @@ function generateDots() {
 
         dot.addEventListener('click', () =>{
             if(!isAnimating && i !== index) {
+                const oldIndex = index
                 index = i;
-                showSlide(index)
+                showSlide(index, oldIndex);
             }
         })
         dotsContainer.appendChild(dot);
@@ -150,15 +176,20 @@ function updateDots() {
 
 function updateNavButtons() {
     const slides = getActiveSlides();
-    prevButton.disabled = index === 0;
-    nextButton.disabled = index === slides.length -1;
+    if(currentSlideMode === 'vertical'){
+        scrollUpButton.disabled = index ===0;
+        scrollDownButton.disabled = index === slides.length - 1;
+    } else {
+        prevButton.disabled = index === 0;
+        nextButton.disabled = index === slides.length -1;
+    }
 }
 
 
 funButton.addEventListener('click',() =>{
     toggleFunModeClasses();
-    currentSlideMode = funButton.classList.contains('active') ? 'fun' : 'horizontal';
-    if(slidesOverlay.classList.contains('visible')) {
+    if (slidesOverlay.classList.contains('visible') && currentSlideMode !== 'vertical') {
+        currentSlideMode = funButton.classList.contains('active') ? 'fun' : 'horizontal';
         openSlides(currentSlideMode);
     }
   
@@ -176,8 +207,12 @@ closeOverlayButton.addEventListener('click', () => {
 prevButton.addEventListener('click', () => moveSlide(-1));
 nextButton.addEventListener('click', () => moveSlide(1));
 
-scrollDownButton.addEventListener('click', () => {
-    openSlides('vertical')
-    moveSlide(1)})
+modeSwitchVerticalButton.addEventListener('click', () => {
+    if (currentSlideMode !== 'vertical') {
+        openSlides('vertical');
+    }
+});
 
+scrollUpButton.addEventListener('click', () => moveSlide(-1));
+scrollDownButton.addEventListener('click', () => moveSlide(1));
 
