@@ -23,16 +23,7 @@ function toggleFunModeClasses() {
 
     slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('active'))
 
-    if(!slidesOverlay.classList.contains('vertical-mode')) {
-        document.querySelectorAll('.horizontal-nav').forEach(btn =>{
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto'
-        });
-        document.querySelectorAll('.vertical-nav').forEach(btn => {
-            btn.style.opacity = '0';
-            btn.style.pointerEvents = 'none';
-        })
-    }
+
 }
 
 
@@ -87,9 +78,6 @@ function showSlide(newIndex, oldIndex = -1){
     }
     void document.body.offsetWidth;
 
-    if(nextSlide) {
-        nextSlide.style.transform = 'translate(0, 0';
-    }
     if(currentSlide) {
         const isVertical = currentSlideMode ==='vertical';
         // move current slide off screen

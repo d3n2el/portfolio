@@ -511,6 +511,8 @@ but at least with comments i remember what they do */
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 .normal-slides{
     display: flex;
@@ -529,7 +531,7 @@ but at least with comments i remember what they do */
 .slides-overlay.active .normal-slides{
     display: none;
 }
-.slides-overlay.active .fun-slides {
+.slides-overlay.active:not(.vetical-mode) .fun-slides {
     display: flex;
 }
 .slide-item {
@@ -577,6 +579,9 @@ but at least with comments i remember what they do */
 /* Show only the active slide set */
 .slide-set.active-set {
     display: flex;
+    height: 100%; /* trying to debug*/
+    width: 100%;
+    flex-grow: 1;
     /* Default to row for horizontal sets, will be overridden for vertical */
 }
 
@@ -716,7 +721,7 @@ but at least with comments i remember what they do */
 }
 
 .scroll-up-button {
-    bottom: 8rem; /* Positioned above the scroll down button */
+    top: 2rem; /* Positioned above the scroll down button */
 }
 
 .scroll-down-button:hover, .scroll-up-button:hover {
@@ -864,7 +869,7 @@ but at least with comments i remember what they do */
 
 .normal-slides .slide-item.active,
 .fun-slides .slide-item.active {
-    position: relative; /* Changed from absolute to relative for active horizontal slide */
+    position: absolute; /* avoid clunky */
     opacity: 1;
     transform: translateX(0);
     z-index: 20;
@@ -898,10 +903,13 @@ but at least with comments i remember what they do */
 }
 
 .vertical-slides .slide-item.active {
-    position: relative; /* Changed from absolute to relative for active vertical slide */
+    position: relative;
+    height: 100%;
+    width: 100%; /* try to be specific to solve bug*/
     opacity: 1;
     transform: translateY(0);
     z-index: 20;
+    top: 0 !important
 }
 
 .horizontal-nav {
@@ -931,3 +939,6 @@ but at least with comments i remember what they do */
     opacity: 1;
     pointer-events: auto;
 }
+
+
+
