@@ -50,63 +50,70 @@ function getActiveSlides() {
     }
     return document.querySelectorAll(selector);
 }
-
-function showSlide(newIndex, oldIndex = -1){
-    if(isAnimating){
-        return;
-    }
-    isAnimating= true 
-    const slides = getActiveSlides();
-    if(index < 0 || index >= slides.length){
-        isAnimating = false;
-        console.error("Slide index outside of bounds. Please check what is happening")
+function showSlide(newIndex, oldIndex = -1) {
+    if (isAnimating) {
         return;
     }
     isAnimating = true;
+
+    const slides = getActiveSlides();
+
+    if (newIndex < 0 || newIndex >= slides.length) {
+        isAnimating = false;
+        console.error("Slide index outside of bounds. Please check what is happening");
+        return;
+    }
+
     const direction = newIndex > oldIndex ? 1 : -1;
 
-    const currentSlide= slides[oldIndex];
+    const currentSlide = (oldIndex !== -1 && oldIndex < slides.length) ? slides[oldIndex] : null;
     const nextSlide = slides[newIndex];
 
-    // prepare the next slide
-    if(nextSlide) {
+    if (nextSlide) {
         const isVertical = currentSlideMode === "vertical";
-        const initialPos = direction === 1 ? '100%' : '-100%'
-        //transform based on mode
+        const initialPos = direction === 1 ? '100%' : '-100%';
         nextSlide.style.transform = isVertical ? `translateY(${initialPos})` : `translateX(${initialPos})`;
-        nextSlide.classList.add('active');
+        nextSlide.style.opacity = '0'; 
+        nextSlide.classList.add('active'); 
     }
-    void document.body.offsetWidth;
 
-    if(currentSlide) {
-        const isVertical = currentSlideMode ==='vertical';
-        // move current slide off screen
+    void document.body.offsetWidth; 
+
+    if (currentSlide) {
+        const isVertical = currentSlideMode === 'vertical';
         const finalPos = direction === 1 ? '-100%' : '100%';
         currentSlide.style.transform = isVertical ? `translateY(${finalPos})` : `translateX(${finalPos})`;
+        currentSlide.style.opacity = '0'; 
     }
 
-    //need to add a way to reset isanimating after an animation
-    const transitionSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--slide-transition-speed")) *1000;
+    const transitionSpeed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--slide-transition-speed")) * 1000;
+
     setTimeout(() => {
-        // cleanup after animation
-        if(currentSlide) {
+        isAnimating = false; 
+
+        if (currentSlide) {
             currentSlide.classList.remove('active');
-            currentSlide.style.transform = ''; //reset style
+            currentSlide.style.transform = '';
+            currentSlide.style.opacity = '';
         }
-        if(nextSlide) {
-            nextSlide.style.transform = ''; //same
-        }
-        // ensure only correct slide active and all transforms are cleared
+
         slides.forEach((s, i) => {
-            s.classList.toggle('active', i === newIndex);
-            s.style.transform = '';
+            if (i === newIndex) {
+                s.classList.add('active');
+                s.style.transform = '';
+                s.style.opacity = '';
+            } else {
+                s.classList.remove('active');
+                s.style.transform = '';
+                s.style.opacity = '';
+            }
         });
-        isAnimating = false;
+
         updateNavButtons();
         updateDots();
     }, transitionSpeed);
 }
-
+    
 function moveSlide(direction) {
     if(isAnimating){
         return;
@@ -123,12 +130,35 @@ function moveSlide(direction) {
     }
 }
 function openSlides(mode = 'horizontal'){
-    slidesOverlay.classList.add('visible');
     currentSlideMode = mode;
     index = 0
-    // much easier syntax, will need to see if it works though
-    slidesOverlay.classList.toggle('vertical-mode', mode === 'vertical');
-    slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('active') && mode !== 'vertical');
+    // before adding things, wanna make a cleanup
+    slidesOverlay.classList.remove('fun-mode', 'vertical-mode')
+
+    slidesOverlay.classList.add('visible');
+    if(mode === 'vertical'){
+    slidesOverlay.classList.toggle('vertical-mode');
+    } else if (mode === 'fun') {
+        slidesOverlay.classList.add('fun-mode')
+    }
+    // CLEAR ALL SLIDE ELEMENTS AND INLINE STYLES, HOPE THIS WORKS
+    document.querySelectorAll('.slides-container').forEach(container => {
+        container.style.cssText = '';
+    })
+    // clearactive classes and inline styles from all slides set and its items
+    document.querySelectorAll('.slide-set').forEach(set => {
+        set.classList.remove('active-set')
+        set.style.cssText = '';
+        set.querySelectorAll('.slide-item').forEach(item => {
+            item.classList.remove('active');
+            item.style.transform = "";
+            item.style.opacity = '';
+            item.style.top = '';
+            item.style.position = '';
+            item.style.height = '';
+        })
+    })
+    updateNavButtons();
     generateDots();
     showSlide(index, -1);
 
