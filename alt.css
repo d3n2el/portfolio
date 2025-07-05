@@ -5,35 +5,34 @@
     --secondary-text-color: #f7f7f7;
     --border-radius-full: 9999px;
     --background-dark: #1a1a1a;
-    --accent-color: #555555; 
+    --accent-color: #555555;
     --background-light: #f5f5f5;
     --slide-transition-speed: 0.7s;
     --slide-transition-ease: ease-out;
     --fun-color: #FF36CD;
     --fun-background: #E5E8FF;
     --fun-color-text-dark: #4A003D;
-
 }
-/* should apply to all html, I really want to remove the scrolling that is occuring rn */
+
 html {
     height: 100%;
     overflow: hidden;
 }
 
 .jost-name-font {
-  font-family: "Jost", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .jolly-name-font {
-  font-family: "Jolly Lodger", system-ui;
-  font-weight: 400;
-  font-style: normal;
+    font-family: "Jolly Lodger", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
-body.jost-name-font{
+
+body.jost-name-font {
     font-family: inherit;
     font-optical-sizing: inherit;
     font-weight: inherit;
@@ -49,25 +48,27 @@ body.jost-name-font{
     background-color: #f5f5f5;
     width: 100%;
 }
-/* background animation */
-@keyframes subtle-fade { 
+
+@keyframes subtle-fade {
     0% { background-color: #f7f7f7; }
     50% { background-color: #f9f9f9; }
     100% { background-color: #f7f7f7; }
 }
+
 body.animated-bg {
     animation: subtle-fade 10s infinite alternate;
 }
+
 .main-name {
-    font-size: clamp(12rem, 30vw, 22rem); 
-    font-weight: 400; /* way too bold otherwise, want something more sleek */
+    font-size: clamp(12rem, 30vw, 22rem);
+    font-weight: 400;
     color: var(--primary-text-color);
-    line-height: 0.9; 
-    letter-spacing: -0.04em; 
+    line-height: 0.9;
+    letter-spacing: -0.04em;
     margin-top: auto;
     margin-bottom: auto;
-    cursor: default; 
-    transition: all var(--transition-speed) var(--transition-ease); 
+    cursor: default;
+    transition: all var(--transition-speed) var(--transition-ease);
     width: auto;
     max-width: 100%;
     max-height: 70vh;
@@ -77,6 +78,20 @@ body.animated-bg {
     display: flex;
     margin-bottom: 0.05em;
 }
+
+.main-name:hover {
+    color: var(--accent-color);
+}
+
+.main-name.fun-mode-active {
+    color: var(--fun-color);
+    font-family: "Jolly Lodger", system-ui;
+}
+
+.main-name.funmode-active:hover {
+    color: var(--fun-background);
+}
+
 .container-center {
     min-height: -webkit-fill-available;
     box-sizing: border-box;
@@ -87,89 +102,101 @@ body.animated-bg {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    padding-bottom: 5vh; 
+    padding-bottom: 5vh;
     background-color: var(--background-light);
     padding-left: 0;
     padding-right: 0;
     margin: 0;
     position: relative;
 }
+
 .button-stack-wrapper {
-    position: relative; /* Establish a positioning context for absolute children */
-    width: clamp(60px, 10vw, 100px); /* Match the dimensions of the buttons inside */
-    height: clamp(60px, 10vw, 100px); /* Match the dimensions of the buttons inside */
-    display: flex; /* Helps in centering the buttons within the wrapper if needed */
+    position: relative;
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
+    display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .circle-button, .star-button {
-    position: absolute; /* Take them out of normal flow and stack them */
+    position: absolute;
     top: 0;
     left: 0;
-    /* Ensure they fill the wrapper or are centered within it */
     width: 100%;
     height: 100%;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box;
 }
-/* will add tons of comments because im looking up a lot of syntax on google and so i will start with some values, end up with others
-but at least with comments i remember what they do */
- .circle-button {
-            width: clamp(60px, 10vw, 100px); 
-            height: clamp(60px, 10vw, 100px);
-            border: 2px solid var(--primary-text-color); /* border style, need to define all the variables later in roots */
-            border-radius: var(--border-radius-full);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: transparent;
-            cursor: pointer; /* to make people comprehend that its a button to CLICK */
-            overflow: hidden; 
-            appearance: none; 
-            -webkit-appearance: none; /* remove browser interference */
-            touch-action: manipulation; /* tell browser  how to handle input, manip is to tell things like zooming are handled by the page so avoid 2 tap to zoom etc */
-            transition: all var(--transition-speed) var(--transition-ease);
-            will-change: transform, background-color, border-color; /* tells browser to prepare for animation, beter to avoid lag between animations and ruing the aesthetics */
 
- }
- /* now i'll code the lines and AFTER i will understand how i want to animate it all */
+.circle-button {
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
+    border: 2px solid var(--primary-text-color);
+    border-radius: var(--border-radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    touch-action: manipulation;
+    transition: all var(--transition-speed) var(--transition-ease);
+    will-change: transform, background-color, border-color;
+}
+
+.circle-button:hover {
+    background-color: var(--primary-text-color);
+    border-color: var(--primary-text-color);
+    transform: scale(1.05);
+}
+
+.circle-button.fun-mode-active {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .circle-button .plus-lines-container,
 .nav-button .plus-lines-container {
     position: absolute;
-    top: 50%; /* middle circle */
-    left: 50%; /* same reason as before*/
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%; /* trying to specify these values to see if anything changes, as of rn, it doesnt work. It does work after specifying */
-    height: 60%; 
+    width: 60%;
+    height: 60%;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
-    opacity: 1; 
+    opacity: 1;
 }
+
 .circle-button .plus-line,
-.nav-button .plus-line { /* class to avoid duplicate code in both lines, which is always good pratice afaik */
+.nav-button .plus-line {
     position: absolute;
     background-color: var(--primary-text-color);
     border-radius: 1px;
     transition: transform var(--transition-speed) var(--transition-ease);
 }
+
 .circle-button .plus-line-horizontal,
-.nav-button .plus-line-horizontal{
+.nav-button .plus-line-horizontal {
     width: 100%;
-    height: 2px; /* should be line thickness so i'll make it really thin */
+    height: 2px;
     top: 50%;
-    left: 0%; /*since it needs to be horizontal and touch the corners*/
-    transform: translateY(-50%); /* otherwise it will start drawing from the half and thus not be truly centered*/
+    left: 0%;
+    transform: translateY(-50%);
 }
 
 .circle-button .plus-line-vertical,
-.nav-button .plus-line-vertical{
+.nav-button .plus-line-vertical {
     height: 100%;
     width: 2px;
     left: 50%;
-    top:0%;
-    /* same but opposite*/
-    transform: translateX(-50%); 
+    top: 0%;
+    transform: translateX(-50%);
 }
+
 .circle-button .explore-text {
     font-size: clamp(0.8rem, 2vw, 1rem);
     font-weight: 400;
@@ -180,26 +207,110 @@ but at least with comments i remember what they do */
     transition: opacity var(--transition-speed) var(--transition-ease), transform var(--transition-speed) var(--transition-ease);
 }
 
-/* Hover states for circle button */
-.circle-button:hover {
-    background-color: var(--primary-text-color);
-    border-color: var(--primary-text-color);
-    transform: scale(1.05);
-}
 .circle-button:hover .explore-text {
     opacity: 1;
-    transform: translateY(0); /*change the value to completely out of object to normal to make it appear */
+    transform: translateY(0);
     color: var(--secondary-text-color);
 }
+
 .circle-button:hover .plus-lines-container {
-    opacity: 0; /* + sign disappears*/
-    transform: translate(-50%, -150%); /* Moves the plus sign off-screen upwards */
-}
-
-.circle-button.active {
     opacity: 0;
-
+    transform: translate(-50%, -150%);
 }
+
+.star-button {
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
+    border: 2px solid var(--fun-color);
+    border-radius: var(--border-radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+    touch-action: manipulation;
+    transition: all var(--transition-speed) var(--transition-ease);
+    will-change: transform;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.star-button.fun-mode-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.star {
+    font-size: clamp(60px, 10vw, 100px);
+    color: var(--fun-color);
+}
+
+.star-button:hover .star { /* so that it targets only star inside, probs useless but better be specific*/
+    transform: rotate(180deg) translateY(-15px);
+}
+
+.rectangle-button {
+    width: clamp(100px, 20vw, 200px);
+    height: clamp(60px, 10vw, 100px);
+    border-radius: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-left: 50px;
+    position: absolute;
+    background-color: var(--background-dark);
+    cursor: pointer;
+    overflow: hidden;
+    left: 10%;
+    bottom: 5vh;
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+
+.rectangle-button .circle-left {
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
+    border-radius: var(--border-radius-full);
+    background-color: var(--accent-color);
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    left: 0%;
+    opacity: 1;
+    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease);
+}
+
+.rectangle-button .circle-right {
+    width: clamp(60px, 10vw, 100px);
+    height: clamp(60px, 10vw, 100px);
+    border-radius: var(--border-radius-full);
+    z-index: 2;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    background-color: var(--fun-color);
+    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease);
+}
+
+.rectangle-button.fun-mode-active {
+    background-color: var(--fun-background);
+}
+
+.rectangle-button.fun-mode-active .circle-left {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.rectangle-button.fun-mode-active .circle-right {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .nav-button {
     z-index: 100;
     position: absolute;
@@ -207,8 +318,8 @@ but at least with comments i remember what they do */
     background-color: transparent;
     border-radius: var(--border-radius-full);
     color: var(--primary-text-color);
-    width: clamp(40px,6vw,60px);
-    height: clamp(40px,6vw,60px);
+    width: clamp(40px, 6vw, 60px);
+    height: clamp(40px, 6vw, 60px);
     cursor: pointer;
     transition: background-color var(--transition-speed) var(--transition-ease), color var(--transition-speed) var(--transition-ease);
     appearance: none;
@@ -216,19 +327,6 @@ but at least with comments i remember what they do */
     touch-action: manipulation;
 }
 
-.nav-button:hover{
-    background-color: var(--background-dark);
-    color: var(--secondary-text-color);
-}
-.nav-button:hover .plus-line{
-    background-color: var(--secondary-text-color);
-}
-.nav-button:disabled{
-    opacity: 0.4;
-    cursor: not-allowed;
-    color: var(--primary-text-color);
-    background-color: var(--background-light);
-}
 .nav-button.prev {
     left: 2rem;
 }
@@ -236,9 +334,23 @@ but at least with comments i remember what they do */
 .nav-button.next {
     right: 2rem;
 }
-.nav-button.prev .plus-lines-container{
-    transform: translate(-50%, -50%);
+
+.nav-button:hover {
+    background-color: var(--background-dark);
+    color: var(--secondary-text-color);
 }
+
+.nav-button:hover .plus-line {
+    background-color: var(--secondary-text-color);
+}
+
+.nav-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    color: var(--primary-text-color);
+    background-color: var(--background-light);
+}
+
 .nav-button:hover .plus-line-vertical {
     opacity: 0;
     transform: translateX(-50%) scaleY(0);
@@ -254,25 +366,21 @@ but at least with comments i remember what they do */
     opacity: 0;
     top: 50%;
     left: 50%;
-    /* truly center*/
-    transform: translate(-50%, -50%) rotate(0deg); 
-    /* transform the transformed*/
+    transform: translate(-50%, -50%) rotate(0deg);
     transform-origin: center center;
     transition: all var(--transition-speed) var(--transition-ease);
 }
 
-
-
-.nav-button.next:hover .diagonal-top{
+.nav-button.next:hover .diagonal-top {
     opacity: 1;
     width: 15px;
     height: 2px;
     right: 0;
     transform-origin: 100% 50%;
-    transform: translateY(-50%)  rotate(-45deg);
+    transform: translateY(-50%) rotate(-45deg);
 }
 
-.nav-button.next:hover .diagonal-bottom{
+.nav-button.next:hover .diagonal-bottom {
     opacity: 1;
     width: 15px;
     height: 2px;
@@ -281,7 +389,7 @@ but at least with comments i remember what they do */
     transform: translateY(-50%) rotate(45deg);
 }
 
-.nav-button.prev:hover .diagonal-top{
+.nav-button.prev:hover .diagonal-top {
     opacity: 1;
     width: 15px;
     height: 2px;
@@ -290,7 +398,7 @@ but at least with comments i remember what they do */
     transform: translateY(-50%) rotate(-45deg);
 }
 
-.nav-button.prev:hover .diagonal-bottom{
+.nav-button.prev:hover .diagonal-bottom {
     opacity: 1;
     width: 15px;
     height: 2px;
@@ -298,181 +406,61 @@ but at least with comments i remember what they do */
     transform-origin: 0% 50%;
     transform: translateY(-50%) rotate(45deg);
 }
-.nav-button.next.active:hover,
-.nav-button.prev.active:hover {
+
+.nav-button.fun-mode-active {
+    border: 2px solid var(--fun-color);
+    color: var(--fun-color);
+}
+
+.nav-button.fun-mode-active .plus-line {
     background-color: var(--fun-color);
 }
 
+.nav-button.fun-mode-active:hover {
+    background-color: var(--fun-color);
+    color: var(--fun-background);
+}
 
+.nav-button.fun-mode-active:hover .plus-line {
+    background-color: var(--fun-background);
+}
+
+.nav-button.fun-mode-active:hover .diagonal-top,
+.nav-button.fun-mode-active:hover .diagonal-bottom {
+    background-color: var(--fun-background);
+}
+
+.nav-button.next.fun-mode-active:hover,
+.nav-button.prev.fun-mode-active:hover {
+    background-color: var(--fun-color);
+}
 
 .close-button {
-  z-index: 100;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  color: var(--primary-text-color);
-  font-size: 2rem;
-  cursor: pointer;
-  transition: transform var(--transition-speed) var(--transition-ease);
+    z-index: 100;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: var(--primary-text-color);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform var(--transition-speed) var(--transition-ease);
 }
 
 .close-button:hover {
-    transform: rotate(90deg) scale(1.1); 
+    transform: rotate(90deg) scale(1.1);
 }
 
-
-
-
-.star-button{
-    width: clamp(60px, 10vw, 100px); 
-    height: clamp(60px, 10vw, 100px);
-    border: 2px solid var(--fun-color);
-    border-radius: var(--border-radius-full);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: transparent;
-    cursor: pointer; 
-    overflow: hidden; 
-    appearance: none; 
-    -webkit-appearance: none; 
-    touch-action: manipulation; 
-    transition: all var(--transition-speed) var(--transition-ease);
-    will-change: transform; 
-    opacity: 0;
-    pointer-events: none;
-}
-.star{
-    font-size: clamp(60px,10vw,100px);
-    color: var(--fun-color);
-}
-.star-button.active{
-    opacity: 1;
-    pointer-events: auto;
-}
-.star:hover {
-    /* Rotates the star 180 degrees, then translates it down by 15px. */
-    /* Adjust '15px' if you need a different vertical alignment. */
-    transform: rotate(180deg) translateY(-15px);
-}
-
-
-
-.main-name:hover {
-    color: var(--accent-color)
-}
-
-.rectangle-button {
-    width: clamp(100px, 20vw, 200px);
-    height: clamp(60px,10vw,100px);
-    border-radius: 50px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding-left: 50px;
-    position: absolute;
-    background-color: var(--background-dark);
-    cursor: pointer;
-    overflow: hidden;
-    left: 10%;
-    bottom: 5vh;
-    transition: all var(--transition-speed) var(--transition-ease);
-}
-
-.rectangle-button .circle-left{
-    width: clamp(60px,10vw,100px);
-    height: clamp(60px,10vw,100px);
-    border-radius: var(--border-radius-full);
-    background-color: var(--accent-color);
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0%;
-    opacity: 1;
-    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease);
-}
-.rectangle-button .circle-right{
-    width: clamp(60px,10vw,100px);
-    height: clamp(60px,10vw,100px);
-    border-radius: var(--border-radius-full);
-    z-index: 2;
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    right: 0;
-    top:0;
-    opacity: 0;
-    background-color: var(--fun-color);
-    transition: transform var(--transition-speed) var(--transition-ease), opacity var(--transition-speed) var(--transition-ease) ;
-}
-.rectangle-button.active{
-    background-color: var(--fun-background);
-}
-.rectangle-button.active .circle-left{
-    opacity: 0;
-    transform: scale(0.5);
-}
-.rectangle-button.active .circle-right{
-    opacity: 1;
-    transform: scale(1);
-}
-.main-name.active {
-    color: var(--fun-color);
-    font-family: "Jolly Lodger", system-ui;
-}
-.main-name.active:hover {
-    color: var(--fun-background);
-}
-.close-button.active{
+.close-button.fun-mode-active {
     content: '&#9733';
     color: var(--fun-color);
 }
-.close-button.active:hover{
+
+.close-button.fun-mode-active:hover {
     color: var(--fun-color-text-dark);
     transform: rotate(90deg) scale(1.2);
 }
-.slides-overlay.active{
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: auto;
-    background-color: var(--fun-background);
-}
-.slides-overlay.active .slide-item{
-    background-color: var(--fun-background);
-}
-
-.slides-overlay.active .slide-item p{
-    color: var(--fun-color);
-}
-.nav-button.active {
-    border: 2px solid var(--fun-color);
-    color: var(--fun-color);
-}
-.nav-button.active .plus-line{
-    background-color: var(--fun-color);
-}
-.nav-button.active:hover {
-    background-color: var(--fun-color);
-    color: var(--fun-background);
-}
-.nav-button.active:hover .plus-line {
-    background-color: var(--fun-background);
-}
-.nav-button.active:hover .diagonal-top,
-.nav-button.active:hover .diagonal-bottom{
-    background-color: var(--fun-background);
-}
-.slides-overlay.active .dots-container .dot {
-    background-color: var(--fun-color);
-    opacity: 0.6;
-}
-.slides-overlay.active .dots-container .dot.active{
-    background-color: var(--fun-color-text-dark);
-}
-
-
 
 .slides-overlay {
     position: fixed;
@@ -484,37 +472,60 @@ but at least with comments i remember what they do */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10; /* so that its at top*/
-    opacity: 0; /* so that it is hidden at start, will change after when + is clicked*/
-    visibility: hidden; /*same reason*/
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
     transition: opacity var(--transition-speed) var(--transition-ease), visibility var(--transition-speed) var(--transition-ease);
     pointer-events: none;
 }
+
 .slides-overlay.visible {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
 }
 
+.slides-overlay.fun-mode {
+    background-color: var(--fun-background);
+}
 
 .slides-container {
-    position: relative; 
+     border: 3px solid blue !important; /*debugging line, eliminate later*/
+    position: relative;
     width: 100vw;
-    height:100vh;
+    height: 100vh;
     max-width: 100vw;
     max-height: 100vh;
     background-color: var(--background-light);
     border-radius: 0;
     box-shadow: none;
-    overflow: hidden; /* in case it overflows during transitions*/
+    overflow: visible; /* allow full slide content to show */
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch; 
     padding: 0;
     box-sizing: border-box;
-    justify-content: flex-start;
     align-items: stretch;
 }
-.normal-slides{
+
+.slide-set {
+    display: none;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    flex: 1;
+    transition: transform var(--slide-transition-speed) var(--slide-transition-ease);
+}
+
+.slide-set.active-set {
+     border: 3px solid green !important; /* debugging, eliminate later*/
+    display: block;
+}
+/* wanna try handing it with js
+.normal-slides {
     display: flex;
     width: 100%;
     height: 100%;
@@ -528,16 +539,16 @@ but at least with comments i remember what they do */
     position: relative;
 }
 
-.slides-overlay.active .normal-slides{
+.slides-overlay.active .normal-slides {
     display: none;
 }
+
 .slides-overlay.active:not(.vetical-mode) .fun-slides {
     display: flex;
 }
+*/
 .slide-item {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     display: flex;
@@ -548,66 +559,56 @@ but at least with comments i remember what they do */
     text-align: center;
     padding: 2rem;
     opacity: 0;
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease), transform var(--slide-transition-speed) var(--slide-transition-ease);
     background-color: var(--background-light);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    overflow: hidden;
+    overflow: visible; /* remove clipping of slide content */
 }
 
-.slide-item.active{
-    position: relative;
+.slide-item.active {
+    border: 3px solid red !important; /* debugging line,eliminate later*/
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 1;
-    transform: translate(0,0);
+    transform: translate(0, 0);
     z-index: 20;
 }
-
-.slide-item.active.from-left { /* when moving from left(prev)*/
+/* useless since handled by js but dont wanna delete yet
+.slide-item.active.from-left {
     transform: translateX(0);
     opacity: 1;
 }
-.slide-set {
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: relative; /* so that it is relative to parent */
-    transition: transform var(--slide-transition-speed) var(--slide-transition-ease); 
-}
-
-/* Show only the active slide set */
-.slide-set.active-set {
-    display: flex;
-    height: 100%; /* trying to debug*/
-    width: 100%;
-    flex-grow: 1;
-    /* Default to row for horizontal sets, will be overridden for vertical */
-}
-
-
-
-
-
-/* styling paragraph in slide-item */
-.slide-item p{
-    font-size: clamp(0.9rem, 2vw, 1.1rem); 
-    line-height: 1.6; 
-    max-width: 800px; 
-    margin-bottom: 1rem; 
+*/
+.slide-item p {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    line-height: 1.6;
+    max-width: 800px;
+    margin-bottom: 1rem;
     font-family: "JetBrains Mono", monospace;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
 }
-.slide-item h2 {
-    font-size: clamp(2.7rem,6vw,3.3rem);
-    color: inherit;
 
+.slide-item h2 {
+    font-size: clamp(2.7rem, 6vw, 3.3rem);
+    color: inherit;
 }
 
+.slides-overlay.fun-mode .slide-item {
+    background-color: var(--fun-background);
+}
 
-.dots-container{
+.slides-overlay.fun-mode .slide-item p {
+    color: var(--fun-color);
+}
+
+.dots-container {
     position: absolute;
     bottom: 8rem;
     left: 50%;
@@ -625,6 +626,7 @@ but at least with comments i remember what they do */
     background-color: var(--accent-color);
     transition: all var(--transition-speed) var(--transition-ease);
 }
+
 .dot:hover {
     background-color: var(--primary-text-color);
 }
@@ -634,8 +636,14 @@ but at least with comments i remember what they do */
     transform: scale(1.2);
 }
 
+.slides-overlay.fun-mode .dots-container .dot {
+    background-color: var(--fun-color);
+    opacity: 0.6;
+}
 
-
+.slides-overlay.fun-mode .dots-container .dot.active {
+    background-color: var(--fun-color-text-dark);
+}
 
 .slide-item .title-slide {
     position: absolute;
@@ -645,51 +653,58 @@ but at least with comments i remember what they do */
     transform: translateY(-50%);
 }
 
-
-
-.slides-overlay.active .title-slide {
+.slides-overlay.fun-mode .title-slide {
     font-family: "TIMMONSNY";
     font-size: clamp(5rem, 30vw, 20rem);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-
+    width: 80%; /*debugging line*/
 }
-.slides-overlay.active .title-slide.about-me{
+
+.slides-overlay.fun-mode .title-slide.about-me {
     top: 25%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+}
 
+.slides-overlay.fun-mode .title-slide.language {
+    color: #C2DF43 !important;
 }
-.slides-overlay.active .title-slide.language{
-    color: #C2DF43 !important
-}
+
 .title-slide.business {
     color: #000;
 }
+
 .title-slide.sport {
     color: #C22929;
 }
+
 .title-slide.socialMedia {
     color: #B18355;
 }
+
 .title-slide.psychology {
     color: #A53AC9;
 }
 
-.title-slide.traveling{
+.title-slide.traveling {
     color: #DCE2B3;
 }
+
 .title-slide.computerScience {
     color: #9499EF;
 }
-.imageSlide {
+
+.image-slide {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: clamp(800px, 120vw, 1500px);
     height: clamp(500px, 70vh, 800px);
+    max-width: 90%; 
+    max-height: 80vh; /* both debugging line, trying everything at this point frfr*/
     flex-shrink: 0;
     aspect-ratio: 338/225;
     border-radius: 129px;
@@ -697,7 +712,8 @@ but at least with comments i remember what they do */
     z-index: 1;
 }
 
-.scroll-down-button, .scroll-up-button {
+.scroll-down-button,
+.scroll-up-button {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -712,8 +728,8 @@ but at least with comments i remember what they do */
     cursor: pointer;
     transition: all var(--transition-speed) var(--transition-ease);
     z-index: 50;
-    opacity: 0; /* Hidden by default */
-    pointer-events: none; /* Not interactive when hidden */
+    opacity: 0;
+    pointer-events: none;
 }
 
 .scroll-down-button {
@@ -721,57 +737,22 @@ but at least with comments i remember what they do */
 }
 
 .scroll-up-button {
-    top: 2rem; /* Positioned above the scroll down button */
+    top: 2rem;
 }
 
-.scroll-down-button:hover, .scroll-up-button:hover {
+.scroll-down-button:hover,
+.scroll-up-button:hover {
     background-color: var(--primary-text-color);
     transform: translateX(-50%) scale(1.1);
 }
 
-.arrow-down, .arrow-up {
+.arrow-down,
+.arrow-up {
     width: 0;
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    transition: border-top-color var(--transition-speed) var(--transition-ease),
-                border-bottom-color var(--transition-speed) var(--transition-ease);
-}
-
-.arrow-down {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-top: 10px solid var(--secondary-text-color); /* White arrow */
-    transition: border-top-color var(--transition-speed) var(--transition-ease);
-}
-
-.scroll-down-button:hover .arrow-down {
-    border-top-color: var(--background-light); /* Change arrow color on hover */
-}
-
-
-.scroll-down-button {
-    bottom: 2rem;
-}
-
-.scroll-up-button {
-    bottom: 8rem; /* Positioned above the scroll down button */
-}
-
-.scroll-down-button:hover, .scroll-up-button:hover {
-    background-color: var(--primary-text-color);
-    transform: translateX(-50%) scale(1.1);
-}
-
-.arrow-down, .arrow-up {
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    transition: border-top-color var(--transition-speed) var(--transition-ease),
-                border-bottom-color var(--transition-speed) var(--transition-ease);
+    transition: border-top-color var(--transition-speed) var(--transition-ease), border-bottom-color var(--transition-speed) var(--transition-ease);
 }
 
 .arrow-down {
@@ -790,22 +771,9 @@ but at least with comments i remember what they do */
     border-bottom-color: var(--background-light);
 }
 
-/* Show vertical navigation buttons only when in vertical mode */
-.slides-overlay.vertical-mode .vertical-nav {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-/* Hide horizontal navigation buttons when in vertical mode */
-.slides-overlay.vertical-mode .horizontal-nav {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Style for the new mode switch button */
 .mode-switch-button {
     position: absolute;
-    bottom: 2rem; /* Positioned below the dots */
+    bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
     width: 50px;
@@ -821,31 +789,44 @@ but at least with comments i remember what they do */
     z-index: 101;
     display: flex;
     justify-content: center;
-    align-items: center; 
-    opacity: 0; /* Hidden by default */
-    pointer-events: none; /* Not interactive when hidden */
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .mode-switch-button:hover {
     background-color: var(--primary-text-color);
     transform: translateX(-50%) scale(1.05);
 }
+
 .mode-switch-button .arrow-down {
     border-top: 10px solid var(--primary-text-color);
 }
+
 .mode-switch-button:hover .arrow-down {
     border-top-color: var(--secondary-text-color);
 }
-/* Make mode switch button visible when slides overlay is active */
+
 .slides-overlay.visible .mode-switch-button {
     opacity: 1;
     pointer-events: auto;
 }
 
-.normal-slides .slide-item,
-.fun-slides .slide-item {
+.vertical-slides {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+    /*transition: opacity var(--slide-transition-speed) var(--slide-transition-ease), transform var(--slide-transition-speed) var(--slide-transition-ease);  was the same as slide-item*/
+    overflow: hidden;
+    min-height: 100%;
+}
+
+.vertical-slides .slide-item {
     position: absolute;
-    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -855,82 +836,22 @@ but at least with comments i remember what they do */
     justify-content: center;
     box-sizing: border-box;
     text-align: center;
-    padding: 2rem;
-    opacity: 0;
-    transform: translateX(100%); /* Initial off-screen for horizontal */
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
-    background-color: var(--background-light);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    overflow: hidden;
-}
-
-.normal-slides .slide-item.active,
-.fun-slides .slide-item.active {
-    position: absolute; /* avoid clunky */
-    opacity: 1;
-    transform: translateX(0);
-    z-index: 20;
-}
-
-/* Vertical slide items */
-.vertical-slides {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;     
-    justify-content: flex-start; 
-    box-sizing: border-box;
-    text-align: center; 
     opacity: 0;
     transform: translateY(100%);
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
-    background-color: var(--vertical-slide-bg);
-    color: var(--vertical-slide-text);
+    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease), transform var(--slide-transition-speed) var(--slide-transition-ease);
     overflow: hidden;
-    min-height: 0;
-}
-
-.vertical-slides .slide-item {
-    position: absolute; 
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;    
-    justify-content: flex-start; 
-    box-sizing: border-box;
-    text-align: center; 
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease),
-     transform var(--slide-transition-speed) var(--slide-transition-ease);
-    background-color: var(--vertical-slide-bg);
-    color: var(--vertical-slide-text);
-    overflow: hidden;
-    min-height: 0; /* add for robustness */
+    padding: 2rem; /* will see if like it or not */
 }
 
 .vertical-slides .slide-item.active {
-    position: relative;
+    position: absolute;
     height: 100%;
-    width: 100%; 
+    width: 100%;
     opacity: 1;
     transform: translateY(0);
     z-index: 20;
-    top: 0 !important;
-    align-items: stretch;
-    justify-content: flex-start;
-    margin: 0 !important;
-    padding: 0 !important;
+    top: 0;
+    left: 0;
 }
 
 .horizontal-nav {
@@ -945,15 +866,10 @@ but at least with comments i remember what they do */
     transition: opacity var(--transition-speed) var(--transition-ease);
 }
 
-.slides-overlay.visible .mode-switch-button {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.slides-overlay.vertical-mode .horizontal-nav,
-.slides-overlay.vertical-mode .mode-switch-button{
-    opacity: 0;
-    pointer-events: none;
+.slides-overlay.vertical-mode .slides-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .slides-overlay.vertical-mode .vertical-nav {
@@ -961,5 +877,10 @@ but at least with comments i remember what they do */
     pointer-events: auto;
 }
 
+.slides-overlay.vertical-mode .horizontal-nav,
+.slides-overlay.vertical-mode .mode-switch-button {
+    opacity: 0;
+    pointer-events: none;
+}
 
 

@@ -1,7 +1,7 @@
-const ExploreButton = document.getElementById("explore-button")
+const exploreButton = document.getElementById("explore-button")
 const prevButton = document.getElementById("prevButton")
 const nextButton = document.getElementById("nextButton")
-const slidesOverlay = document.getElementById("slidesOverlay")
+const slidesOverlay = document.getElementById("slides-overlay")
 const closeOverlayButton = document.getElementById("closeOverlayButton")
 const funButton = document.getElementById("fun-button")
 const mainName = document.querySelector(".main-name")
@@ -10,18 +10,21 @@ const dotsContainer = document.getElementById("dotsContainer")
 const modeSwitchVerticalButton = document.getElementById('mode-switch-vertical')
 const scrollUpButton = document.getElementById('scrollUpButton');
 const scrollDownButton = document.getElementById('scrollDownButton');
+
 let index = 0
 let isAnimating = false // avoid multiple animations later on
 let currentSlideMode = 'horizontal'; // either horizontal, fun or vertical. will need to adjust everything later but for rn I just wanna make it work honestly
 
 function toggleFunModeClasses() {
-    const elementsToToggle = [
-        funButton, mainName, ExploreButton, starButton,
-        slidesOverlay, closeOverlayButton, prevButton, nextButton
+    const elementsToGetFunModeActive = [ //changing names to be fore specific
+        funButton, mainName, exploreButton, starButton,
+        closeOverlayButton, prevButton, nextButton  //eliminated slidesOverlay because it was getting both fun-mode and fun-moe-active, idk if it was causing problems but better safe than worry
     ];
-    elementsToToggle.forEach(el => el.classList.toggle('active'));
+    elementsToGetFunModeActive.forEach(el =>{
+        if(el){ // better to check if first it exists or not
+             el.classList.toggle('fun-mode-active')}});
 
-    slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('active'))
+    slidesOverlay.classList.toggle('fun-mode', funButton.classList.contains('fun-mode-active'))
 
 
 }
@@ -50,6 +53,8 @@ function getActiveSlides() {
     }
     return document.querySelectorAll(selector);
 }
+
+
 function showSlide(newIndex, oldIndex = -1) {
     if (isAnimating) {
         return;
@@ -164,6 +169,7 @@ function openSlides(mode = 'horizontal'){
 
 
 }
+
 function generateDots() {
 
     dotsContainer.innerHTML = '' // line to clear existing dots
@@ -194,14 +200,46 @@ function updateDots() {
 
 function updateNavButtons() {
     const slides = getActiveSlides();
+
+    // Hide/show horizontal nav buttons
+    prevButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    nextButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    prevButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    nextButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+
+
+    // Hide/show vertical nav buttons
+    scrollUpButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    scrollDownButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    scrollUpButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    scrollDownButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+
+    // Hide/show mode switch button
+    modeSwitchVerticalButton.classList.toggle('visible', currentSlideMode !== 'vertical' && slidesOverlay.classList.contains('visible'));
+    modeSwitchVerticalButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    modeSwitchVerticalButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+
+
     if(currentSlideMode === 'vertical'){
         scrollUpButton.disabled = index ===0;
         scrollDownButton.disabled = index === slides.length - 1;
-    } else {
+
+        prevButton.style.display = 'none';
+        nextButton.style.display = 'none';
+        scrollUpButton.style.display = ''; 
+        scrollDownButton.style.display = ''; 
+        modeSwitchVerticalButton.style.display = 'none'; 
+    } else { // horizontal or fun
         prevButton.disabled = index === 0;
         nextButton.disabled = index === slides.length -1;
+        scrollUpButton.style.display = 'none';
+        scrollDownButton.style.display = 'none';
+        prevButton.style.display = ''; 
+        nextButton.style.display = ''; 
+        modeSwitchVerticalButton.style.display = ''; 
     }
 }
+
 
 
 funButton.addEventListener('click',() =>{
@@ -212,14 +250,32 @@ funButton.addEventListener('click',() =>{
     }
   
 })
+exploreButton.addEventListener('click', () => {
+    // remove fun mode just in case
+    mainName.classList.remove('fun-mode-active');
+    funButton.classList.remove('fun-mode-active');
+    starButton.classList.remove('fun-mode-active');
+    closeOverlayButton.classList.remove('fun-mode-active');
+    openSlides('horizontal');
+});
 
-ExploreButton.addEventListener('click', () => openSlides('horizontal'));
-starButton.addEventListener('click', () => openSlides('fun'));
+starButton.addEventListener('click', () => {
+    // same thing but for opposite reason
+    mainName.classList.add('fun-mode-active');
+    funButton.classList.add('fun-mode-active');
+    starButton.classList.add('fun-mode-active');
+    closeOverlayButton.classList.add('fun-mode-active');
+    openSlides('fun');
+});
 
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
-    slidesOverlay.classList.remove('fun-mode', 'vertical-mode') //general clean-up, will see if removing the fun is what i want or not
-
+    slidesOverlay.classList.remove('fun-mode', 'vertical-mode'); //general clean-up, will see if removing the fun is what i want or not
+    prevButton.style.display = 'none'; // hide ALL buttons, again, just in case
+    nextButton.style.display = 'none';
+    scrollUpButton.style.display = 'none';
+    scrollDownButton.style.display = 'none';
+    modeSwitchVerticalButton.style.display = 'none';
 });
 
 prevButton.addEventListener('click', () => moveSlide(-1));
