@@ -14,6 +14,7 @@ const scrollDownButton = document.getElementById('scrollDownButton');
 let index = 0
 let isAnimating = false // avoid multiple animations later on
 let currentSlideMode = 'horizontal'; // either horizontal, fun or vertical. will need to adjust everything later but for rn I just wanna make it work honestly
+let verticalSlideCategory = null; 
 
 function toggleFunModeClasses() {
     const elementsToGetFunModeActive = [ //changing names to be fore specific
@@ -41,7 +42,7 @@ function getActiveSlides() {
         selector = '.fun-slides .slide-item';
         activeSet = document.querySelector('.fun-slides');
     } else if (currentSlideMode === 'vertical') { 
-        selector = '.vertical-slides .slide-item';
+        selector = `.vertical-slides .slide-item[data-category="${verticalSlideCategory}"]`;
         activeSet = document.querySelector('.vertical-slides');
     } else {
         selector = '.normal-slides .slide-item';
@@ -134,8 +135,9 @@ function moveSlide(direction) {
         showSlide(index, oldIndex);
     }
 }
-function openSlides(mode = 'horizontal'){
+function openSlides(mode = 'horizontal', category = null){
     currentSlideMode = mode;
+    verticalSlideCategory = category;
     index = 0
     // before adding things, wanna make a cleanup
     slidesOverlay.classList.remove('fun-mode', 'vertical-mode')
@@ -201,43 +203,24 @@ function updateDots() {
 function updateNavButtons() {
     const slides = getActiveSlides();
 
-    // Hide/show horizontal nav buttons
-    prevButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
-    nextButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
-    prevButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
-    nextButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    const isVertical = currentSlideMode === 'vertical';
+    const isFun = currentSlideMode === 'fun';
 
+    // changed the logic, now it should be more modular and should also properly display the vert button only when fun mode
+    prevButton.style.display = !isVertical ? '' : 'none';
+    nextButton.style.display = !isVertical ? '' : 'none';
+    prevButton.disabled = index === 0;
+    nextButton.disabled = index === slides.length - 1;
 
-    // Hide/show vertical nav buttons
-    scrollUpButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
-    scrollDownButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
-    scrollUpButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
-    scrollDownButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
-
-    // Hide/show mode switch button
-    modeSwitchVerticalButton.classList.toggle('visible', currentSlideMode !== 'vertical' && slidesOverlay.classList.contains('visible'));
-    modeSwitchVerticalButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
-    modeSwitchVerticalButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
-
-
-    if(currentSlideMode === 'vertical'){
-        scrollUpButton.disabled = index ===0;
+    // Vertical nav buttons
+    scrollUpButton.style.display = isVertical ? '' : 'none';
+    scrollDownButton.style.display = isVertical ? '' : 'none';
+    if (isVertical) {
+        scrollUpButton.disabled = index === 0;
         scrollDownButton.disabled = index === slides.length - 1;
-
-        prevButton.style.display = 'none';
-        nextButton.style.display = 'none';
-        scrollUpButton.style.display = ''; 
-        scrollDownButton.style.display = ''; 
-        modeSwitchVerticalButton.style.display = 'none'; 
-    } else { // horizontal or fun
-        prevButton.disabled = index === 0;
-        nextButton.disabled = index === slides.length -1;
-        scrollUpButton.style.display = 'none';
-        scrollDownButton.style.display = 'none';
-        prevButton.style.display = ''; 
-        nextButton.style.display = ''; 
-        modeSwitchVerticalButton.style.display = ''; 
     }
+
+    modeSwitchVerticalButton.style.display = isFun ? '' : 'none';
 }
 
 
@@ -282,11 +265,15 @@ prevButton.addEventListener('click', () => moveSlide(-1));
 nextButton.addEventListener('click', () => moveSlide(1));
 
 modeSwitchVerticalButton.addEventListener('click', () => {
-    if (currentSlideMode !== 'vertical') {
-        openSlides('vertical');
+    const funSlides = document.querySelectorAll('.fun-slides .slide-item');
+    if (funSlides.length > index) {
+        const activeFunSlide = funSlides[index];
+        const category = activeFunSlide.dataset.slideId;
+        openSlides('vertical', category);
     }
 });
 
 scrollUpButton.addEventListener('click', () => moveSlide(-1));
 scrollDownButton.addEventListener('click', () => moveSlide(1));
+
 
