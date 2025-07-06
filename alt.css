@@ -26,8 +26,8 @@ html {
     font-style: normal;
 }
 
-.jolly-name-font {
-    font-family: "Jolly Lodger", system-ui;
+.timmons-font {
+    font-family: "TIMMONSNY";
     font-weight: 400;
     font-style: normal;
 }
@@ -85,7 +85,9 @@ body.animated-bg {
 
 .main-name.fun-mode-active {
     color: var(--fun-color);
-    font-family: "Jolly Lodger", system-ui;
+    text-transform: uppercase;
+    font-family: 'TIMMONSNY';
+    letter-spacing: 0.1rem;
 }
 
 .main-name.funmode-active:hover {
@@ -649,7 +651,7 @@ body.animated-bg {
     position: absolute;
     z-index: 3;
     top: 20%;
-    left: 10%;
+    left: -15%;
     transform: translateY(-50%);
 }
 
@@ -668,40 +670,60 @@ body.animated-bg {
     transform: translate(-50%, -50%);
 }
 
-.slides-overlay.fun-mode .title-slide.language {
+.slides-overlay.fun-mode .title-slide.language,
+.title-vertical.language {
     color: #C2DF43 !important;
 }
 
-.title-slide.business {
+.title-slide.business,
+.title-vertical.business {
     color: #000;
 }
 
-.title-slide.sport {
+.title-slide.sport,
+.title-vertical.sport {
     color: #C22929;
+    left: -20%;
 }
 
-.title-slide.socialMedia {
+.title-slide.socialMedia,
+.title-vertical.socialMedia {
     color: #B18355;
 }
 
-.title-slide.psychology {
+.title-slide.psychology,
+.title-vertical.psychology {
     color: #A53AC9;
+    left: -12%;
 }
 
-.title-slide.traveling {
+.title-slide.traveling,
+.title-vertical.traveling {
     color: #DCE2B3;
 }
 
-.title-slide.computerScience {
+.title-slide.computerScience,
+.title-vertical.computerScience {
     color: #9499EF;
 }
+
+.slide-item .title-vertical {
+    font-family: "TIMMONSNY";
+    font-size: clamp(10rem, 30vw, 40rem);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    left: 0%;
+}
+
+
 
 .image-slide {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: clamp(800px, 120vw, 1500px);
+    width: clamp(700px, 100vw, 1200px);
     height: clamp(500px, 70vh, 800px);
     max-width: 90%; 
     max-height: 80vh; /* both debugging line, trying everything at this point frfr*/
