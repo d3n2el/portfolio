@@ -206,21 +206,21 @@ function updateNavButtons() {
     const isVertical = currentSlideMode === 'vertical';
     const isFun = currentSlideMode === 'fun';
 
-    // changed the logic, now it should be more modular and should also properly display the vert button only when fun mode
-    prevButton.style.display = !isVertical ? '' : 'none';
-    nextButton.style.display = !isVertical ? '' : 'none';
+    // decided to useclasses instead of inline styles for better CSS control (aboslutely not because i broke everything and this was the easier way, nono)
+    prevButton.classList.toggle('hidden', isVertical);
+    nextButton.classList.toggle('hidden', isVertical);
     prevButton.disabled = index === 0;
     nextButton.disabled = index === slides.length - 1;
 
     // Vertical nav buttons
-    scrollUpButton.style.display = isVertical ? '' : 'none';
-    scrollDownButton.style.display = isVertical ? '' : 'none';
+    scrollUpButton.classList.toggle('hidden', !isVertical);
+    scrollDownButton.classList.toggle('hidden', !isVertical);
     if (isVertical) {
         scrollUpButton.disabled = index === 0;
         scrollDownButton.disabled = index === slides.length - 1;
     }
 
-    modeSwitchVerticalButton.style.display = isFun ? '' : 'none';
+    modeSwitchVerticalButton.classList.toggle('hidden', !isFun);
 }
 
 
@@ -254,11 +254,6 @@ starButton.addEventListener('click', () => {
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
     slidesOverlay.classList.remove('fun-mode', 'vertical-mode'); //general clean-up, will see if removing the fun is what i want or not
-    prevButton.style.display = 'none'; // hide ALL buttons, again, just in case
-    nextButton.style.display = 'none';
-    scrollUpButton.style.display = 'none';
-    scrollDownButton.style.display = 'none';
-    modeSwitchVerticalButton.style.display = 'none';
 });
 
 prevButton.addEventListener('click', () => moveSlide(-1));

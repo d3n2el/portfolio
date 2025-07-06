@@ -318,6 +318,7 @@ body.animated-bg {
     position: absolute;
     top: 50%;
     background-color: transparent;
+    border: 2px solid var(--primary-text-color);
     border-radius: var(--border-radius-full);
     color: var(--primary-text-color);
     width: clamp(40px, 6vw, 60px);
@@ -327,6 +328,8 @@ body.animated-bg {
     appearance: none;
     -webkit-appearance: none;
     touch-action: manipulation;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .nav-button.prev {
@@ -448,6 +451,8 @@ body.animated-bg {
     font-size: 2rem;
     cursor: pointer;
     transition: transform var(--transition-speed) var(--transition-ease);
+    opacity: 0;
+    pointer-events: none;
 }
 
 .close-button:hover {
@@ -462,6 +467,93 @@ body.animated-bg {
 .close-button.fun-mode-active:hover {
     color: var(--fun-color-text-dark);
     transform: rotate(90deg) scale(1.2);
+}
+
+.mode-switch-button {
+    z-index: 100;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--primary-text-color);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition-speed) var(--transition-ease);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mode-switch-button .arrow-down {
+    border: solid var(--primary-text-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(45deg);
+}
+
+.mode-switch-button:hover {
+    background-color: var(--primary-text-color);
+}
+
+.mode-switch-button:hover .arrow-down {
+    border-color: var(--secondary-text-color);
+}
+
+.vertical-nav {
+    z-index: 100;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--primary-text-color);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition-speed) var(--transition-ease);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scroll-up-button {
+    bottom: 6rem;
+}
+
+.scroll-down-button {
+    bottom: 2rem;
+}
+
+.vertical-nav .arrow-up {
+    border: solid var(--primary-text-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(-135deg);
+}
+
+.vertical-nav .arrow-down {
+    border: solid var(--primary-text-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(45deg);
+}
+
+.vertical-nav:hover {
+    background-color: var(--primary-text-color);
+}
+
+.vertical-nav:hover .arrow-up,
+.vertical-nav:hover .arrow-down {
+    border-color: var(--secondary-text-color);
 }
 
 .slides-overlay {
@@ -485,6 +577,17 @@ body.animated-bg {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+}
+
+.slides-overlay.visible .nav-button,
+.slides-overlay.visible .close-button,
+.slides-overlay.visible .dots-container,
+.slides-overlay.visible .mode-switch-button,
+.slides-overlay.visible .scroll-down-button,
+.slides-overlay.visible .scroll-up-button {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
 }
 
 .slides-overlay.fun-mode {
@@ -618,6 +721,8 @@ body.animated-bg {
     display: flex;
     gap: 1rem;
     z-index: 50;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .dot {
@@ -709,11 +814,10 @@ body.animated-bg {
 
 .slide-item .title-vertical {
     font-family: "TIMMONSNY";
-    font-size: clamp(10rem, 30vw, 40rem);
+    font-size: clamp(15rem, 60vw, 60rem);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    left: 0%;
 }
 
 
@@ -908,6 +1012,23 @@ body.animated-bg {
 .slides-overlay.vertical-mode .mode-switch-button {
     opacity: 0;
     pointer-events: none;
+}
+
+/* Show navigation elements when slides overlay is visible */
+.slides-overlay.visible .nav-button,
+.slides-overlay.visible .close-button,
+.slides-overlay.visible .dots-container,
+.slides-overlay.visible .mode-switch-button,
+.slides-overlay.visible .scroll-down-button,
+.slides-overlay.visible .scroll-up-button {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
 }
 
 
