@@ -14,8 +14,7 @@ const scrollDownButton = document.getElementById('scrollDownButton');
 let index = 0
 let isAnimating = false // avoid multiple animations later on
 let currentSlideMode = 'horizontal'; // either horizontal, fun or vertical. will need to adjust everything later but for rn I just wanna make it work honestly
-let verticalSlideCategory = null; 
-
+let verticalSlideCategory = null;
 function toggleFunModeClasses() {
     const elementsToGetFunModeActive = [ //changing names to be fore specific
         funButton, mainName, exploreButton, starButton,
@@ -202,25 +201,44 @@ function updateDots() {
 
 function updateNavButtons() {
     const slides = getActiveSlides();
-
-    const isVertical = currentSlideMode === 'vertical';
     const isFun = currentSlideMode === 'fun';
+    // Hide/show horizontal nav buttons
+    prevButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    nextButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    prevButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    nextButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
 
-    // decided to useclasses instead of inline styles for better CSS control (aboslutely not because i broke everything and this was the easier way, nono)
-    prevButton.classList.toggle('hidden', isVertical);
-    nextButton.classList.toggle('hidden', isVertical);
-    prevButton.disabled = index === 0;
-    nextButton.disabled = index === slides.length - 1;
 
-    // Vertical nav buttons
-    scrollUpButton.classList.toggle('hidden', !isVertical);
-    scrollDownButton.classList.toggle('hidden', !isVertical);
-    if (isVertical) {
+    // Hide/show vertical nav buttons
+    scrollUpButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    scrollDownButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    scrollUpButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+    scrollDownButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+
+    // Hide/show mode switch 
+    modeSwitchVerticalButton.classList.toggle('visible', isFun);
+    modeSwitchVerticalButton.classList.toggle('vertical-nav', currentSlideMode === 'vertical');
+    modeSwitchVerticalButton.classList.toggle('horizontal-nav', currentSlideMode !== 'vertical');
+
+
+    if(currentSlideMode === 'vertical'){
         scrollUpButton.disabled = index === 0;
         scrollDownButton.disabled = index === slides.length - 1;
-    }
 
-    modeSwitchVerticalButton.classList.toggle('hidden', !isFun);
+        prevButton.style.display = 'none';
+        nextButton.style.display = 'none';
+        scrollUpButton.style.display = ''; 
+        scrollDownButton.style.display = ''; 
+        modeSwitchVerticalButton.style.display = 'none'; 
+    } else { 
+        prevButton.disabled = index === 0;
+        nextButton.disabled = index === slides.length -1;
+        scrollUpButton.style.display = 'none';
+        scrollDownButton.style.display = 'none';
+        prevButton.style.display = ''; 
+        nextButton.style.display = ''; 
+        modeSwitchVerticalButton.style.display =  (currentSlideMode === 'fun') ? '' : 'none';  ;  
+    }
 }
 
 
@@ -254,6 +272,11 @@ starButton.addEventListener('click', () => {
 closeOverlayButton.addEventListener('click', () => {
     slidesOverlay.classList.remove('visible');
     slidesOverlay.classList.remove('fun-mode', 'vertical-mode'); //general clean-up, will see if removing the fun is what i want or not
+    prevButton.style.display = 'none'; // hide ALL buttons, again, just in case
+    nextButton.style.display = 'none';
+    scrollUpButton.style.display = 'none';
+    scrollDownButton.style.display = 'none';
+    modeSwitchVerticalButton.style.display = 'none';
 });
 
 prevButton.addEventListener('click', () => moveSlide(-1));
@@ -270,5 +293,4 @@ modeSwitchVerticalButton.addEventListener('click', () => {
 
 scrollUpButton.addEventListener('click', () => moveSlide(-1));
 scrollDownButton.addEventListener('click', () => moveSlide(1));
-
 

@@ -234,10 +234,9 @@ body.animated-bg {
     appearance: none;
     -webkit-appearance: none;
     touch-action: manipulation;
-    transition: all var(--transition-speed) var(--transition-ease);
-    will-change: transform;
     opacity: 0;
     pointer-events: none;
+    transition: opacity var(--transition-speed) var(--transition-ease);
 }
 
 .star-button.fun-mode-active {
@@ -313,8 +312,36 @@ body.animated-bg {
     transform: scale(1);
 }
 
+.nav-button, .close-button, .dots-container, .mode-switch-button, .vertical-nav {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity var(--transition-speed) var(--transition-ease), visibility var(--transition-speed) var(--transition-ease);
+}
+
+.slides-overlay.visible .nav-button,
+.slides-overlay.visible .close-button,
+.slides-overlay.visible .dots-container,
+.slides-overlay.visible .mode-switch-button,
+.slides-overlay.visible .vertical-nav {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.slides-overlay.visible .nav-button.hidden,
+.slides-overlay.visible .close-button.hidden,
+.slides-overlay.visible .dots-container.hidden,
+.slides-overlay.visible .mode-switch-button.hidden,
+.slides-overlay.visible .vertical-nav.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
+}
+
 .nav-button {
     z-index: 100;
+    display: flex;
     position: absolute;
     top: 50%;
     background-color: transparent;
@@ -328,10 +355,16 @@ body.animated-bg {
     appearance: none;
     -webkit-appearance: none;
     touch-action: manipulation;
-    opacity: 0;
-    pointer-events: none;
 }
 
+.slides-overlay.visible .nav-button:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+.nav-button.hidden {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 .nav-button.prev {
     left: 2rem;
 }
@@ -451,8 +484,6 @@ body.animated-bg {
     font-size: 2rem;
     cursor: pointer;
     transition: transform var(--transition-speed) var(--transition-ease);
-    opacity: 0;
-    pointer-events: none;
 }
 
 .close-button:hover {
@@ -489,11 +520,13 @@ body.animated-bg {
 }
 
 .mode-switch-button .arrow-down {
-    border: solid var(--primary-text-color);
+    border-style: solid;
+    border-color: var(--primary-text-color);
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 4px;
     transform: rotate(45deg);
+    transition: border-color var(--transition-speed) var(--transition-ease);
 }
 
 .mode-switch-button:hover {
@@ -515,8 +548,6 @@ body.animated-bg {
     border-radius: 50%;
     background-color: transparent;
     cursor: pointer;
-    opacity: 0;
-    pointer-events: none;
     transition: all var(--transition-speed) var(--transition-ease);
     display: flex;
     justify-content: center;
@@ -721,8 +752,6 @@ body.animated-bg {
     display: flex;
     gap: 1rem;
     z-index: 50;
-    opacity: 0;
-    pointer-events: none;
 }
 
 .dot {
@@ -814,10 +843,18 @@ body.animated-bg {
 
 .slide-item .title-vertical {
     font-family: "TIMMONSNY";
-    font-size: clamp(15rem, 60vw, 60rem);
+    font-size: clamp(10rem, 25vw, 18rem);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
 }
 
 
@@ -969,7 +1006,7 @@ body.animated-bg {
     text-align: center;
     opacity: 0;
     transform: translateY(100%);
-    transition: opacity var(--slide-transition-speed) var(--slide-transition-ease), transform var(--slide-transition-speed) var(--slide-transition-ease);
+    transition: opacity var(--slide-transition-speed) var(--transition-ease), transform var(--slide-transition-speed) var(--slide-transition-ease);
     overflow: hidden;
     padding: 2rem; /* will see if like it or not */
 }
