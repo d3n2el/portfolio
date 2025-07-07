@@ -388,7 +388,7 @@ body.animated-bg {
     color: var(--primary-text-color);
     background-color: var(--background-light);
 }
-.nav-button.fun-mode-active:disabled .plus-line {
+.nav-button.fun-mode-active:disabled:hover .plus-line {
     background-color: transparent;
 }
 .nav-button:hover .plus-line-vertical {
