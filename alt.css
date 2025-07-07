@@ -388,7 +388,9 @@ body.animated-bg {
     color: var(--primary-text-color);
     background-color: var(--background-light);
 }
-
+.nav-button.fun-mode-active:disabled .plus-line {
+    background-color: transparent;
+}
 .nav-button:hover .plus-line-vertical {
     opacity: 0;
     transform: translateX(-50%) scaleY(0);
@@ -518,32 +520,33 @@ body.animated-bg {
     justify-content: center;
     align-items: center;
 }
-
+/* idek why this works, honestly, i just decided to comment the whole arrow down thing and it started working, ask god the questions, not me*/
 .mode-switch-button .arrow-down {
-    border-style: solid;
-    border-color: var(--primary-text-color);
-    border-width: 0 2px 2px 0;
-    display: inline-block;
-    padding: 4px;
-    transform: rotate(45deg);
-    transition: border-color var(--transition-speed) var(--transition-ease);
+    /* with this, it works but the background is different, need to find a way to animate properly, still confused as to why the exact same code as nav vertical did not work*/
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--primary-text-color);
+    transition: all var(--transition-speed) var(--transition-ease);
 }
 
 .mode-switch-button:hover {
-    background-color: var(--primary-text-color);
+    background-color: var(--secondary-text-color);
+    transform: scale(1.1); /* just like the effect*/
 }
 
-.mode-switch-button:hover .arrow-down {
+/*.mode-switch-button:hover .arrow-down {
     border-color: var(--secondary-text-color);
 }
-
+*/
 .vertical-nav {
     z-index: 100;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border: 2px solid var(--primary-text-color);
     border-radius: 50%;
     background-color: transparent;
@@ -716,9 +719,10 @@ body.animated-bg {
 }
 /* useless since handled by js but dont wanna delete yet
 .slide-item.active.from-left {
-    transform: translateX(0);
+    transform: translateX(0);     
     opacity: 1;
 }
+    
 */
 .slide-item p {
     font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -820,8 +824,8 @@ body.animated-bg {
     left: -20%;
 }
 
-.title-slide.socialMedia,
-.title-vertical.socialMedia {
+.title-slide.social-media,
+.title-vertical.social-media {
     color: #B18355;
 }
 
@@ -836,8 +840,8 @@ body.animated-bg {
     color: #DCE2B3;
 }
 
-.title-slide.computerScience,
-.title-vertical.computerScience {
+.title-slide.computer-science,
+.title-vertical.computer-science {
     color: #9499EF;
 }
 
