@@ -1,7 +1,7 @@
 // Setup game canvas in js
 import { Player, UI, background , ImageLoader} from "./allClasses.js"
 // keep track of levels to know 
-let gameLevel = 0 // need to change after testing
+let gameLevel = 0
 var Canvas = document.getElementById("GameCanvas")
     //Create simple rectangle to test with
 var ctx = Canvas.getContext("2d")
@@ -87,7 +87,7 @@ const levelData = [
         playerStartY: Canvas.height - 200, // Assuming ground level
         objects: [
             // Images for 1st level
-            { key: "hospital", x: 2000, y: 350, sizeX: 800, sizeY: 800 },
+            { key: "hospital", x: 2000, y: 330, sizeX: 800, sizeY: 800 },
             { key: "BrickTile", x: 8200, y: 830, sizeX: 30, sizeY: 30 },
             { key: "BrickTile", x: 8230, y: 830, sizeX: 30, sizeY: 30 },
             { key: "BrickTile", x: 8260, y: 830, sizeX: 30, sizeY: 30 },
@@ -130,7 +130,7 @@ const levelData = [
             { key: "BrickTile", x: 8530, y: 710, sizeX: 30, sizeY: 30 },
             { key: "BrickTile", x: 8530, y: 680, sizeX: 30, sizeY: 30 },  
             { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
-            {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700}
+            {key:"house", x:3900 ,y:300,sizeX:550 ,sizeY:560}
         ],
         textBlocks: [
             { text: "Daniel's Life", x:300, y:200,color:"black", size:68},
@@ -150,15 +150,15 @@ const levelData = [
         playerStartX: 100,
         playerStartY: Canvas.height - 300,
         objects: [
-            {key:"FrenchFlag", x:17000 ,y:550,sizeX:400 ,sizeY:400},
+            {key:"FrenchFlag", x:16750 ,y:550,sizeX:400 ,sizeY:400},
             { key: "FinalFlag",x: 20000 ,y:460,sizeX: 400 ,sizeY:400},
-            {key:"SpanishFlag", x:15000, y:450, sizeX:400, sizeY:400},
-            {key:"ItalianFlag", x:9000, y:250, sizeX:800, sizeY: 800},
-            {key:"EnglishFlag",x:13000,y:450, sizeX:400, sizeY:400 },
-            {key:"RussianFlag", x:11000, y:450, sizeX:400, sizeY:400},
+            {key:"SpanishFlag", x:14800, y:450, sizeX:400, sizeY:400},
+            {key:"ItalianFlag", x:8600, y:250, sizeX:800, sizeY: 800},
+            {key:"EnglishFlag",x:12800,y:450, sizeX:400, sizeY:400 },
+            {key:"RussianFlag", x:10800, y:450, sizeX:400, sizeY:400},
             {key:"language", x:6700, y:150, sizeX: 150, sizeY: 150 },
             {key:"world", x:6700, y:400, sizeX: 150, sizeY:150},
-            {key:"Psi", x:4500, y:150, sizeX: 400, sizeY: 400},
+            {key:"Psi", x:4300, y:150, sizeX: 400, sizeY: 400},
             {key:"Eye", x:5200, y:100, sizeX: 50, sizeY: 50},
             {key:"Eye", x:5400, y:150, sizeX: 50, sizeY: 50},
             {key:"Eye", x:4900, y:500, sizeX: 50, sizeY: 50},
@@ -167,15 +167,15 @@ const levelData = [
             {key:"PokePsi", x:4700, y:600, sizeX: 150, sizeY: 150},
             {key:"PokePsi", x:5750, y:300, sizeX: 150, sizeY: 150},
             {key:"PokePsi", x:5300, y:600, sizeX: 150, sizeY: 150},
-            {key:"Croissant", x:16900, y:450, sizeX: 100, sizeY: 100},
-            {key:"Pizza", x:9000, y:600, sizeX: 100, sizeY: 100},
-            {key:"Paella", x:14700, y:600, sizeX: 100, sizeY: 100},
-            {key:"BackInfo", x:3000, y:0, sizeX: 1000, sizeY: 1000},
+            {key:"Croissant", x:16600, y:450, sizeX: 100, sizeY: 100},
+            {key:"Pizza", x:8500, y:600, sizeX: 100, sizeY: 100},
+            {key:"Paella", x:14500, y:600, sizeX: 100, sizeY: 100},
+            {key:"BackInfo", x:2700, y:0, sizeX: 1000, sizeY: 860},
             {key:"PC", x:3100, y:400, sizeX: 300, sizeY: 300},
         ],
         textBlocks: [
             { text: "Welcome to Level 2, Adolescence and hobbies", x: 100, y: 250, color:"black", size:68 },
-            {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 3000, y:300, color: "white"},
+            {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 3200, y:300, color: "white"},
             {text:"Another Passion of mine is \nPsychology as symbolised by the psi and the eyes. \nI studied it a lot in my own time and did \nYale’s Introduction To Psychology course on Coursera.",x: 5000, y:300},
             {text:"Now I’ll talk about languages, \nanother passion that I also study at school. I currently speak 5 languages:\n Italian, English, Russian, Spanish and French. \nI’ll talk more about each language later.",x: 7000 ,y:300},
             { text: "I’ll start with my native language: Italian.\nIt holds a special place in my heart since it’s the\n language of family, friends and school. I find it\n really beautiful, albeit practically useless.", x: 9000, y: 300, color:"black" },
@@ -193,12 +193,12 @@ const levelData = [
         playerStartX: 100,
         playerStartY: Canvas.height - 300, 
         objects:[
-            {key:"Leaf", x:6800, y:300, sizeX: 150, sizeY: 150},
+            {key:"Leaf", x:6300, y:300, sizeX: 150, sizeY: 150},
             {key:"FinalFlag", x:12000, y:460, sizeX: 400, sizeY: 400},
         ],
         textBlocks:[
-            { text: "You reached the final level “Dreams and Aspirations”!! So, what are my Dreams and Aspirations?",
-                 x: 100, y: 250, color:"black", size:68 },
+            { text: "You reached the final level “Dreams and Aspirations”!!\n\n So, what are my Dreams and Aspirations?",
+                 x: 1000, y: 250, color:"black", size:68 },
 
             { text: "I currently would like to join a prestigious\nbusiness school. Thinking about Escp\nmainly for their unique approach but\nalso to others in Europe, mostly in the UK.\nAnd of course the ivies would be a\ndream too but with the current political\nsituation, I would rather avoid.", x: 4000, y: 250 },
             { text: "After University,\nI would like to start my own company since\never since I was little that was my dream.\nI would also love to make something related to the environment since I care a lot about it.", x: 7000, y: 250},
@@ -253,11 +253,11 @@ function endScreen() {
     const handleMouseMove = (event) => {
         const rect = Canvas.getBoundingClientRect();
         const mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-
+        const isFinalScreen = currentLevel.textBlocks.some(t => t.text.includes('Congratulations')) //only text exclusive to last level
         let oldHoveredOption = hoveredOption;
         hoveredOption = null; // reset
 
-        if (isInside(mousePos, yesButton)) {
+        if ( !isFinalScreen && isInside(mousePos, yesButton)) {
             hoveredOption = "Yes";
         } else if (isInside(mousePos, noButton)) {
             hoveredOption = "No";
@@ -269,7 +269,8 @@ function endScreen() {
             if (hoveredOption === "Yes") {
                 ui.DrawUIText("-Yes_", yesButton.x + yesButton.width / 2, 600, "yellow", 50);
             } else if (hoveredOption === "No") {
-                ui.DrawUIText("-No[EXIT]", noButton.x + noButton.width / 2, 750, "yellow", 50);
+                const exitText = isFinalScreen ? '-[EXIT]' : '-NO[EXIT]';
+                ui.DrawUIText(exitText, noButton.x + noButton.width / 2, 750, "yellow", 50);
             }
         }
     };
@@ -291,9 +292,12 @@ function endScreen() {
 
             const isFinalScreen = currentLevel.textBlocks.some(t => t.text.includes("Congratulations"));
             if (isFinalScreen) {
-                window.location.href = "index.html"
+                // already handled before
                 return; 
             }
+            // idk how i managed to forget this honestly
+            gameLevel++; // go to the next actual level
+            currentLevel = levelData[gameLevel]; // load the new level
 
             isTransitionScreen = false; 
             player.x = currentLevel.playerStartX; 
@@ -384,7 +388,7 @@ function update(){
         );
     }
 
-    requestAnimationFrame();
+    requestAnimationFrame(update);
 }
 
 function getBrickTiles(levelObjects) {
