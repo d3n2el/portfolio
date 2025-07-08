@@ -10,6 +10,9 @@ const dotsContainer = document.getElementById("dotsContainer")
 const modeSwitchVerticalButton = document.getElementById('mode-switch-vertical')
 const scrollUpButton = document.getElementById('scrollUpButton');
 const scrollDownButton = document.getElementById('scrollDownButton');
+const emailButton = document.getElementById("email-button");
+const instagramButton = document.getElementById("instagram-button");
+const creditsButton = document.getElementById('credits-button');
 
 let index = 0
 let isAnimating = false // avoid multiple animations later on
@@ -116,6 +119,8 @@ function showSlide(newIndex, oldIndex = -1) {
 
         updateNavButtons();
         updateDots();
+        updateFixedButtonColors();
+
     }, transitionSpeed);
 }
     
@@ -241,6 +246,62 @@ function updateNavButtons() {
     }
 }
 
+function updateFixedButtonColors() {
+    const isOverlayVisible = slidesOverlay.classList.contains('visible');
+    const isFunMode = slidesOverlay.classList.contains('fun-mode');
+
+    const fixedButtons = [emailButton, instagramButton, creditsButton];
+
+    if (isOverlayVisible && isFunMode) {
+        // 
+        let activeSlide;
+        if (currentSlideMode === 'vertical') {
+            activeSlide = document.querySelector(`.vertical-slides .slide-item.active`);
+        } else if (currentSlideMode === 'fun') {
+            activeSlide = document.querySelector(`.fun-slides .slide-item.active`);
+        } else {
+            // if none, just default color
+            fixedButtons.forEach(button => {
+                button.style.color = 'var(--accent-color)'; 
+            });
+            return;
+        }
+        // check active slide then get the correct the correct class
+        if (activeSlide) {
+            let titleElement;
+            if (currentSlideMode === 'vertical') {
+                titleElement = activeSlide.querySelector('.title-vertical');
+            } else if (currentSlideMode === 'fun') {
+                titleElement = activeSlide.querySelector('.title-slide');
+            }
+
+            if (titleElement) {
+                // if all is well, get the color from the class
+                const titleColor = getComputedStyle(titleElement).color;
+
+                // apply this color
+                fixedButtons.forEach(button => {
+                    button.style.color = titleColor;
+                });
+            } else {
+                // return to normal if nothing is found
+                fixedButtons.forEach(button => {
+                    button.style.color = 'var(--accent-color)'; 
+                });
+            }
+        } else {
+            // just fun color when no active slide
+            fixedButtons.forEach(button => {
+                button.style.color = 'var(--fun-color)'; 
+            });
+        }
+    } else {
+        // default color if not on overlay
+        fixedButtons.forEach(button => {
+            button.style.color = 'var(--accent-color)';
+        });
+    }
+}
 
 
 funButton.addEventListener('click',() =>{
@@ -249,6 +310,7 @@ funButton.addEventListener('click',() =>{
         currentSlideMode = funButton.classList.contains('active') ? 'fun' : 'horizontal';
         openSlides(currentSlideMode);
     }
+    updateFixedButtonColors();
   
 })
 exploreButton.addEventListener('click', () => {
@@ -277,6 +339,7 @@ closeOverlayButton.addEventListener('click', () => {
     scrollUpButton.style.display = 'none';
     scrollDownButton.style.display = 'none';
     modeSwitchVerticalButton.style.display = 'none';
+    updateFixedButtonColors();
 });
 
 prevButton.addEventListener('click', () => moveSlide(-1));

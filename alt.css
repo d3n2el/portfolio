@@ -629,7 +629,6 @@ body.animated-bg {
 }
 
 .slides-container {
-     border: 3px solid blue !important; /*debugging line, eliminate later*/
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -660,7 +659,7 @@ body.animated-bg {
 }
 
 .slide-set.active-set {
-     border: 3px solid green !important; /* debugging, eliminate later*/
+ 
     display: block;
 }
 /* wanna try handing it with js
@@ -707,7 +706,6 @@ body.animated-bg {
 }
 
 .slide-item.active {
-    border: 3px solid red !important; /* debugging line,eliminate later*/
     position: absolute;
     top: 0;
     left: 0;
@@ -1072,4 +1070,27 @@ body.animated-bg {
     visibility: hidden;
 }
 
+.fixed-buttons-container {
+    position: fixed; /* always there*/
+    bottom: 2rem;    
+    right: 2rem;     
+    z-index: 1000;   /* on top of everything else */
+    display: flex;
+    flex-direction: column;  
+    gap: 0.2rem;  
+}
+.fixed-buttons-container .email-button,
+.fixed-buttons-container .instagram-button,
+.fixed-buttons-container .credits-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    text-align: right;
+    background-color: transparent;
+    color: var(--accent-color);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all var(--transition-speed) var(--transition-ease);
+}
 
