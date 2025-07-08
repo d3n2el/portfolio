@@ -56,6 +56,29 @@ const loadPromises = [
 
     imageLoader.LoadImage('Leaf', "images/leaf.png")  
 ]
+
+// Helper function to create transition levels and reduce repetition
+function createTransitionLevel(finishedLevel, nextLevel, isFinal = false) {
+    const textBlocks = [
+        { text: `Level “${finishedLevel}” Finished.`, x: Canvas.width / 2, y: 200, color: "#A40202", size: 70 },
+    ];
+
+    if (isFinal) {
+        textBlocks.push({ text: "Congratulations, you finished the game!", x: Canvas.width / 2, y: 400, color: "#A40202", size: 70 });
+        textBlocks.push({ text: "-[EXIT]", x: Canvas.width / 2, y: 750, color: "#A40202", size: 50 });
+    } else {
+        textBlocks.push({ text: `Do you wish to continue to level “${nextLevel}”?`, x: Canvas.width / 2, y: 400, color: "#A40202", size: 50 });
+        textBlocks.push({ text: "-Yes_", x: Canvas.width / 2, y: 600, color: "#A40202", size: 50 });
+        textBlocks.push({ text: "-No[EXIT]", x: Canvas.width / 2, y: 750, color: "#A40202", size: 50 });
+    }
+
+    return {
+        textBlocks: textBlocks,
+        levelEndFlag: { x: 1000, y: 700, sizeX: 200, sizeY: 200 },
+        isTransitionScreen: true
+    };
+}
+
 const levelData = [
     {
         // still cant jump and missing and can go right through bricks
@@ -108,7 +131,6 @@ const levelData = [
             { key: "BrickTile", x: 8530, y: 680, sizeX: 30, sizeY: 30 },  
             { key: "FinalFlag",x: 8500 ,y:460,sizeX: 400 ,sizeY:400},
             {key:"house", x:4200 ,y:400,sizeX:700 ,sizeY:700}
-            
         ],
         textBlocks: [
             { text: "Daniel's Life", x:300, y:200,color:"black", size:68},
@@ -121,18 +143,8 @@ const levelData = [
             {text:"(P.s There might be easter eggs hidden ;) ",x:8000, y:250}
         ],
         levelEndFlag: { x: 8700, y: 460, sizeX: 400, sizeY: 400 } 
-        
-    },{
-        textBlocks: [
-            {text: "Level “Younger Years” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
-            {text: "Do you wish to continue to level “Adolescence”?", x: 500, y: 400, color: "#A40202", size: 50},
-            {text: "-Yes_", x: 500, y: 600, color: "#A40202", size: 50},
-            {text: "-No[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
-        ],
-        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
-        isTransitionScreen: true
-        
     },
+    createTransitionLevel("Younger Years", "Adolescence"),
     {
         name: "Adolescence",
         playerStartX: 100,
@@ -160,11 +172,6 @@ const levelData = [
             {key:"Paella", x:14700, y:600, sizeX: 100, sizeY: 100},
             {key:"BackInfo", x:3000, y:0, sizeX: 1000, sizeY: 1000},
             {key:"PC", x:3100, y:400, sizeX: 300, sizeY: 300},
-
-            //{key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
-            //{key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
-            //{key:"Eye", x:5300, y:400, sizeX: 50, sizeY: 50},
-
         ],
         textBlocks: [
             { text: "Welcome to Level 2, Adolescence and hobbies", x: 100, y: 250, color:"black", size:68 },
@@ -177,18 +184,9 @@ const levelData = [
             { text: "My 4th language is Spanish.\n I learned it in School starting from 14 y.o.\n I currently have a B2 Level\n(even though I’m still waiting for my DELE results).\n I love the culture and \n from both Spain and Latin America", x:15000, y: 300 },
             { text: "French is my 5th language and\nthe one I’m the most proud of.\nThat is because I learnt it solo,\nwithout the help of school,parents\nor any sort of guided course. I\nmostly used comprehensible input\nwith occasional lessons with a\nteacher to practice speaking\nand grammar.", x: 17000, y: 300},        
         ],
-        levelEndFlag: { x: 20000, y: 460, sizeX: 400, sizeY: 400 } //found the problem
-    },{
-        textBlocks: [
-            {text: "Level “Adolescence” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
-            {text: "Do you wish to continue to level “Dreams and Aspirations”?", x: 500, y: 400, color: "#A40202", size: 50},
-            {text: "-Yes_", x: 500, y: 600, color: "#A40202", size: 50},
-            {text: "-No[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
-        ],
-        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
-        isTransitionScreen: true
-
+        levelEndFlag: { x: 20000, y: 460, sizeX: 400, sizeY: 400 }
     },
+    createTransitionLevel("Adolescence", "Dreams and Aspirations"),
     {
         // movement doesnt work here. It was because of missing final flag
         name: "My life pt.3",
@@ -207,19 +205,110 @@ const levelData = [
             { text: "Congratulations!!\n\nYou finished my game-like portfolio,\n\nfor a more professional outlook, click no to the initial question", x: 10000, y: 250, color: "black", size:68 },
         ],
         levelEndFlag: { x: 12000, y: 460, sizeX: 400, sizeY: 400 }
-
     },
-    {
-            textBlocks: [
-            {text: "Level “Dreams and Aspirations” Finished.", x: 500, y: 200, color: "#A40202", size: 70},
-            {text: "Congratulations, you finished the game!", x: 500, y: 400, color: "#A40202", size: 70},
-            {text: "-[EXIT]", x: 500, y: 750, color: "#A40202", size: 50},
-        ],
-        levelEndFlag:{x:1000, y: 700, sizeX:200, sizeY: 200},
-        isTransitionScreen: true
+    createTransitionLevel("Dreams and Aspirations", "", true)
+];
+
+function showLoadingScreen(show) {
+    if (show) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+        ctx.fillRect(0, 0, Canvas.width, Canvas.height);
+        ctx.fillStyle = "white";
+        ctx.font = "50px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText("Loading...", Canvas.width / 2, Canvas.height / 2);
+    }
+    // if false, the game loop will take over and clear the screen.
+}
+
+function endScreen() {
+    isTransitionScreen = true; // stop  game loop
+
+    // new helper function 
+    function drawTransition() {
+        // draw black background as per design
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, Canvas.width, Canvas.height);
+        
+
+        currentLevel.textBlocks.forEach(textBlock => {
+            ui.DrawUIText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
+        });
     }
 
-]
+    drawTransition();
+
+    let hoveredOption = null; // tracks hover state
+
+    // clickable areas for the transition screen
+    const yesButton = { x: Canvas.width / 2 - 50, y: 580, width: 100, height: 60 };
+    const noButton = { x: Canvas.width / 2 - 100, y: 730, width: 200, height: 60 };
+
+    // function to check if a point is inside a rectangle
+    function isInside(pos, rect) {
+        return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y;
+    }
+
+    // handles mouse moving
+    const handleMouseMove = (event) => {
+        const rect = Canvas.getBoundingClientRect();
+        const mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+
+        let oldHoveredOption = hoveredOption;
+        hoveredOption = null; // reset
+
+        if (isInside(mousePos, yesButton)) {
+            hoveredOption = "Yes";
+        } else if (isInside(mousePos, noButton)) {
+            hoveredOption = "No";
+        }
+
+        // redraw only if the hover state changed
+        if (oldHoveredOption !== hoveredOption) {
+            drawTransition(); 
+            if (hoveredOption === "Yes") {
+                ui.DrawUIText("-Yes_", yesButton.x + yesButton.width / 2, 600, "yellow", 50);
+            } else if (hoveredOption === "No") {
+                ui.DrawUIText("-No[EXIT]", noButton.x + noButton.width / 2, 750, "yellow", 50);
+            }
+        }
+    };
+
+    // handles changes in lvl
+    const proceedToNextLevel = (event) => {
+        const rect = Canvas.getBoundingClientRect();
+        const mousePos = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+
+        if (isInside(mousePos, noButton)) {
+            window.location.href = "index.html"; 
+            return;
+        }
+
+        if (isInside(mousePos, yesButton)) {
+            // avoid multiple inputs
+            window.removeEventListener("click", proceedToNextLevel);
+            window.removeEventListener("mousemove", handleMouseMove);
+
+            const isFinalScreen = currentLevel.textBlocks.some(t => t.text.includes("Congratulations"));
+            if (isFinalScreen) {
+                window.location.href = "index.html"
+                return; 
+            }
+
+            isTransitionScreen = false; 
+            player.x = currentLevel.playerStartX; 
+            player.y = currentLevel.playerStartY;
+            player.cameraX = 0; 
+            update(); 
+        }
+    };
+
+
+    window.addEventListener("click", proceedToNextLevel);
+    window.addEventListener("mousemove", handleMouseMove);
+}
+
+
 var currentLevel = levelData[gameLevel];
 showLoadingScreen(true)
 Promise.all(loadPromises)
@@ -234,191 +323,116 @@ Promise.all(loadPromises)
     })
     .catch(error => {
         console.error("Loading failed:", error);
-        // Show error to player
+
         showLoadingScreen(false)
     });
-function update(){
-     const finalFlagObject = currentLevel.levelEndFlag
-    //need to substitute rectangle with my character
-    // get how many tiles are there
-    if (currentLevel.isTransitionScreen) {
-        endScreen(currentLevel);
-        return; // to stop game and start end screen
-        }
 
+function update(){
+    // if the game is in a transition state, stop the loop.
+    if (isTransitionScreen) {
+        return;
+    }
+
+
+    ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+
+
+    player.update();
+
+ 
     const brickTiles = getBrickTiles(currentLevel.objects);
-    // check if player is colliding with bricks
-    const prevX = player.x
-    const prevY = player.y
-    ctx.clearRect(0,0,Canvas.width, Canvas.height)
-    player.update()
-    // trying out differet orders to see if things would change or not
-    // my theory is that it aint working cuz it checks for collisions before movement
-    // so of course it doesnt see the collisions
-    const collidingBrick = player.checkCollisions(brickTiles);
-    let playerIsOnBrick = false
-// debugging, will eliminate later
-ctx.fillStyle = 'red';
-ctx.fillRect(0, player.ground, Canvas.width, 2); // Ground line
-ctx.fillStyle = 'blue';
-ctx.fillRect(player.x - player.cameraX, player.y, 5, 5);
-    if (collidingBrick) {
-        handleBrickCollision(collidingBrick);
+    const collidingBricks = player.checkCollisions(brickTiles);
+    if (collidingBricks.length > 0) {
+        for (const brick of collidingBricks) {
+            handleBrickCollision(brick);
         }
+    }
+
+    // level end collision
+    const finalFlagObject = currentLevel.levelEndFlag;
+    if (player.isCollidingWith(finalFlagObject)) {
+        gameLevel++;
+        if (gameLevel < levelData.length) {
+            currentLevel = levelData[gameLevel];
+            endScreen(currentLevel); // transition screen setup
+        } 
+           
+        return; // stop update loop for this frame.
+    }
+
+    Background.DrawGround(player.cameraX);
 
 
     currentLevel.objects.forEach(obj => {
         Background.DrawImage(obj.key, obj.x, obj.y, obj.sizeX, obj.sizeY);
     });
+
+
     currentLevel.textBlocks.forEach(textBlock => {
         ui.DrawWorldText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
     });
-    const character = imageLoader.getImage(characterKey);
-        //actually draw image on canvas
-    if(character){
-        ctx.drawImage(
-        character, 
-        player.x - player.cameraX, 
-        player.y - (player.height - 100), 
-        100, 
-        100
-    );
-    }
-       
-    Background.DrawGround(player.cameraX)
 
-    // check flag collision and then load new level
-    if(player.isCollidingWith({
-        x: finalFlagObject.x - (player.x - prevX),
-        y: finalFlagObject.y - (player.y - prevY),
-        sizeX: finalFlagObject.sizeX,
-        sizeY: finalFlagObject.sizeY,
-    })){
-        if(gameLevel < levelData.length - 1) {
-        endScreen(levelData[gameLevel + 1])
-        return; 
-    }}
-    console.log(`Player Y: ${player.y}, Ground: ${player.ground}, OnGround: ${player.onGround}`);
-    requestAnimationFrame(update)
+
+    const character = imageLoader.getImage(characterKey);
+    if (character) {
+        ctx.drawImage(
+            character, 
+            player.x - player.cameraX, 
+            player.y, 
+            player.width, 
+            player.height
+        );
+    }
+
+    requestAnimationFrame();
 }
 
 function getBrickTiles(levelObjects) {
-    return levelObjects.filter(obj => obj.key === 'BrickTile');
+    return levelObjects.filter(obj => obj.key === "BrickTile" || obj.key === "GroundTile");
 }
- 
-// Handle what happens when player hits bricks so that it can actually be called a platformer and not just a side scroller
-function handleBrickCollision(brickObject) {
-    const buffer = player.collisionBuffer; // hopeefully buffring wll solve the phasing cuz that shit annoying af
-    // Calculate player bounds with buffer
-    const playerLeft = player.x;
-    const playerRight = player.x + player.width;
-    const playerTop = player.y;
-    const playerBottom = player.y + player.height;
-    
-    // Calculate brick bounds to then actually check collision
-    const brickLeft = brickObject.x;
-    const brickRight = brickObject.x + brickObject.sizeX;
-    const brickTop = brickObject.y;
-    const brickBottom = brickObject.y + brickObject.sizeY;
-    
-    // Calculate overlap on both axis
-    const overlapLeft = playerRight - brickLeft
-    const overlapRight = brickRight - playerLeft
-    const overlapTop = playerBottom - brickTop
-    const overlapBottom = brickBottom - playerTop
 
-    const minOverlapX = Math.min(overlapLeft - overlapRight);
-    const minOverlapY = Math.min(overlapTop - overlapBottom);
-    
-        // Resolve along the axis of least penetration
-        if (minOverlapX < minOverlapY) {
-            // Horizontal collision
-            if (overlapLeft < overlapRight) { // Moving right into brick
-                player.x = brickLeft - player.width;
-            } else { // Moving left into brick
-                player.x = brickRight;
-            }
-            player.vx = 0;
-        } else {
-            // Vertical collision
-            if (overlapTop < overlapBottom) { 
-                player.y = brickTop - player.height;
-                player.vy = 0;
-                player.onGround = true;
-            } else { // Hitting brick from below, even though there wont be a need for it
-                player.y = brickBottom;
-                player.vy = 0;
-            }
+// function to handle what happens when player collides with brick
+function handleBrickCollision(brick){
+    const playerBottom = player.y + player.height;
+    const playerRight = player.x + player.width;
+    const brickBottom = brick.y + brick.sizeY;
+    const brickRight = brick.x + brick.sizeX;
+
+
+    if (playerRight > brick.x && player.x < brickRight) {
+
+        if (player.vy >= 0 && playerBottom <= brick.y + 10) {
+            player.y = brick.y - player.height;
+            player.vy = 0;
+            player.onGround = true;
+            return; 
+        }
+
+        if (player.vy < 0 && player.y >= brickBottom - 10) {
+            player.y = brickBottom;
+            player.vy = 0;
+            return;
         }
     }
 
-function getCollidableObjects(levelObjects) {
-    const collidableKeys = ['BrickTile', 'hospital', 'house'];
-    return levelObjects.filter(obj => collidableKeys.includes(obj.key));
-}
 
-// it now works, now i need to make sure there is an actual ending of screen 
-function showLoadingScreen(show){
-    let loading = document.getElementById("loadingScreen")
-    if(loading){
-        loading.style.display = show ? "flex":"none"
+    if (playerBottom > brick.y && player.y < brickBottom) {
+
+        if (player.vx > 0 && playerRight >= brick.x && player.prevX + player.width <= brick.x) {
+            player.x = brick.x - player.width;
+            player.vx = 0;
+            return; 
+        }
+
+        if (player.vx < 0 && player.x <= brickRight && player.prevX >= brickRight) {
+            player.x = brickRight;
+            player.vx = 0;
+            return;
+        }
     }
 }
 
-function endScreen(currentLevel){
-    isTransitionScreen = true
-     Canvas.style.cursor = 'pointer'
-    // i will make comments to guide myself through the process of creating an end screen
-    //when gamelevel goes up, i need to call it
-    // each level should have similar but different end screens
-    // each one should have a button to continue with the game and one to quit
-    // had a brilliant idea, should just add them to level data, so that it progresses right
-    // once i click continue button, gamelevel should do ++
-    // all of this should be valid 
-    // Clear the canvas
-    ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-    
-    // Draw all text blocks
-    currentLevel.textBlocks.forEach(textBlock => {
-        ui.DrawUIText(textBlock.text, textBlock.x, textBlock.y, textBlock.color, textBlock.size);
-    });
-    
-    // Set up click handler (only for transition screens)
-    if (currentLevel.isTransitionScreen) {
-        Canvas.addEventListener('click', handleTransitionClick, { once: true });
-    }
-}
 
-function handleTransitionClick(event) {
-    if(!isTransitionScreen) return;
-    const canvasRect = Canvas.getBoundingClientRect();
-    const scaleX = Canvas.width / canvasRect.width;
-    const scaleY = Canvas.height / canvasRect.height;
-    
-    const x = (event.clientX - canvasRect.left) * scaleX;
-    const y = (event.clientY - canvasRect.top) * scaleY;
-    console.log("Clicked at:", x, y);
-    // Check "Yes" button click to then get user to next level
-    if (x > 480 && x < 720 && y > 580 && y < 670) {
-        gameLevel++;
-        currentLevel = levelData[gameLevel];
-        player.x = currentLevel.playerStartX;
-        player.y = currentLevel.playerStartY;
-        player.cameraX = 0;
-        isTransitionScreen = false;
-        Canvas.style.cursor = 'default';
-        update();
-    } 
-    // Check "No" button click to then get back to start
-    else if (x > 480 && x < 730 && y > 700 && y < 820) {
-        alert("Thanks for playing!");
-        window.location.href = "index.html";
-    }
-}
-console.log(`Player Y: ${player.y}, Ground: ${player.ground}`);
-console.log(`Canvas height: ${Canvas.height}`);
 
-// made the functions and hopefully they work, now need to change the code elsewhere. will commit
 
-//wdwd
-     // Reminder for self: cannot get favicon, dont even know what is rn
+

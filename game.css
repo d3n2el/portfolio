@@ -36,3 +36,7 @@ body{
   100% { transform: rotate(360deg); }
 }
 
+.transition-screen {
+  background-color: rgba(15, 15, 15, 0);
+  color: rgba(15, 15, 15, 0);
+}

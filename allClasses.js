@@ -34,22 +34,22 @@ export class Player{
         this.x += this.vx
         this.y  += this.vy
 
-        // KEEP the ground collision here as a fallback
+        // Assume not on ground until a collision proves otherwise
+        this.onGround = false;
+
+        // Ground fallback
         if (this.y + this.height >= this.ground) {
             this.y = this.ground - this.height;
             this.vy = 0;
             this.onGround = true;
-        } else {
-            // Brick collisions will override this if needed
-                this.onGround = false;
         }
-        if(this.y > this.ground){
-            this.y = this.ground - this.height
-            }
-        // Screen boundarie,
+
+        // Screen boundaries
         if (this.x < 0) this.x = 0;
-        if (this.x > this.xLimit) this.x = this.xLimit; 
-        //wanna create a camera so that it centers the character, just so that it is like old school mario and overall because it is prettier
+        // this.xLimit is not well defined, so we avoid using it for now.
+        // if (this.x > this.xLimit) this.x = this.xLimit; 
+
+        // Update camera
         this.cameraX = Math.max(0, this.x - this.Canvas.width / 3)
     }
     //create jump function so that it is permitted to jump only when on ground level
@@ -79,12 +79,13 @@ export class Player{
     // this function will be used to check if the player is colliding with any object in the game
     // it will be used in update to check for collisions with bricks, final flag
     checkCollisions(objects) {
-    for (let obj of objects) {
-        if (this.isCollidingWith(obj)) {
-            return obj;
+        const collidingObjects = [];
+        for (let obj of objects) {
+            if (this.isCollidingWith(obj)) {
+                collidingObjects.push(obj);
+            }
         }
-    }
-        return null;
+        return collidingObjects;
     }
     // lets see if this new method pays off or not
     // will just handle everything directly from my player class to have less clutter in game.js
@@ -137,7 +138,7 @@ export class background{
                 const tileWidth = 15
                 const tileHeight = 15
                 //make sure it only reaches ground level
-                const groundLevel = player.ground
+                const groundLevel = this.player.ground
                 //calculate how many tiles you actually need
                 const firstTile = Math.floor(cameraX / tileWidth);
                 const tilesNeeded = Math.ceil(this.canvasWidth/ tileWidth) + 1;
