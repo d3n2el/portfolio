@@ -163,12 +163,12 @@ export class UI {
         this.player = player
     }
     //drawin text on the world, so that it appears and disappears with player's camera
-    DrawWorldText(text, x,y, color = "black", size = 30){
-        this.ctx.font = `${size}px Italiana`
+    DrawWorldText(text, x,y, color = "black", size = 30, font = 'sans-serif'){
+        this.ctx.font = `${size}px ${font}, serif`
         this.ctx.fillStyle = color;
         //was calling filltext twice, fixed it now
         const lines = text.split("\n");
-        const lineHeight = 30
+        const lineHeight = size + 5
         for( let i = 0; i<lines.length; i++) {  // tried with for loop because otherwise it duplicated everything after first \n
             const line = lines[i].trim(); // Clean each line to maybe fix duplication or just for aesthetics ig
             if (line){
@@ -182,8 +182,8 @@ export class UI {
     }
     // after thinking for a while, i realized that draw world text moves with player's camera so I need something
     // fixed like hud for the transition screes
-    DrawUIText(text,x,y,color = "black", size = 30){
-        this.ctx.font = `${size}px Italiana`
+    DrawUIText(text,x,y,color = "black", size = 30, font = 'sans-serif'){
+        this.ctx.font = `${size}px ${font}, serif`
         this.ctx.fillStyle = color
         const lines = text.split("\n")
         const lineHeight = size+5

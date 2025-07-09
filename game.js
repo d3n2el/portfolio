@@ -11,6 +11,12 @@ export {player}
 const characterKey = "character"
 let Background, ui
 let isTransitionScreen = false;
+
+const italianaFontLoadPromise = document.fonts.load('1em Italiana').then(() => {
+    console.log('Italiana font loaded successfully!');
+}).catch(err => {
+    console.error('Failed to load Italiana font:', err);
+})
 const loadPromises = [
     imageLoader.LoadImage(characterKey, "images/mepixBig.png"),
     // load ground first since its the base
@@ -54,7 +60,10 @@ const loadPromises = [
 
     imageLoader.LoadImage('PC', "images/pc.png"),
 
-    imageLoader.LoadImage('Leaf', "images/leaf.png")  
+    imageLoader.LoadImage('Leaf', "images/leaf.png"),
+
+    italianaFontLoadPromise
+
 ]
 
 // Helper function to create transition levels and reduce repetition
@@ -133,14 +142,13 @@ const levelData = [
             {key:"house", x:3900 ,y:300,sizeX:550 ,sizeY:560}
         ],
         textBlocks: [
-            { text: "Daniel's Life", x:300, y:200,color:"black", size:68},
+            { text: "Daniel's Life", x:300, y:200,color:"black", size:68, font: 'Italiana'},
             {text:"I’m currently 17.\nI study in a Linguistic School in Treviso \nI have many hobbies and interests\nand I take pride in wanting to become a Polymath.", x:2000, y:200},
             { text:"Montebelluna is a rural town, so my opportunities \nfor growth were and still are limited to people living in big cities", x:4200, y:200 },
             {text:"I have always considered myself a person that is lucky in the unlucky. And why is that?\nIt’s because I had to face many challenges in my life but i still managed to overcome them.\nThe earliest one was the loss of my mother Lara, at the age of 1 and a half years old.\nI ve also dealt with a food disorder and other things that i don’t feel comfortable disclosing.\nI believe all these experiences made me the person I currently am and tempered me to the challenges of life.",
                             x: 5500, y:200},
             {text:"And this was the end of this part of my life.",x: 8000, y:100},
             {text:"CONGRATULATIONS!!", x:8000, y:200,color:"black",size: 68},
-            {text:"(P.s There might be easter eggs hidden ;) ",x:8000, y:250}
         ],
         levelEndFlag: { x: 8700, y: 460, sizeX: 400, sizeY: 400 } 
     },
@@ -174,7 +182,7 @@ const levelData = [
             {key:"PC", x:3100, y:400, sizeX: 300, sizeY: 300},
         ],
         textBlocks: [
-            { text: "Welcome to Level 2, Adolescence and hobbies", x: 100, y: 250, color:"black", size:68 },
+            { text: "Welcome to Level 2, Adolescence and hobbies", x: 100, y: 250, color:"black", size:68, font: 'Italiana' },
             {text:"Like i said, I have many interests.\n One of them is Computer Science and Technology,\n as you can probably guess by the fact that i made this website!!",x: 3200, y:300, color: "white"},
             {text:"Another Passion of mine is \nPsychology as symbolised by the psi and the eyes. \nI studied it a lot in my own time and did \nYale’s Introduction To Psychology course on Coursera.",x: 5000, y:300},
             {text:"Now I’ll talk about languages, \nanother passion that I also study at school. I currently speak 5 languages:\n Italian, English, Russian, Spanish and French. \nI’ll talk more about each language later.",x: 7000 ,y:300},
@@ -198,11 +206,11 @@ const levelData = [
         ],
         textBlocks:[
             { text: "You reached the final level “Dreams and Aspirations”!!\n\n So, what are my Dreams and Aspirations?",
-                 x: 1000, y: 250, color:"black", size:68 },
+                 x: 1000, y: 250, color:"black", size:68, font: "Italiana" },
 
             { text: "I currently would like to join a prestigious\nbusiness school. Thinking about Escp\nmainly for their unique approach but\nalso to others in Europe, mostly in the UK.\nAnd of course the ivies would be a\ndream too but with the current political\nsituation, I would rather avoid.", x: 4000, y: 250 },
             { text: "After University,\nI would like to start my own company since\never since I was little that was my dream.\nI would also love to make something related to the environment since I care a lot about it.", x: 7000, y: 250},
-            { text: "Congratulations!!\n\nYou finished my game-like portfolio,\n\nfor a more professional outlook, click no to the initial question", x: 10000, y: 250, color: "black", size:68 },
+            { text: "Congratulations!!\n\nYou finished my game-like portfolio,\n\nfor a more professional outlook, click no to the initial question", x: 10000, y: 250, color: "black", size:68, font: "Italiana" },
         ],
         levelEndFlag: { x: 12000, y: 460, sizeX: 400, sizeY: 400 }
     },
@@ -317,7 +325,7 @@ var currentLevel = levelData[gameLevel];
 showLoadingScreen(true)
 Promise.all(loadPromises)
     .then(() => {
-        console.log("All images loaded successfully")
+        console.log("All images and fonts loaded successfully")
         Background = new background(ctx,Canvas, player,imageLoader)
         ui = new UI(ctx, Canvas, player)
         player.x = currentLevel.playerStartX;
@@ -435,7 +443,6 @@ function handleBrickCollision(brick){
         }
     }
 }
-
 
 
 
