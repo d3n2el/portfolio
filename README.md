@@ -49,7 +49,7 @@ Technologies Used
 
 Usage
 
-Navigate through the portfolio using the "Explore" button and the provided navigation arrows. You can switch between horizontal and vertical slide modes, and discover a "fun mode" for a different viewing experience.
+Open index.html, click no and then navigate through the portfolio using the "Explore" button and the provided navigation arrows. You can switch between horizontal and vertical slide modes, and discover a "fun mode" for a different viewing experience.
 
 Project 2: Game of Life
 
