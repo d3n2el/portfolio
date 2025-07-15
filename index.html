@@ -15,14 +15,10 @@
 
     </head>
         <body class="animated-bg jost-name-font">
-        <div class="container-center"> <!-- Naming a lot of classes that will be defined later in css, rn just wanna create html base to avoid clutter-->
-            <!-- As per design, i will now try to add the button for the explore page, will add class name to then add properties with css. Using Id to then use onclick in js-->
-             <h1 class="main-name"> Daniel Lialin</h1>
+        <div class="container-center"> <h1 class="main-name"> Daniel Lialin</h1>
              <div class="button-stack-wrapper">
              <button id="explore-button" class="circle-button">
-                    <span class="plus-lines-container">  <!-- just the + doesnt reflect well enough the figma design, will remake it to make it two thin lines, to keep 
-                        the design I had in mind originally-->
-                    <span class="plus-line plus-line-horizontal"></span>
+                    <span class="plus-lines-container">  <span class="plus-line plus-line-horizontal"></span>
                     <span class="plus-line plus-line-vertical"></span>
                     </span>
                 <span class="explore-text">Explore</span>
@@ -39,14 +35,9 @@
 
 
     <div id="slides-overlay" class="slides-overlay">
-        <!-- Container for the actual slides -->
         <div class="slides-container">
-            <!-- Normal Slides-->
-             <div class="normal-slides slide-set">
-            <div class="slide-item" data-slide-id="intro"> <!-- data-slide-id is the best for slides as per google so i will try
-                to use it and inform myself-->
-                <!-- Profile image for the introduction slide, idk if pic of me or smt else -->
-                <h2 class="jost-name-font">Hello, I'm Daniel Lialin!</h2>
+            <div class="normal-slides slide-set">
+            <div class="slide-item" data-slide-id="intro"> <h2 class="jost-name-font">Hello, I'm Daniel Lialin!</h2>
                 <p>I'm a passionate and versatile individual, blending technical expertise with a keen interest in human behavior and creative expression. My journey is about continuous learning and applying diverse skills to create meaningful impact.</p>
             </div>
             <div class="slide-item " data-slide-id="languages">
@@ -56,53 +47,50 @@
                     <strong>-English:</strong> C2 certified <br>
                     <strong>-Spanish:</strong> B2 certified <br>
                     <strong>-French:</strong>B2 certified <br>
-                    <strong>-Chinese:</strong>currently learning <br>
                 </p>
             </div>
                         <div class="slide-item" data-slide-id="business">
                 <h2 class="jost-name-font"> Business</h2>
-                <p> <strong>-Passion</strong> ever since I was born, <br>
-                    <strong>-Duke University</strong>Entrepreneurship Specialization, <br>
-                    <strong>-J.P Morgan</strong>Investment Banking Job simulation <br>
+                <p> <strong>-Passion:</strong> Ever since I was born, <br>
+                    <strong>-Duke University:</strong> Entrepreneurship Specialization, <br>
 
                 </p>
             </div>
                         <div class="slide-item" data-slide-id="sport">
                 <h2 class="jost-name-font">Sport</h2>
-                <p> <strong>-Gym:</strong>4 times a week<br>
-                    <strong>-Muay Thai:</strong>3 times a week<br>
-                    <strong>Swimming:</strong>10+ years of experience <br>
+                <p> <strong>-Gym:</strong> 4 times a week<br>
+                    <strong>-Muay Thai:</strong> 3 times a week<br>
+                    <strong>Swimming:</strong> 10+ years of experience <br>
                     <strong>Tennis:</strong> 5+ years of experience
                 </p>
             </div>
                 <div class="slide-item" data-slide-id="social-media">
             <h2 class="jost-name-font"> Social Media</h2>
-            <p> <strong>-Certification:</strong>Meta Certified Digital Marketing Associate <br>
-                <strong>-Specialization</strong> Meta Social Media Marketing<br>
+            <p> <strong>-Certification:</strong> Meta Certified Digital Marketing Associate <br>
+                <strong>-Specialization:</strong> Meta Social Media Marketing<br>
             </p>
             </div>
                         <div class="slide-item" data-slide-id="psychology">
                 <h2 class="jost-name-font"> Psychology</h2>
                 <p> <strong>-Yale University:</strong> Introduction to Psychology Course<br>
-                    <strong>-Passion:</strong> hundreds of hours of self-study with a focus in sociology
+                    <strong>-Passion:</strong> Hundreds of hours of self-study with a focus in sociology
                 </p>
             </div>
             <div class="slide-item" data-slide-id="computer-science">
                 <h2 class="jost-name-font"> Computer Science</h2>
-                <p> <strong>-Harvard University:</strong>CS50P <br>
-                    <strong>-Hack Club:</strong> community of young programmers, participated in various events <br>
-                    <strong>-Google:</strong> prompt engineering course <br>
+                <p> <strong>-Harvard University:</strong> CS50P <br>
+                    <strong>-Hack Club:</strong> Community of young programmers, participated in various events <br>
+                    <strong>-Google:</strong> Prompt engineering course <br>
                 </p>
             </div>
             <div class="slide-item" data-slide-id="traveling">
                 <h2 class="jost-name-font"> Traveling</h2>
-                <p> <strong>-Passion:</strong> I love traveling because it allows me to expand my horizons and experience new cultures <br>
-                    <strong>-Effects:</strong> Traveling lets me be more flexible, adaptive and responssive in my decision making since I came across different approached to things. <br>
+                <p> <strong>-Passion:</strong> I love traveling because it allows me to expand my horizons and experience new cultures. <br>
+                    <strong>-Effects:</strong> Traveling makes me more flexible, adaptive, and responsive in my decision-making, as I have come across different approaches to things. <br>
                 </p>
             </div>
         </div>
-           <!-- Fun Slides -->
-        <div class="fun-slides slide-set">
+           <div class="fun-slides slide-set">
             <div class="slide-item" data-slide-id="fun-intro">
                 <h2 class="title-slide about-me">ABOUT ME</h2>
             </div>
@@ -139,153 +127,122 @@
             <div class="vertical-slides slide-set">
 
                 <div class="slide-item" data-category="fun-intro" data-slide-id="vertical-intro-1">
-                    <!---->
                     <h2 class="title-vertical about-me">AB<br>OUT<br>ME</h2>
                     <h2 class="timmons-font">DANIEL</h2>
                     <p>I'm a passionate and versatile individual, as portrayed by my skills in various different domains.
-                        I am naturally a very curious and have interest in basically everything, which makes me adaptive and ready
-                        to learn new things if needed.
+                        I am naturally very curious and have an interest in basically everything, which makes me
+                        adaptive and ready to learn new things if needed.
                     </p>
                     </div>
 
                 
                 <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-1">
-                    <!---->
                     <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
                     <h2 class="timmons-font">ITALIAN</h2>
-                    <p>Italian is my native language since I was born and raised in Italy. I completely master the language and I have a deep relationship with it</p>
+                    <p>Italian is my native language since I was born and raised in Italy. I completely master the language and I have a deep relationship with it.</p>
                 </div>
                 <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-2">
-                    <!---->
                     <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
                     <h2 class="timmons-font">RUSSIAN</h2>
-                    <p>Russian is my second native language and/or my hereditary language, since I started speaking it every since I
-                         was little and I heredited it from my father of bielorussian origin. I can speak and understand it fluently 
+                    <p>Russian is my second native language, or my hereditary language, as I started speaking it ever since I was
+                         little and inherited it from my father of Belarusian origin. I can speak and understand it fluently, 
                          while I'm at an upper-intermediate level when it comes to writing.</p>
                 </div>
                 <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-3">
-                    <!---->
                     <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
                     <h2 class="timmons-font">ENGLISH</h2>
-                    <p>English is my third language and it's another language I started speaking since I was very little.
-                        I use the language a lot and I completely master it since I have gotten a C2 level certification
+                    <p>English is my third language, and it's another language I started speaking since I was very little.
+                        I use the language a lot and I completely master it, having gotten a C2 level certification
                         from Cambridge. 
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-4">
-                    <!---->
                     <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
                     <h2 class="timmons-font">SPANISH</h2>
-                    <p>Spanish is my 4th language and I learned it in school. I currently have a B2 level in the language(certified).
-                        I love spanish and latin american culture, literature and food.
+                    <p>Spanish is my 4th language, and I learned it in school. I currently have a B2 level in the language (certified).
+                        I love Spanish and Latin American culture, literature, and food.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-5">
-                    <!---->
                     <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
                     <h2 class="timmons-font">FRENCH</h2>
                     <p> French is my 5th language and the first language I learned on my own. 
-                        I learned it in less than 1 year and I reached the B2 level(certified) and I'm now preparing myself for the
+                        I learned it in less than 1 year, reached the B2 level (certified), and am now preparing for the
                         Dalf C1 exam.
-                    </p>
-                </div>
-                <div class="slide-item" data-category="fun-language" data-slide-id="vertical-lang-6">
-                    <!---->
-                    <span class="title-vertical language"> LAN<br>GUA<br>GES</span>
-                    <h2 class="timmons-font">CHINESE</h2>
-                    <p>Chinese is my 6th language and my newest language. I have just started learning and I am therefore just 
-                        a beginner in it. I plan to reach a HSK2 level by the end of 2025.
                     </p>
                 </div>
 
 
                 <div class="slide-item" data-category="fun-business" data-slide-id="vertical-biz-1">
-                    <!---->
                     <span class="title-vertical business">BU<br>SIN<br>ESS</span>
                     <h2 class="timmons-font">PASSION</h2>
-                    <p>Ever since I was very little I had a passion in business and entrepreneurship. I always dreamt of opening
-                        my own company and I pursued various odd jobs and small entrepenurial ventures.
+                    <p>Ever since I was very little, I have had a passion for business and entrepreneurship. I always dreamt of opening
+                        my own company and have pursued various odd jobs and small entrepreneurial ventures.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-business" data-slide-id="vertical-biz-2">
-                    <!---->
                     <span class="title-vertical business">BU<br>SIN<br>ESS</span>
                     <h2 class="timmons-font">DUKE UNIVERSITY SPECIALIZATION</h2>
-                    <p>I completed duke's university specialization on entrepreneurship, which taught me many things
-                        and allowed me to gain a deeper understanding about the subject
+                    <p>I completed Duke University's specialization in entrepreneurship, which taught me many things
+                        and allowed me to gain a deeper understanding of the subject.
                     </p>
-                </div>
-                <div class="slide-item" data-category="fun-business" data-slide-id="vertical-biz-3">
-                    <!---->
-                    <span class="title-vertical business">BU<br>SIN<br>ESS</span>
-                    <h2 class="timmons-font">J.P MORGAN INVESTMENT BANKING</h2>
-                    <p>Proactively sought out a virtual job simulation in Investment Banking with J.P Morgan.
-                        The experience taught me a lot about the field and I definitely feel more confindent in undertaking
-                        similar opportunities in the future.</p>
                 </div>
 
                 
                 <div class="slide-item" data-category="fun-sport" data-slide-id="vertical-sport-1">
-                    <!---->
                     <span class="title-vertical sport">SP<br>OR<br>T</span>
                     <h2 class="timmons-font">GYM</h2>
-                    <p>I love sport, physical activity and going to the gym. In fact for the past 2 years I have been
-                        going consistently to the gym. Even though I'm still young, I still understand the 
-                        importance of being healthy and being active, not only for physical reasons but most importantly 
-                        for psychological reasons. I believe a person that is active phisycaly will also be more efficient at work 
+                    <p>I love sports, physical activity, and going to the gym. In fact, for the past 2 years, I have been
+                        going to the gym consistently. Even though I'm still young, I understand the 
+                        importance of being healthy and active, not only for physical reasons but, more importantly, 
+                        for psychological ones. I believe a person that is active physically will also be more efficient at work 
                         and overall have a better quality of life.
                          
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-sport" data-slide-id="vertical-sport-2">
-                    <!---->
                     <span class="title-vertical sport">SP<br>OR<br>T</span>
                     <h2 class="timmons-font">MUAY THAI</h2>
-                    <p>I have started practicing this discipline around a year ago and I have been loving it ever since.
-                        Muay Thai really taught me discipline, the acceptance of failure in life, humbleness and in general it ingrained in my spirit a different culture.
+                    <p>I have started practicing this discipline around a year ago and have been loving it ever since.
+                        Muay Thai has taught me discipline, the acceptance of failure, humbleness, and, in general, it has ingrained a different culture in my spirit.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-sport" data-slide-id="vertical-sport-3">
-                    <!---->
                     <span class="title-vertical sport">SP<br>OR<br>T</span>
                     <h2 class="timmons-font">SWIMMING</h2>
-                    <p>I swam for most of my life. I started when I was still a baby and I only stopped a couple of years ago.
-                        It is definitely something that impacted me since I did it for such a long time.
+                    <p>I swam for most of my life. I started when I was still a baby and only stopped a couple of years ago.
+                        It is definitely something that impacted me, as I did it for such a long time.
                     </p>
                 </div>
-                <div class="slide-item" data-category="fun-sport" data-slide-id="vertical-sport-3">
-                    <!---->
-                    <span class="title-vertical sport">SP<br>OR<br>T</span>
+                <div class="slide-item" data-category="fun-sport" data-slide-id="vertical-sport-4"> <span class="title-vertical sport">SP<br>OR<br>T</span>
                     <h2 class="timmons-font">TENNIS</h2>
-                    <p> During most of my life I practiced 2 sports, the first one clearly being swimming and the oter being tennis.
-                        I trained in Tennis for more than 5 years and I still enjoy playing casually sometimes.
+                    <p> During most of my life, I practiced 2 sports, the first one clearly being swimming and the other being tennis.
+                        I trained in tennis for more than 5 years and still enjoy playing casually sometimes.
                     </p>
                 </div>
 
 
                 <div class="slide-item" data-category="fun-social-media" data-slide-id="vertical-social-1">
-                    <!---->
                     <span class="title-vertical social-media">SOC<br>IAL<br>MEDIA</span>
                     <h2 class="timmons-font">META DIGITAL MARKETING ASSOCIATE</h2>
-                    <p>I took and passed the Meta Digital Marketing Associate certification exam, which means I understand Meta's technologies and its value and I know how to create marketing campaigns.</p>
+                    <p>I took and passed the Meta Digital Marketing Associate certification exam, which means I understand Meta's technologies, its value, and how to create marketing campaigns.</p>
                 </div>
                 <div class="slide-item" data-category="fun-social-media" data-slide-id="vertical-social-2">
                     <span class="title-vertical social-media">SOC<br>IAL<br>MEDIA</span>
                     <h2 class="timmons-font">META SOCIAL MEDIA MARKETING SPECIALIZATION</h2>
-                    <p>This is a specialization avaiable on Coursera made up by 6 different courses. This specialization
-                        taught me all that I need to know about social media marketing with a special focus on Meta's technologies,
-                        but not limited to them
+                    <p>This is a specialization available on Coursera made up of 6 different courses. This specialization
+                        taught me what I need to know about social media marketing, with a special focus on Meta's technologies
+                        but not limited to them.
                     </p>
                 </div>
 
 
                 <div class="slide-item" data-category="fun-psychology" data-slide-id="vertical-psych-1">
-                    <!---->
                     <span class="title-vertical psychology">PSYC<br>HOL<br>OGY</span>
                     <h2 class="timmons-font">PASSION</h2>
-                    <p>Psychology is something that profoundly fascinates me. I believe human behaviour and its consequences are something 
-                        that should be studies since they so deeply influence and shape our way of living and our society.
-                        That's why I have a proactive interest in the field and especially in Sociology.
+                    <p>Psychology is something that profoundly fascinates me. I believe human behavior and its consequences are things 
+                        that should be studied, as they so deeply influence and shape our way of living and our society.
+                        That's why I have a proactive interest in the field, especially in Sociology.
                         This has allowed me to be conscious of multiple biases in our society and
                         make decisions more consciously.
                     </p>
@@ -293,20 +250,19 @@
                 <div class="slide-item" data-category="fun-psychology" data-slide-id="vertical-psych-2">
                     <span class="title-vertical psychology">PSYC<br>HOL<br>OGY</span>
                     <h2 class="timmons-font">YALE UNIVERSITY COURSE</h2>
-                    <p>I took Yale's Introduction to Psychology course. It gives a brief but still comprehensive description
+                    <p>I took Yale's Introduction to Psychology course. It gives a brief but comprehensive description
                         of the most popular fields of psychology and neuroscience.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-psychology" data-slide-id="vertical-psych-3">
                     <span class="title-vertical psychology">PSYC<br>HOL<br>OGY</span>
                     <h2 class="timmons-font"> PERSONAL RESEARCH</h2>
-                    <p>Outside of any formal learning, I studied psychology for hundreds of hours.
-                        I specifically read hundreds of peer-reviewed studies, books and listened to masterclasses and conferences
-                        of experts in the field to learn.
+                    <p>Outside of formal learning, I have studied psychology for hundreds of hours.
+                        I have read hundreds of peer-reviewed studies and books and listened to masterclasses and conferences
+                        from experts in the field.
                     </p>
                 </div>
-                <div class="slide-item" data-category="fun-psychology" data-slide-id="vertical-psych-3">
-                    <span class="title-vertical psychology">PSYC<br>HOL<br>OGY</span>
+                <div class="slide-item" data-category="fun-psychology" data-slide-id="vertical-psych-4"> <span class="title-vertical psychology">PSYC<br>HOL<br>OGY</span>
                     <h2 class="timmons-font"> LEARNING HOW TO LEARN</h2>
                     <p>This course explores evidence-based techniques to enhance learning efficiency, covering topics such as focused vs. diffuse thinking, memory retention (chunking, spaced repetition), 
                         and overcoming procrastination. Grounded in neuroscience and cognitive psychology, it provides practical strategies for mastering complex subjects,
@@ -319,55 +275,52 @@
                 <div class="slide-item" data-category="fun-cs" data-slide-id="vertical-cs-1">
                     <span class="title-vertical computer-science">COMPU<br>TER <br> SCIENCE</span>
                     <h2 class="timmons-font">CS50</h2>
-                    <p>I took Harvard's CS50P course and I am in the middle of CS50x.
-                        These two courses were the basis of all of my programming experience. I now know about 
-                        basic computer science concepts and I am able to code in multiple languages, such as Python and C.
+                    <p>I took Harvard's CS50P course and am in the middle of CS50x.
+                        These two courses were the basis of my programming experience. I now know
+                        basic computer science concepts and can code in multiple languages, such as Python and C.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-cs" data-slide-id="vertical-cs-2">
                     <span class="title-vertical computer-science">COMPU<br>TER <br> SCIENCE</span>
                     <h2 class="timmons-font">HACK CLUB</h2>
-                    <p>I always had an interest in technology but what really helped me actually doing things after the initial CS50P course was Hack Club.
-                        The latter is a non-profit organization that helps young programmers all around the world develop things.
-                        Me and thousands of others wouldn't be where they are right now without them 
-                        since it provides you with a very stimulating environment and plenty of opportunities.
+                    <p>I always had an interest in technology, but what really helped me build things after the initial CS50P course was Hack Club.
+                        It's a non-profit organization that helps young programmers around the world develop projects.
+                        Thousands of others and I wouldn't be where we are right now without them, 
+                        as they provide a very stimulating environment and plenty of opportunities.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-cs" data-slide-id="vertical-cs-3">
                     <span class="title-vertical computer-science">COMPU<br>TER <br> SCIENCE</span>
                     <h2 class="timmons-font">GOOGLE PROMPT ENGINEERING</h2>
                     <p>Ever since the AI revolution, one of my priorities has been to learn more about AI and how to use it.
-                        This course provides exactly that, it is a course where software engineers at Google explain exactly 
-                        how to better use artificial intelligence for all your tasks and guide you through becoming a proper prompt engineer.
+                        This course provides exactly that: it's a course where software engineers at Google explain 
+                        how to use artificial intelligence better for all your tasks and guide you through becoming a prompt engineer.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-cs" data-slide-id="vertical-cs-4">
                     <span class="title-vertical computer-science">COMPU<br>TER <br> SCIENCE</span>
                     <h2 class="timmons-font">WHAT I HAVE WORKED WITH</h2>
-                    <p> I have made projects in python, C, html&css and Javascript.</p>
+                    <p> I have made projects in Python, C, HTML & CSS, and JavaScript.</p>
                 </div>
 
 
                 <div class="slide-item" data-category="fun-traveling" data-slide-id="vertical-traveling-1">
-                    <!---->
                     <span class="title-vertical traveling">TRA<br>VEL<br>ING</span>
                     <h2 class="timmons-font">VALUES</h2>
-                    <p>Traveling made me discover new cultures and the values associated with it. You only understand
-                        how limited your views are when you come across someone or something that defies it, and 
+                    <p>Traveling has made me discover new cultures and their associated values. You only understand
+                        how limited your views are when you come across someone or something that defies them, and 
                         that's something traveling has allowed me to do.
                     </p>
                 </div>
                 <div class="slide-item" data-category="fun-traveling" data-slide-id="vertical-traveling-2">
-                    <!---->
                     <span class="title-vertical traveling">TRA<br>VEL<br>ING</span>
                     <h2 class="timmons-font">ASPIRATIONS</h2>
-                    <p>I'm a naturally curious person and that curiosity is also what lead to one of my biggest dreams: traveling
-                        to every country on earth. While slowly doing this I hope to grow as a person 
+                    <p>I'm a naturally curious person, and that curiosity has also led to one of my biggest dreams: traveling
+                        to every country on Earth. While doing this, I hope to grow as a person 
                     and learn more about myself.</p>
                 </div>
             </div>
         </div>
-        <!-- Navigation buttons, will need to hide at the start in css -->
         <button id="prevButton" class="nav-button prev horizontal-nav">
             <span class="plus-lines-container"> 
             <span class="plus-line plus-line-horizontal"></span>
@@ -383,13 +336,8 @@
             <span class="plus-line diagonal-top"></span>
             </span></button> 
 
-        <!-- Button to close the overlay -->
-        <button id="closeOverlayButton" class="close-button">&times;</button> <!-- Times symbol for close -->
-
-        <!-- Container for slide navigation dots -->
-        <div id="dotsContainer" class="dots-container">
-            <!-- to generate dots to keep count of pages-->
-        </div>
+        <button id="closeOverlayButton" class="close-button">&times;</button> <div id="dotsContainer" class="dots-container">
+            </div>
         <button id="mode-switch-vertical" class="mode-switch-button" title="Switch to Vertical Mode">
             <span class="arrow-down"></span>
         </button>
@@ -405,8 +353,5 @@
     <a  href="https://www.instagram.com/daniellialin_/"  id="instagram-button" class="instagram-button jost-name-font">Instagram</a>
     <a  href="credits.html" id="credits-button" class="credits-button jost-name-font">Credits</a>
     </div>
-    <!-- and js at the end  so that at least everything else loades first-->
-    <script src= "altscreen.js"></script>
-        </body>
+    <script src= "altscreen.js" defer></script> </body>
 </html>
-
