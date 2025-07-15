@@ -150,20 +150,13 @@ Modify the transition speed:
 *Note: Screenshots show the website in action with its three different viewing modes*
 
 ### Home Page
-The landing page features a clean, minimalist design with the main navigation options.
+![home page](https://hc-cdn.hel1.your-objectstorage.com/s/v3/0754d40a6eb1a9a327e0e6f790b1daaa206d6d57_capture.png)
 
 ### Horizontal Mode
-Traditional slide-based navigation showing detailed information about each skill area.
+![normal mode](https://hc-cdn.hel1.your-objectstorage.com/s/v3/d6da8a2b2c78f71fe8db0755dd69ff67dab6edc2_cap4.png)
 
 ### Fun Mode
-Visually-rich presentation with colorful themes and high-quality imagery for each category.
-
-### Vertical Mode
-Deep-dive view providing comprehensive details about specific topics.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+![fun mode](https://hc-cdn.hel1.your-objectstorage.com/s/v3/e418b7e2283d51721103f5afe6a77663824de1a2_cap3.png)
 
 ## 📝 Credits
 
